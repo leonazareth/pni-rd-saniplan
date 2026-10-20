@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PNI Saneamento República Dominicana</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Metodologia e resultados do Plano Nacional de Investimentos em Saneamento da República Dominicana: análise espacial e modelo SaniPLAN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Carlito:wght@400;700&display=swap">
+<link rel="stylesheet" href="css/maplibre-gl.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/saniplan.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#capa"><span class="brand-mark" aria-hidden="true"></span><span>PNI Saneamento · RD</span></a>
+  <nav class="acts" aria-label="Seções">
+    <a href="#ato0" data-i18n="nav.ato0">Visão geral</a>
+    <a href="#ato1" data-i18n="nav.ato1">Dados</a>
+    <a href="#ato2" data-i18n="nav.ato2">Análise espacial</a>
+    <a href="#ato3" data-i18n="nav.ato3">SaniPLAN</a>
+    <a href="#ato4" data-i18n="nav.ato4">Resultados</a>
+  </nav>
+  <div class="pager" role="group" aria-label="Navegação por slides">
+    <button type="button" id="pg-prev" aria-label="Slide anterior" data-i18n-title="nav.prev">&#8249;</button>
+    <span class="pager-pos num" id="pg-pos" aria-live="polite">1/1</span>
+    <button type="button" id="pg-next" aria-label="Próximo slide" data-i18n-title="nav.next">&#8250;</button>
+  </div>
+  <div class="lang" role="group" aria-label="Idioma">
+    <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<!-- CAPA ------------------------------------------------------------- -->
+<section id="capa" class="capa">
+  <canvas id="capa-canvas" aria-hidden="true"></canvas>
+  <div class="capa-inner">
+    <p class="eyebrow" data-i18n="capa.eyebrow">Plano Nacional de Investimentos em Saneamento</p>
+    <h1 data-i18n-html="capa.title">PNI Saneamento<br>República Dominicana</h1>
+    <p class="capa-sub" data-i18n="capa.subtitle"></p>
+    <dl class="capa-stats">
+      <div><dt class="num" data-count="486526">486.526</dt><dd data-i18n="capa.stat1"></dd></div>
+      <div><dt class="num" data-count="393">393</dt><dd data-i18n="capa.stat2"></dd></div>
+      <div><dt class="num" data-count="8660698" data-format="mi">8,66 mi</dt><dd data-i18n="capa.stat3"></dd></div>
+    </dl>
+    <p class="capa-authors"><span data-i18n="capa.authors">Pery Nazareth · Leonardo Nazareth</span> · <span data-i18n="capa.date">2025</span></p>
+    <a class="scroll-cue" href="#ato0" data-i18n="capa.scroll">Role para começar</a>
+  </div>
+</section>
+
+<!-- ATO 0 · DIAGRAMA ------------------------------------------------- -->
+<section id="ato0" class="scrolly scrolly--diagram">
+  <div class="sticky">
+    <div class="band" aria-hidden="true"></div>
+    <div class="diagram-head">
+      <p class="kicker" data-i18n="ato0.kicker"></p>
+      <h2 data-i18n="ato0.title"></h2>
+    </div>
+    <div class="diagram" id="diagram">
+      <div class="dg-stage" id="dg-stage">
+        <svg class="dg-wires" id="dg-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+        <button class="dg-node in" data-node="censo" style="--x:70;--y:70"><span class="ico" data-icon="people"></span><span class="lbl" data-i18n-html="ato0.node.censo"></span></button>
+        <button class="dg-node in" data-node="sat" style="--x:70;--y:160"><span class="ico" data-icon="sat"></span><span class="lbl" data-i18n-html="ato0.node.sat"></span></button>
+        <button class="dg-node in" data-node="ruas" style="--x:70;--y:250"><span class="ico" data-icon="roads"></span><span class="lbl" data-i18n-html="ato0.node.ruas"></span></button>
+        <button class="dg-node in" data-node="edif" style="--x:70;--y:340"><span class="ico" data-icon="bldg"></span><span class="lbl" data-i18n-html="ato0.node.edif"></span></button>
+        <button class="dg-node in" data-node="cad" style="--x:70;--y:430"><span class="ico" data-icon="pipes"></span><span class="lbl" data-i18n-html="ato0.node.cad"></span></button>
+        <button class="dg-node in" data-node="custos" style="--x:330;--y:470"><span class="ico" data-icon="cost"></span><span class="lbl" data-i18n-html="ato0.node.custos"></span></button>
+
+        <button class="dg-node spatial" data-node="spatial" style="--x:290;--y:250"><span class="ico ico--lg" data-icon="hex"></span><span class="lbl" data-i18n="ato0.node.spatial"></span></button>
+
+        <button class="dg-node core" data-node="saniplan" style="--x:500;--y:250" aria-label="SaniPLAN">
+          <span class="xl">
+            <span class="xl-banner"><span class="xl-logo">san<b>i</b>plan</span></span>
+            <span class="xl-nav"><i>&lt; INICIO</i><i>L. BASE</i><i>CALC</i><i class="on">RESULTADOS</i></span>
+            <span class="xl-grid" id="xl-mini"></span>
+          </span>
+          <span class="lbl" data-i18n="ato0.node.saniplan"></span>
+        </button>
+
+        <button class="dg-node out" data-node="capex" style="--x:850;--y:90"><span class="ico" data-icon="coins"></span><span class="lbl" data-i18n-html="ato0.node.capex"></span></button>
+        <button class="dg-node out" data-node="charts" style="--x:850;--y:200"><span class="ico" data-icon="bars"></span><span class="lbl" data-i18n-html="ato0.node.charts"></span></button>
+        <button class="dg-node out" data-node="map" style="--x:850;--y:310"><span class="ico ico--map" id="ico-rd"></span><span class="lbl" data-i18n-html="ato0.node.map"></span></button>
+        <button class="dg-node out" data-node="decide" style="--x:850;--y:420"><span class="ico" data-icon="rank"></span><span class="lbl" data-i18n-html="ato0.node.decide"></span></button>
+      </div>
+      <div class="dg-pop" id="dg-pop" hidden>
+        <p class="dg-pop-title" id="dg-pop-title"></p>
+        <p id="dg-pop-text"></p>
+      </div>
+    </div>
+  </div>
+  <div class="steps">
+    <article class="step" data-step="a0-1">
+      <h3 data-i18n="ato0.s1.title"></h3>
+      <ul data-i18n-list="ato0.s1.items"></ul>
+    </article>
+    <article class="step" data-step="a0-2">
+      <h3 data-i18n="ato0.s2.title"></h3>
+      <ul data-i18n-list="ato0.s2.items"></ul>
+    </article>
+  </div>
+</section>
+
+<!-- ATOS 1 E 2 · MAPA FIXO ------------------------------------------- -->
+<section id="mapstory" class="scrolly scrolly--map">
+  <div class="sticky" id="map-sticky">
+    <div class="band" aria-hidden="true"></div>
+    <div id="map" role="region" aria-label="Mapa"></div>
+    <div class="map-legend" id="map-legend" hidden></div>
+    <div class="map-swipe timeline" id="map-swipe" hidden>
+      <span class="tl-end" data-i18n="ato2.censo.y2010">2010 · Landsat 7</span>
+      <div class="tl-track">
+        <div class="tl-ticks" id="tl-ticks" aria-hidden="true"></div>
+        <output class="tl-year" id="tl-year" for="swipe">2010</output>
+        <input type="range" id="swipe" min="0" max="12" step="1" value="0" aria-label="Ano da imagem (2010 a 2022)">
+      </div>
+      <span class="tl-end" data-i18n="ato2.censo.y2022">2022 · Sentinel-2</span>
+    </div>
+    <div class="map-toggle" id="map-toggle" hidden role="group">
+      <button type="button" data-agg="dm" aria-pressed="true" data-i18n="ato1.grid.toggleA">Por distrito</button>
+      <button type="button" data-agg="hex" aria-pressed="false" data-i18n="ato1.grid.toggleB">Por hexágono</button>
+    </div>
+    <aside class="info" id="info" hidden>
+      <button type="button" class="info-close" id="info-close" aria-label="Fechar">×</button>
+      <h4 id="info-title"></h4>
+      <dl id="info-body"></dl>
+    </aside>
+  </div>
+
+  <div class="steps">
+    <article class="step act-card" id="ato1" data-step="ato1">
+      <p class="kicker" data-i18n="ato1.kicker"></p>
+      <h2 data-i18n="ato1.title"></h2>
+      <p class="lead" data-i18n="ato1.lead"></p>
+    </article>
+    <article class="step" data-step="a1-problema">
+      <h3 data-i18n="ato1.problema.title"></h3>
+      <ul data-i18n-list="ato1.problema.items"></ul>
+    </article>
+    <article class="step" data-step="a1-grid">
+      <h3 data-i18n="ato1.grid.title"></h3>
+      <ul data-i18n-list="ato1.grid.items"></ul>
+    </article>
+    <article class="step step--wide" data-step="a1-fontes">
+      <h3 data-i18n="ato1.fontes.title"></h3>
+      <ul data-i18n-list="ato1.fontes.items"></ul>
+      <div class="ladder" id="ladder"></div>
+      <p class="note" data-i18n="ato1.fontes.note"></p>
+    </article>
+
+    <article class="step act-card" id="ato2" data-step="ato2">
+      <p class="kicker" data-i18n="ato2.kicker"></p>
+      <h2 data-i18n="ato2.title"></h2>
+      <p class="lead" data-i18n="ato2.lead"></p>
+    </article>
+    <article class="step" data-step="a2-niveis">
+      <h3 data-i18n="ato2.niveis.title"></h3>
+      <ul data-i18n-list="ato2.niveis.items"></ul>
+    </article>
+    <article class="step" data-step="a2-hex">
+      <h3 data-i18n="ato2.hex.title"></h3>
+      <ul data-i18n-list="ato2.hex.items"></ul>
+      <p class="hint" data-i18n="ato2.hex.hint"></p>
+    </article>
+    <article class="step" data-step="a2-ghs">
+      <h3 data-i18n="ato2.ghs.title"></h3>
+      <ul data-i18n-list="ato2.ghs.items"></ul>
+    </article>
+    <article class="step" data-step="a2-censo">
+      <h3 data-i18n="ato2.censo.title"></h3>
+      <ul data-i18n-list="ato2.censo.items"></ul>
+      <p class="hint" data-i18n="ato2.censo.swipe"></p>
+    </article>
+    <article class="step" data-step="a2-hexsat">
+      <h3 data-i18n="ato2.hexsat.title"></h3>
+      <ul data-i18n-list="ato2.hexsat.items"></ul>
+      <p class="hint" data-i18n="ato2.hexsat.hint"></p>
+    </article>
+    <article class="step" data-step="a2-reclass">
+      <h3 data-i18n="ato2.reclass.title"></h3>
+      <ul data-i18n-list="ato2.reclass.items"></ul>
+    </article>
+    <article class="step" data-step="a2-indic">
+      <h3 data-i18n="ato2.indic.title"></h3>
+      <ul data-i18n-list="ato2.indic.items"></ul>
+      <p class="hint" data-i18n="ato2.indic.hint"></p>
+    </article>
+    <article class="step" data-step="a2-cobertura">
+      <h3 data-i18n="ato2.cobertura.title"></h3>
+      <ul data-i18n-list="ato2.cobertura.items"></ul>
+    </article>
+  </div>
+</section>
+
+<!-- ATO 3 · SaniPLAN ------------------------------------------------ -->
+<section id="ato3" class="act act--saniplan">
+  <div class="act-inner act-inner--wide sp">
+
+    <!-- abertura do ato ------------------------------------------------ -->
+    <header class="sp-head">
+      <p class="kicker" data-i18n="ato3.kicker"></p>
+      <h2 data-i18n="ato3.title"></h2>
+      <p class="lead" data-i18n="ato3.lead"></p>
+      <p class="sp-authors" data-i18n="ato3.authors"></p>
+      <nav class="sp-xlnav" aria-label="SaniPLAN">
+        <span class="sp-xlnav-banner"><span class="sp-xllogo">san<b>i</b>plan</span></span>
+        <span class="sp-xlnav-btns">
+          <a href="#sp-fluxo" data-i18n="ato3.subnav.inicio"></a>
+          <a href="#sp-custos" data-i18n="ato3.subnav.config"></a>
+          <a href="#sp-fluxo" data-i18n="ato3.subnav.lb"></a>
+          <a href="#sp-pob" data-i18n="ato3.subnav.pob"></a>
+          <a href="#sp-sim" class="is-bold" data-i18n="ato3.subnav.calc"></a>
+          <a href="#sp-res" class="is-on" data-i18n="ato3.subnav.result"></a>
+        </span>
+      </nav>
+      <p class="sp-hint" data-i18n="ato3.subnav.hint"></p>
+    </header>
+
+    <!-- cena 11 · fluxo do modelo ---------------------------------------- -->
+    <article class="sp-scene" id="sp-fluxo">
+      <h3 data-i18n="ato3.fluxo.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.fluxo.lead"></p>
+
+      <ol class="sp-flow">
+        <li class="sp-flow-col sp-flow-col--in">
+          <h4 data-i18n="ato3.fluxo.cols.in.title"></h4>
+          <ul data-i18n-list="ato3.fluxo.cols.in.items"></ul>
+        </li>
+        <li class="sp-flow-col sp-flow-col--sub">
+          <h4 data-i18n="ato3.fluxo.cols.sub.title"></h4>
+          <ul data-i18n-list="ato3.fluxo.cols.sub.items"></ul>
+        </li>
+        <li class="sp-flow-col sp-flow-col--calc">
+          <h4 data-i18n="ato3.fluxo.cols.calc.title"></h4>
+          <ul data-i18n-list="ato3.fluxo.cols.calc.items"></ul>
+        </li>
+        <li class="sp-flow-col sp-flow-col--out">
+          <h4 data-i18n="ato3.fluxo.cols.out.title"></h4>
+          <ul data-i18n-list="ato3.fluxo.cols.out.items"></ul>
+        </li>
+      </ol>
+
+      <div class="sp-prints">
+        <p class="sp-label"><span data-i18n="ato3.fluxo.prints"></span> <span class="sp-muted" data-i18n="ato3.fluxo.printsHint"></span></p>
+        <div class="sp-thumbs">
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_inicio.jpg" data-cap="ato3.fluxo.shots.inicio"><img src="img/saniplan/sheet_inicio_t.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.inicio"></span></button>
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_lb.jpg" data-cap="ato3.fluxo.shots.lb"><img src="img/saniplan/sheet_lb_t.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.lb"></span></button>
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_calc.jpg" data-cap="ato3.fluxo.shots.calc"><img src="img/saniplan/sheet_calc_t.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.calc"></span></button>
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_calc_zoom1.jpg" data-cap="ato3.fluxo.shots.calc1"><img src="img/saniplan/sheet_calc_zoom1.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.calc1"></span></button>
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_calc_zoom2.jpg" data-cap="ato3.fluxo.shots.calc2"><img src="img/saniplan/sheet_calc_zoom2.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.calc2"></span></button>
+          <button type="button" class="sp-thumb" data-full="img/saniplan/sheet_result.jpg" data-cap="ato3.fluxo.shots.result"><img src="img/saniplan/sheet_result_t.jpg" alt="" loading="lazy"><span data-i18n="ato3.fluxo.shots.result"></span></button>
+        </div>
+        <figure class="sp-flow4">
+          <button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/flow4.png" data-cap="ato3.fluxo.flow4"><img src="img/saniplan/flow4.png" alt="" loading="lazy"></button>
+          <figcaption data-i18n="ato3.fluxo.flow4"></figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <!-- sub-módulos: projeção de população e custos unitários ------------ -->
+    <div class="sp-submod" id="sp-submod">
+    <header class="sp-submod-head">
+      <p class="kicker" data-i18n="ato3.submod.kicker"></p>
+      <h3 data-i18n="ato3.submod.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.submod.lead"></p>
+      <ol class="sp-submod-chips" aria-hidden="true">
+        <li><span class="sp-chip sp-chip--pob">POB</span><span data-i18n="ato3.pob.title"></span></li>
+        <li><span class="sp-chip sp-chip--cfg">CONFIG</span><span data-i18n="ato3.custos.title"></span></li>
+        <li class="sp-submod-arrow">→</li>
+        <li><span class="sp-chip sp-chip--calc">CALC</span>SaniPLAN</li>
+      </ol>
+    </header>
+
+    <!-- cena 12 · projeção de população ---------------------------------- -->
+    <article class="sp-scene" id="sp-pob">
+      <h3 data-i18n="ato3.pob.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.pob.lead"></p>
+
+      <div class="sp-grid-2">
+        <div class="sp-text">
+          <h4 data-i18n="ato3.pob.methods.title"></h4>
+          <ul class="sp-list" data-i18n-list="ato3.pob.methods.items"></ul>
+          <h4 data-i18n="ato3.pob.calib.title"></h4>
+          <ul class="sp-list" data-i18n-list="ato3.pob.calib.items"></ul>
+        </div>
+        <div class="sp-chartbox" id="sp-pobchart">
+          <div class="sp-chart-ctl">
+            <label class="sp-sel"><span data-i18n="ato3.pob.chart.select"></span><select id="sp-pob-select"></select></label>
+            <span class="sp-legend">
+              <span class="sp-lg"><i class="sp-lg-dot"></i><span data-i18n="ato3.pob.chart.census"></span></span>
+              <span class="sp-lg"><i class="sp-lg-line"></i><span data-i18n="ato3.pob.chart.proj"></span></span>
+            </span>
+          </div>
+          <div class="sp-svgwrap" id="sp-pob-svg"></div>
+          <p class="sp-chart-foot"><span id="sp-pob-curve"></span> <span class="sp-muted" data-i18n="ato3.pob.chart.hint"></span></p>
+        </div>
+      </div>
+
+      <div class="sp-matrix">
+        <h4 data-i18n="ato3.pob.matrix.title"></h4>
+        <p class="sp-muted" data-i18n="ato3.pob.matrix.intro"></p>
+        <div class="sp-tablewrap"><table class="sp-table" id="sp-matrix"></table></div>
+        <p class="note" data-i18n="ato3.pob.matrix.note"></p>
+      </div>
+    </article>
+
+    <!-- cena 13 · custos unitários --------------------------------------- -->
+    <article class="sp-scene" id="sp-custos">
+      <h3 data-i18n="ato3.custos.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.custos.lead"></p>
+
+      <!-- a · rede -->
+      <div class="sp-block">
+        <div class="sp-grid-2">
+          <div class="sp-text">
+            <h4 data-i18n="ato3.custos.rede.title"></h4>
+            <ul class="sp-list" data-i18n-list="ato3.custos.rede.items"></ul>
+            <p class="sp-label" data-i18n="ato3.custos.rede.tableTitle"></p>
+            <div class="sp-tablewrap"><table class="sp-table sp-table--num" id="sp-redetable"></table></div>
+          </div>
+          <div class="sp-photos">
+            <figure class="sp-photo"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/obra_ac.jpg" data-cap="ato3.custos.rede.photoAC"><img src="img/saniplan/obra_ac.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.rede.photoAC"></figcaption></figure>
+            <figure class="sp-photo"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/obra_ae.jpg" data-cap="ato3.custos.rede.photoAE"><img src="img/saniplan/obra_ae.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.rede.photoAE"></figcaption></figure>
+            <figure class="sp-photo sp-photo--wide"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/custos_desglose.jpg" data-cap="ato3.custos.rede.desglose"><img src="img/saniplan/custos_desglose.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.rede.desglose"></figcaption></figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- b · tratamento -->
+      <div class="sp-block">
+        <div class="sp-grid-2 sp-grid-2--rev">
+          <div class="sp-text">
+            <h4 data-i18n="ato3.custos.ete.title"></h4>
+            <ul class="sp-list" data-i18n-list="ato3.custos.ete.items"></ul>
+          </div>
+          <div class="sp-chartbox" id="sp-etechart">
+            <div class="sp-chart-ctl">
+              <span class="sp-label" data-i18n="ato3.custos.ete.chart.title"></span>
+              <span class="sp-seg" role="group">
+                <button type="button" data-mode="kg" aria-pressed="true" data-i18n="ato3.custos.ete.chart.modeKg"></button>
+                <button type="button" data-mode="hab" aria-pressed="false" data-i18n="ato3.custos.ete.chart.modeHab"></button>
+              </span>
+            </div>
+            <div class="sp-svgwrap" id="sp-ete-svg"></div>
+            <p class="sp-chart-foot"><span class="sp-muted" data-i18n="ato3.custos.ete.chart.gNote"></span> <span class="sp-muted" data-i18n="ato3.custos.ete.chart.hint"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- c · emissário · d · in situ -->
+      <div class="sp-block sp-grid-2">
+        <div class="sp-card">
+          <h4 data-i18n="ato3.custos.emis.title"></h4>
+          <ul class="sp-list" data-i18n-list="ato3.custos.emis.items"></ul>
+          <figure class="sp-photo"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/emisario.jpg" data-cap="ato3.custos.emis.photo"><img src="img/saniplan/emisario.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.emis.photo"></figcaption></figure>
+        </div>
+        <div class="sp-card">
+          <h4 data-i18n="ato3.custos.insitu.title"></h4>
+          <ul class="sp-list" data-i18n-list="ato3.custos.insitu.items"></ul>
+        </div>
+      </div>
+
+      <!-- e · o tamanho importa -->
+      <div class="sp-block">
+        <h4 data-i18n="ato3.custos.size.title"></h4>
+        <p class="sp-lead sp-lead--sm" data-i18n="ato3.custos.size.lead"></p>
+        <div class="sp-tablewrap"><table class="sp-table sp-table--num" id="sp-sizetable"></table></div>
+        <p class="note" data-i18n="ato3.custos.size.note"></p>
+      </div>
+    </article>
+
+    </div><!-- /sp-submod -->
+
+    <!-- cena 14 · simulador --------------------------------------------- -->
+    <article class="sp-scene" id="sp-sim">
+      <h3 data-i18n="ato3.sim.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.sim.lead"></p>
+      <p class="sp-legend sp-legend--sheet">
+        <span class="sp-lg"><i class="sp-sw sp-sw--in"></i><span data-i18n="ato3.sim.legend.input"></span></span>
+        <span class="sp-lg"><i class="sp-sw sp-sw--scen"></i><span data-i18n="ato3.sim.legend.scen"></span></span>
+        <span class="sp-lg"><i class="sp-sw sp-sw--fix"></i><span data-i18n="ato3.sim.legend.fixed"></span></span>
+        <span class="sp-lg"><i class="sp-sw sp-sw--out"></i><span data-i18n="ato3.sim.legend.out"></span></span>
+      </p>
+
+      <div class="sp-sheet" id="sp-sheet">
+        <div class="sp-sheet-banner">
+          <span class="sp-xllogo sp-xllogo--lg">san<b>i</b>plan</span>
+          <span class="sp-sheet-sub" id="sp-sheet-sub"></span>
+        </div>
+        <div class="sp-sheet-nav" role="tablist">
+          <i>↑/↓</i><i>&lt;</i><i>&gt;</i><i>&lt; INICIO</i><i>CONFIG</i><i>L. BASE</i><i>POB</i>
+          <button type="button" role="tab" class="is-bold is-on" data-tab="calc" aria-selected="true" data-i18n="ato3.sim.tabCalc"></button>
+          <button type="button" role="tab" data-tab="result" aria-selected="false" data-i18n="ato3.sim.tabResult"></button>
+        </div>
+
+        <!-- aba CALC -->
+        <div class="sp-tab" data-tab="calc">
+          <div class="sp-sheet-title" data-i18n="ato3.sim.sheetTitle"></div>
+          <div class="sp-sheet-top">
+            <div class="sp-scen">
+              <div class="sp-scen-title" data-i18n="ato3.sim.scen.title"></div>
+              <dl>
+                <dt data-i18n="ato3.sim.scen.pop"></dt><dd data-i18n="ato3.sim.scen.popV"></dd>
+                <dt data-i18n="ato3.sim.scen.type"></dt><dd><select id="sp-type" class="sp-red"><option value="AC">AC</option><option value="AE">AE</option></select></dd>
+                <dt data-i18n="ato3.sim.scen.meta"></dt><dd class="sp-scen-meta"><input type="number" id="sp-meta" class="sp-red" min="0" max="100" step="1" value="100">%<input type="range" id="sp-meta-range" min="0" max="100" step="1" value="100" aria-label="Meta"></dd>
+                <dt data-i18n="ato3.sim.scen.year"></dt><dd><select id="sp-year" class="sp-red"></select></dd>
+                <dt data-i18n="ato3.sim.scen.plazo"></dt><dd class="sp-red" id="sp-plazo">16</dd>
+                <dt data-i18n="ato3.sim.scen.base"></dt><dd>2024</dd>
+              </dl>
+            </div>
+            <div class="sp-sheet-tools">
+              <label class="sp-search">
+                <span data-i18n="ato3.sim.search.label"></span>
+                <input type="search" id="sp-search" autocomplete="off" data-i18n-placeholder="ato3.sim.search.placeholder">
+                <ul class="sp-search-list" id="sp-search-list" hidden></ul>
+              </label>
+              <p class="sp-search-msg" id="sp-search-msg"></p>
+              <button type="button" class="sp-btn" id="sp-restore" data-i18n="ato3.sim.restore"></button>
+              <p class="sp-check" id="sp-check"></p>
+            </div>
+          </div>
+          <div class="sp-tablewrap sp-tablewrap--sheet"><table class="sp-xl" id="sp-xl"></table></div>
+          <p class="sp-sheet-note" data-i18n="ato3.sim.note"></p>
+        </div>
+
+        <!-- aba RESULTADOS -->
+        <div class="sp-tab" data-tab="result" hidden>
+          <div class="sp-sheet-title" data-i18n="ato3.sim.resultTitle"></div>
+          <div class="sp-sheet-top sp-sheet-top--res">
+            <div class="sp-scen sp-scen--ro" id="sp-scen-ro"></div>
+            <div class="sp-cuadro" id="sp-cuadro"></div>
+          </div>
+          <div class="sp-yearchart">
+            <div class="sp-chart-ctl">
+              <span class="sp-label sp-label--sheet" data-i18n="ato3.sim.chart.title"></span>
+              <label class="sp-sel sp-sel--sheet"><span data-i18n="ato3.sim.chart.district"></span><select id="sp-year-select"></select></label>
+              <span class="sp-legend sp-legend--dark">
+                <span class="sp-lg"><i class="sp-sw" style="background:var(--urban)"></i><span data-i18n="ato3.sim.chart.alc"></span></span>
+                <span class="sp-lg"><i class="sp-sw" style="background:var(--reclass)"></i><span data-i18n="ato3.sim.chart.tar"></span></span>
+              </span>
+            </div>
+            <div class="sp-svgwrap" id="sp-year-svg"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- cena 15 · resultados do modelo (ponte para o ato 4) -------------- -->
+    <article class="sp-scene sp-scene--close" id="sp-res">
+      <h3 data-i18n="ato3.res.title"></h3>
+      <ul class="sp-list sp-list--lg" data-i18n-list="ato3.res.items"></ul>
+      <a class="sp-next" href="#ato4" data-i18n="ato3.res.next"></a>
+    </article>
+  </div>
+
+  <div class="sp-lightbox" id="sp-lightbox" hidden role="dialog" aria-modal="true">
+    <button type="button" class="sp-lightbox-close" id="sp-lightbox-close" aria-label="Fechar">×</button>
+    <figure><img id="sp-lightbox-img" alt=""><figcaption id="sp-lightbox-cap"></figcaption></figure>
+  </div>
+</section>
+
+<!-- ATO 4 · Resultados ---------------------------------------------- -->
+<section id="ato4" class="act results">
+  <div class="act-inner act-inner--wide">
+    <p class="kicker" data-i18n="ato4.kicker"></p>
+    <h2 data-i18n="ato4.title"></h2>
+    <p class="lead" data-i18n="ato4.lead"></p>
+
+    <div class="rs-controls">
+      <div class="seg" role="group" aria-labelledby="lbl-meta">
+        <span class="seg-lbl" id="lbl-meta" data-i18n="ato4.ctl.meta"></span>
+        <button type="button" data-meta="90" aria-pressed="true">90%</button>
+        <button type="button" data-meta="100" aria-pressed="false">100%</button>
+      </div>
+      <div class="seg" role="group" aria-labelledby="lbl-tipo">
+        <span class="seg-lbl" id="lbl-tipo" data-i18n="ato4.ctl.tipo"></span>
+        <button type="button" data-tipo="AE" aria-pressed="true" data-i18n="ato4.ctl.AE"></button>
+        <button type="button" data-tipo="AC" aria-pressed="false" data-i18n="ato4.ctl.AC"></button>
+      </div>
+      <label class="sel">
+        <span class="seg-lbl" data-i18n="ato4.ctl.indic"></span>
+        <select id="rs-indic"></select>
+      </label>
+    </div>
+
+    <div class="kpis" id="rs-kpis"></div>
+
+    <div class="rs-main">
+      <div class="rs-map-wrap">
+        <div id="rs-map" role="region" aria-label="Mapa por província"></div>
+        <div class="map-legend rs-legend" id="rs-legend"></div>
+      </div>
+      <aside class="rs-side">
+        <div class="rs-detail" id="rs-detail"></div>
+        <ol class="rs-rank" id="rs-rank"></ol>
+      </aside>
+    </div>
+    <p class="note" data-i18n="ato4.note"></p>
+  </div>
+</section>
+
+<footer class="credits">
+  <div class="act-inner">
+    <h2 data-i18n="creditos.title"></h2>
+    <p class="credits-authors" data-i18n="creditos.authors"></p>
+    <p class="credits-sources" data-i18n="creditos.sources"></p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/capa.js"></script>
+<script src="js/diagram.js"></script>
+<script src="js/mapstory.js"></script>
+<script src="js/results.js"></script>
+<script src="js/sanisim.js"></script>
+<script src="js/saniplan.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

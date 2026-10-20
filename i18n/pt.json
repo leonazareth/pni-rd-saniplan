@@ -1,0 +1,663 @@
+{
+  "_meta": {
+    "lang": "pt",
+    "label": "PT",
+    "status": "rascunho v1"
+  },
+  "nav": {
+    "ato0": "Visão geral",
+    "ato1": "Dados",
+    "ato2": "Análise espacial",
+    "ato3": "SaniPLAN",
+    "ato4": "Resultados",
+    "lang": "Idioma",
+    "prev": "Slide anterior",
+    "next": "Próximo slide"
+  },
+  "capa": {
+    "eyebrow": "Plano Nacional de Investimentos em Saneamento",
+    "title": "PNI Saneamento<br>República Dominicana",
+    "subtitle": "Estimativa de investimento (CAPEX) para universalizar a coleta e o tratamento de esgoto urbano até 2040, com análise de dados espaciais e o modelo SaniPLAN.",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "date": "2025",
+    "scroll": "Role para começar",
+    "stat1": "hexágonos de 10 ha analisados",
+    "stat2": "distritos municipais",
+    "stat3": "habitantes urbanos (2022, ajustado)"
+  },
+  "ato0": {
+    "kicker": "Visão geral",
+    "title": "Quanto custa universalizar o saneamento urbano na República Dominicana?",
+    "s1": {
+      "title": "Um modelo no centro",
+      "items": [
+        "O <strong>SaniPLAN</strong> calcula o investimento necessário para atingir uma meta de cobertura.",
+        "Os <strong>dados espaciais</strong> geram os parâmetros de cada distrito.",
+        "Os <strong>resultados</strong> mostram onde estão as necessidades e quanto custam."
+      ]
+    },
+    "s2": {
+      "title": "Começamos pelos dados",
+      "items": [
+        "Censos, imagens de satélite, ruas, construções e cadastros de redes.",
+        "Cada fonte tem um nível de agregação diferente.",
+        "A análise espacial transforma essas fontes em indicadores por distrito."
+      ]
+    },
+    "node": {
+      "censo": "Censos ONE<br>2002 · 2010 · 2022",
+      "sat": "Imagens de<br>satélite",
+      "ruas": "Ruas<br>(OpenStreetMap)",
+      "edif": "Construções<br>(Overture Maps)",
+      "cad": "Cadastro de redes<br>e cobertura",
+      "custos": "Custos unitários<br>e metas",
+      "spatial": "Análise espacial",
+      "saniplan": "Modelo de projeção de população, cobertura e investimento",
+      "capex": "Investimento<br>(CAPEX)",
+      "charts": "Projeções<br>2024–2040",
+      "map": "Mapas por<br>província",
+      "decide": "Priorização<br>de projetos"
+    },
+    "detail": {
+      "censo": "População total e urbana por distrito municipal nos três últimos censos. Base para a linha de base e a projeção até 2040.",
+      "sat": "Usadas para validar as fontes globais de população e verificar áreas urbanas que o censo classifica como rurais.",
+      "ruas": "Extensão de vias em cada área urbana. É o indicador indireto da extensão de rede coletora por ligação.",
+      "edif": "Contorno de cada construção (25 a 500 m²). Permite estimar domicílios por ligação e corrigir a distribuição da população.",
+      "cad": "Áreas atendidas por redes existentes (cadastros e projetos) e cobertura de esgotamento por província.",
+      "custos": "Custos de referência de redes, ligações, ETEs, emissários e soluções individuais. Metas: % de cobertura e ano.",
+      "spatial": "Grade hexagonal de 10 ha para todo o país. Cada hexágono recebe população, construções e ruas, e depois é agregado por distrito.",
+      "saniplan": "Planilha Excel que projeta população e cobertura ano a ano e calcula o CAPEX de coleta, transporte e tratamento por distrito.",
+      "capex": "Investimento total e por habitante, separado entre rede coletora e tratamento.",
+      "charts": "Evolução anual da população atendida e do investimento até o ano meta.",
+      "map": "Resultados agregados por província e região, o nível com melhor confiabilidade.",
+      "decide": "Comparar necessidades e custos entre regiões para ordenar programas e projetos."
+    }
+  },
+  "ato1": {
+    "kicker": "",
+    "title": "Os dados necessários",
+    "lead": "Um plano nacional depende de onde as pessoas vivem, de como a cidade está construída e de onde já existe serviço.",
+    "problema": {
+      "title": "O problema dos dados agregados",
+      "items": [
+        "Muitos planos usam médias por município ou por país.",
+        "Uma média esconde onde a população realmente está.",
+        "Custos de rede dependem da densidade e do traçado das ruas, que variam dentro de um mesmo distrito."
+      ]
+    },
+    "grid": {
+      "title": "Um dado por distrito × uma grade de 100 m",
+      "items": [
+        "<strong>Por distrito:</strong> a população do censo vale para o polígono inteiro, inclusive áreas vazias.",
+        "<strong>Por hexágono:</strong> a mesma população distribuída pelos hexágonos onde há construções.",
+        "O total do distrito é preservado. O que muda é saber <strong>onde</strong> estão as pessoas."
+      ],
+      "toggleA": "Por distrito",
+      "toggleB": "Por hexágono"
+    },
+    "fontes": {
+      "title": "Fontes e níveis de agregação",
+      "items": [
+        "Cada ponto mostra o nível mais detalhado em que o dado existe.",
+        "A população está disponível em escala fina. A cobertura de esgoto, apenas por província. O tratamento, só como média nacional.",
+        "O resultado nunca é mais preciso que o dado mais agregado usado no cálculo."
+      ],
+      "levels": [
+        "Construção",
+        "Grade 100 m",
+        "Hex 10 ha",
+        "Distrito",
+        "Província",
+        "País"
+      ],
+      "rows": {
+        "edif": "Construções (Overture Maps)",
+        "ruas": "Ruas (OpenStreetMap)",
+        "ghs": "População modelada (GHSL)",
+        "censo": "População, censo ONE 2022",
+        "cad": "Cadastro de redes (11 distritos)",
+        "cob": "Cobertura de esgoto (ENHOGAR / Censo)",
+        "trat": "Esgoto tratado (estimativa ONU)",
+        "custos": "Custos unitários de referência"
+      },
+      "note": "Ponto vazado = dado parcial (só em alguns distritos).",
+      "dirFine": "← menos agregado · mais detalhe",
+      "dirCoarse": "mais agregado · menos detalhe →"
+    }
+  },
+  "ato2": {
+    "kicker": "",
+    "title": "Análise espacial",
+    "lead": "Do país ao quarteirão, e de volta ao distrito.",
+    "niveis": {
+      "title": "Do país ao distrito",
+      "items": [
+        "<strong>País:</strong> 32 províncias, 393 distritos municipais.",
+        "<strong>Província:</strong> nível em que existe o dado de cobertura de esgoto.",
+        "<strong>Distrito:</strong> nível do censo e dos parâmetros do SaniPLAN.",
+        "Vamos aproximar em <strong>Santo Domingo Este</strong>, na província de Santo Domingo."
+      ]
+    },
+    "hex": {
+      "title": "Por que uma grade hexagonal de 10 ha",
+      "items": [
+        "Mesma área em todo o país: indicadores comparáveis entre lugares.",
+        "Hexágonos têm 6 vizinhos equidistantes, o que facilita detectar continuidade urbana.",
+        "10 ha reduz o ruído de dados pontuais e mantém detalhe sub-distrital.",
+        "<strong>486.526</strong> hexágonos cobrem o país; <strong>1.311</strong> em Santo Domingo Este."
+      ],
+      "hint": "Clique em um hexágono para ver seus indicadores."
+    },
+    "ghs": {
+      "title": "Corrigir a população modelada",
+      "items": [
+        "A grade global (GHSL) às vezes coloca população em áreas industriais ou vazias.",
+        "<strong>Vermelho:</strong> população sem construções → população zerada.",
+        "<strong>Azul:</strong> construções sem população → construções × habitantes por domicílio.",
+        "Depois, a população do censo 2022 é redistribuída proporcionalmente."
+      ]
+    },
+    "censo": {
+      "title": "Uma inconsistência no censo",
+      "items": [
+        "Entre 2010 e 2022 a população rural do país cresceu cerca de <strong>550 mil</strong>, contra a tendência de urbanização.",
+        "Em Santo Domingo Este, a população rural passou de <strong>40.099</strong> para <strong>116.935</strong> (+192%).",
+        "<strong>Azul:</strong> área urbana oficial. <strong>Âmbar:</strong> área que o censo classifica como rural.",
+        "As imagens mostram por quê: a área classificada como rural foi urbanizada."
+      ],
+      "swipe": "Arraste a linha do tempo para comparar 2010 e 2022",
+      "y2010": "2010 · Landsat 7",
+      "y2022": "2022 · Sentinel-2"
+    },
+    "reclass": {
+      "title": "Reclassificar o que já é cidade",
+      "items": [
+        "<strong>Azul:</strong> área urbana oficial (ONE, 2021).",
+        "<strong>Âmbar:</strong> hexágonos com mais de 100 construções e pelo menos 50% de vizinhos construídos.",
+        "Em Santo Domingo Este: <strong>148</strong> hexágonos, <strong>~100 mil</strong> habitantes e <strong>23.944</strong> construções passam a contar como urbanos.",
+        "No país, a população urbana considerada ficou <strong>860 mil</strong> acima do censo."
+      ],
+      "legOficial": "Urbana oficial",
+      "legReclass": "Reclassificada",
+      "legRural": "Rural"
+    },
+    "indic": {
+      "title": "Indicadores por distrito",
+      "items": [
+        "<strong>Metros de rua por construção:</strong> indicador indireto de metros de rede por ligação.",
+        "<strong>Famílias por construção:</strong> indicador de domicílios por ligação (verticalização).",
+        "Calculados só nas áreas urbanas consolidadas e filtrados para remover valores extremos.",
+        "Esses valores entram no SaniPLAN para cada distrito."
+      ],
+      "hint": "Clique em um distrito para ver os valores usados no modelo."
+    },
+    "cobertura": {
+      "title": "Cobertura atual",
+      "items": [
+        "A cobertura de esgoto existe apenas por província (ENHOGAR 2021 / Censo 2022).",
+        "Onde há cadastro de redes, a população atendida foi recalculada dentro da área da rede.",
+        "A cobertura dos demais distritos é ajustada para manter o total da província.",
+        "Tratamento: média nacional de ~50% do esgoto coletado."
+      ]
+    },
+    "hexsat": {
+      "title": "Os hexágonos sobre a imagem de 2022",
+      "items": [
+        "Cada hexágono em âmbar está fora da área urbana oficial, mas tem mais de 100 construções e vizinhos construídos.",
+        "Sobre a imagem, a malha de ruas e quadras aparece onde o censo registra área rural.",
+        "A reclassificação segue o que se vê no terreno, não o limite administrativo."
+      ],
+      "hint": "Clique em um hexágono para ver construções, ruas e população."
+    }
+  },
+  "ato3": {
+    "kicker": "",
+    "title": "SaniPLAN",
+    "lead": "Modelo em Excel para projetar população, cobertura e investimento a partir de dados por município ou distrito.",
+    "authors": "Modelo de Pery Nazareth. Aplicação à República Dominicana e análise espacial de Leonardo Nazareth.",
+    "subnav": {
+      "inicio": "< INICIO",
+      "config": "CONFIG",
+      "lb": "L. BASE",
+      "pob": "POB",
+      "calc": "CALC",
+      "result": "RESULTADOS",
+      "hint": "Os botões reproduzem a barra de navegação da planilha e levam a cada cena deste ato."
+    },
+    "fluxo": {
+      "kicker": "",
+      "title": "Fluxo do modelo",
+      "lead": "Quatro etapas, sempre na mesma ordem. Cada distrito é uma linha; cada ano, uma coluna.",
+      "cols": {
+        "in": {
+          "title": "Entradas",
+          "items": [
+            "Lista de municípios ou distritos",
+            "População atual e censos anteriores",
+            "Cobertura atual de coleta e tratamento",
+            "Custos unitários de referência",
+            "Metas: % de cobertura e ano",
+            "Parâmetros de ajuste"
+          ]
+        },
+        "sub": {
+          "title": "Sub-modelos",
+          "items": [
+            "Projeção de população ano a ano",
+            "Redistribuição da cobertura provincial entre distritos",
+            "Custos unitários ajustados por porte, dificuldade e nível de tratamento"
+          ]
+        },
+        "calc": {
+          "title": "Cálculo anual",
+          "items": [
+            "Linha de base 2024 → meta, em passos iguais",
+            "Domicílios e habitantes novos a cada ano",
+            "Incremento × custo unitário = CAPEX do ano"
+          ]
+        },
+        "out": {
+          "title": "Resultados",
+          "items": [
+            "População atendida por ano",
+            "Cobertura por ano",
+            "CAPEX por componente: rede, ligações, transporte, tratamento, instalações mínimas"
+          ]
+        }
+      },
+      "prints": "As folhas da planilha",
+      "printsHint": "Clique para ampliar.",
+      "shots": {
+        "inicio": "<INICIO>: identificação do projeto e sequência de modelagem",
+        "lb": "LB: linha de base por distrito (população, cobertura, metas)",
+        "calc": "CALC: parâmetros e custos unitários por distrito",
+        "calc1": "CALC (zoom): bloco de rede coletora",
+        "calc2": "CALC (zoom): bloco de tratamento",
+        "result": "<RESULT>: síntese nacional e tabela por província"
+      },
+      "flow4": "Diagrama de sequência da folha <INICIO>: parâmetros → linha de base e metas → cálculo de cobertura e investimento → informe de resultados.",
+      "lightboxClose": "Fechar"
+    },
+    "pob": {
+      "kicker": "",
+      "title": "Projeção de população",
+      "lead": "Cinco curvas candidatas por distrito. A escolha depende de quantos censos existem e da forma da tendência.",
+      "methods": {
+        "title": "Métodos",
+        "items": [
+          "<strong>Logística:</strong> cresce até uma população de saturação.",
+          "<strong>Taxa decrescente:</strong> crescimento que diminui com o tempo.",
+          "<strong>Gompertz:</strong> curva em S assimétrica; a mais usada (374 distritos).",
+          "<strong>Linear:</strong> incremento constante por ano.",
+          "<strong>Geométrica:</strong> taxa constante por ano."
+        ]
+      },
+      "matrix": {
+        "title": "Matriz de seleção",
+        "intro": "Os três censos (2002, 2010, 2022) definem o caso; cada caso tem uma ordem de preferência para o curto e o longo prazo.",
+        "head": [
+          "Caso",
+          "População",
+          "Taxa",
+          "Aceleração",
+          "Censos",
+          "Curto prazo",
+          "Longo prazo"
+        ],
+        "rows": [
+          [
+            "1",
+            "crescente",
+            "positiva",
+            "–",
+            "2",
+            "linear, Gompertz",
+            "linear"
+          ],
+          [
+            "2",
+            "crescente",
+            "positiva",
+            "crescente",
+            "3",
+            "geométrica, linear, logística",
+            "Gompertz, linear"
+          ],
+          [
+            "3",
+            "crescente",
+            "positiva",
+            "decrescente",
+            "3",
+            "linear, Gompertz, decrescente",
+            "logística, Gompertz"
+          ],
+          [
+            "4",
+            "decrescente",
+            "negativa",
+            "crescente",
+            "3",
+            "geométrica, Gompertz",
+            "Gompertz"
+          ],
+          [
+            "5",
+            "decrescente",
+            "negativa",
+            "decrescente",
+            "2",
+            "Gompertz, geométrica",
+            "geométrica, Gompertz"
+          ],
+          [
+            "6",
+            "decrescente",
+            "negativa",
+            "–",
+            "2",
+            "Gompertz, geométrica",
+            "geométrica, linear"
+          ]
+        ],
+        "note": "Distritos criados depois de 2002 ou 2010 recebem a população redistribuída para os limites de 2022 e usam só dois pontos."
+      },
+      "calib": {
+        "title": "Calibração nacional",
+        "items": [
+          "A soma dos distritos foi ajustada ano a ano à projeção oficial do país (ONE).",
+          "Urbanização: 86,88% da população total em 2040.",
+          "Linha de base: <strong>8.875.227</strong> habitantes urbanos em 2024."
+        ]
+      },
+      "chart": {
+        "select": "Distrito",
+        "census": "Censos (urbana)",
+        "proj": "Projeção",
+        "yAxis": "habitantes",
+        "curve": "Curva",
+        "y2040": "2040",
+        "hint": "Passe o cursor sobre o gráfico para ler os valores.",
+        "mil": "mil"
+      }
+    },
+    "custos": {
+      "kicker": "",
+      "title": "Custos unitários",
+      "lead": "Custos de referência carregados no modelo e ajustados por distrito. O usuário pode substituí-los pelos seus.",
+      "rede": {
+        "title": "Rede coletora",
+        "items": [
+          "Dois tipos: <strong>convencional (AC)</strong> e <strong>econômico (AE)</strong>.",
+          "Três níveis de dificuldade construtiva: baixo, médio, alto. No distrito metropolitano, sempre alto.",
+          "Custo por ligação = m de rede por ligação × $/m + ramal + fator de transporte (coletores, bombeamento).",
+          "<strong>Adensamento:</strong> 10% das novas ligações são atendidas pela rede existente (−10%).",
+          "<strong>m de rede por ligação</strong> e <strong>domicílios por ligação</strong> vêm da análise espacial (Ato 2)."
+        ],
+        "tableTitle": "Custos de referência (USD 2024)",
+        "head": [
+          "Dificuldade",
+          "Rede AC $/m",
+          "Rede AE $/m",
+          "Ramal AC $/lig.",
+          "Ramal AE $/lig."
+        ],
+        "photoAC": "Rede convencional: valas profundas, tubulação de maior diâmetro.",
+        "photoAE": "Rede econômica (condominial): tubulação rasa e de pequeno diâmetro, ramais curtos.",
+        "desglose": "Composição do custo unitário por metro (serviços, materiais, indiretos), base do módulo de custos."
+      },
+      "ete": {
+        "title": "Tratamento",
+        "items": [
+          "Curva de custo por carga: $/kg DBO₅·dia = 35.000 × carga<sup>−0,303</sup>. Quanto maior a estação, menor o custo por kg.",
+          "Baseada em custos reais de ETEs da América Latina e Caribe.",
+          "Quatro níveis de tratamento, com fator sobre a curva: primário ×0,25, básico ×0,60, intermediário ×1,00, avançado ×1,25.",
+          "Remoção requerida de DBO: 85–88% no interior, 67–77% no litoral. Define o nível.",
+          "Carga per capita: 40, 50 ou 60 g DBO/hab·dia, por porte da cidade."
+        ],
+        "chart": {
+          "title": "Curva de custo da ETE",
+          "yKg": "USD por kg DBO₅·dia",
+          "yHab": "USD por habitante",
+          "x": "carga (kg DBO₅/dia, escala log)",
+          "modeKg": "$/kg DBO",
+          "modeHab": "$/hab",
+          "levels": [
+            "Avançado",
+            "Intermediário",
+            "Básico",
+            "Primário"
+          ],
+          "gNote": "$/hab calculado com 50 g DBO/hab·dia.",
+          "hint": "Passe o cursor para ler os valores."
+        }
+      },
+      "emis": {
+        "title": "Emissário submarino",
+        "items": [
+          "Seis distritos litorâneos com mais de 100 mil habitantes: Puerto Plata, Bajos de Haina, La Romana, San Pedro de Macorís, Santo Domingo de Guzmán e Santo Domingo Este.",
+          "Extensão: 1.500 m (100–300 mil hab.) ou 3.000 m (acima de 300 mil).",
+          "Custo por metro em função do diâmetro, estimado pela população; somado ao custo da ETE por habitante."
+        ],
+        "photo": "Emissário submarino em instalação."
+      },
+      "insitu": {
+        "title": "Soluções individuais e instalações mínimas",
+        "items": [
+          "<strong>In situ:</strong> contenção (sanitário seco ou com descarga hídrica) e tratamento de lodo séptico. Meta = 100% em rede, logo in situ não entra nos cenários.",
+          "<strong>ISM (instalações sanitárias mínimas):</strong> 19% dos novos domicílios ligados × USD 1.484,51, de 2025 a 2034.",
+          "Mostradas à parte nos resultados: não são rede nem tratamento."
+        ]
+      },
+      "size": {
+        "title": "O tamanho importa",
+        "lead": "A população de 2024 define a faixa do distrito. A faixa define dificuldade, custo da rede, fator de transporte, carga per capita e nível de tratamento.",
+        "head": [
+          "Faixa",
+          "População",
+          "Dificuldade",
+          "Rede AC $/m",
+          "Fator transporte",
+          "g DBO/hab·dia",
+          "Remoção interior / litoral",
+          "Distritos"
+        ],
+        "note": "Dificuldade e custos valem fora do distrito metropolitano (DOM-M: sempre alto). Remoção de 85/67% até 11.001 habitantes, 88/77% acima."
+      }
+    },
+    "sim": {
+      "kicker": "",
+      "title": "Experimente o modelo",
+      "lead": "Réplica em JavaScript das folhas CALC e RESULTADOS, com a cadeia de cálculo exata da planilha. Altere as células amarelas e o cenário em vermelho; o resto é fixo.",
+      "legend": {
+        "input": "entrada editável",
+        "fixed": "dado fixo do estudo",
+        "scen": "cenário",
+        "out": "resultado"
+      },
+      "banner": [
+        "Modelo de apoio à elaboração de Plano de Saneamento",
+        "Projeção de População, Cobertura e Estimativa do Investimento Necessário",
+        "República Dominicana · urbano"
+      ],
+      "sheetTitle": "CÁLCULO POR DISTRITO",
+      "resultTitle": "SÍNTESE DE RESULTADOS DA SELEÇÃO",
+      "tabCalc": "CALC",
+      "tabResult": "RESULTADOS",
+      "scen": {
+        "title": "Escenario Activo",
+        "pop": "Población",
+        "popV": "URBANO",
+        "type": "Tipo Alc",
+        "meta": "Meta de Cobertura (%)",
+        "year": "Año Meta",
+        "plazo": "Plazo (años)",
+        "base": "Línea de Base (año)",
+        "AC": "AC · convencional",
+        "AE": "AE · econômico"
+      },
+      "search": {
+        "label": "Adicionar distrito",
+        "placeholder": "Nome do distrito ou província…",
+        "max": "Máximo de 8 distritos.",
+        "none": "Nenhum distrito encontrado."
+      },
+      "restore": "Restaurar valores do estudo",
+      "remove": "Remover",
+      "cols": {
+        "n": "n",
+        "name": "Distrito",
+        "prov": "Província",
+        "pop0": "Pob 2024 (hab)",
+        "popH": "Pob ano meta (hab)",
+        "habDom": "hab/dom",
+        "rng": "Rng",
+        "diff": "Dificuldade",
+        "covAlc": "Cob. coleta atual (%)",
+        "covTar": "Cob. trat. atual (%)",
+        "mConn": "m rede / ligação",
+        "domConn": "dom / ligação",
+        "costM": "$/m rede",
+        "costRam": "$/lig. ramal",
+        "fT": "Fator transp.",
+        "costDom": "$/dom",
+        "popRef": "Pob ref ETE",
+        "load": "kg DBO/d",
+        "level": "Nível trat.",
+        "costHab": "$/hab trat.",
+        "capexAlc": "CAPEX rede ($)",
+        "capexTar": "CAPEX trat. ($)",
+        "capexTot": "CAPEX total ($)",
+        "usdHab": "$/hab",
+        "sum": "Σ seleção"
+      },
+      "levels": {
+        "1": "1 Avanzado",
+        "2": "2 Intermedio",
+        "3": "3 Básico",
+        "4": "4 Primario"
+      },
+      "cuadro": {
+        "title": "Cuadro Síntesis · Inversión Estimada (CAPEX $)",
+        "red": "(I) SANEAMIENTO tipo RED",
+        "alc": "ALCANTARILLADO",
+        "tar": "PTAR + emisario",
+        "insitu": "(II) SANEAMIENTO tipo IN-SITU",
+        "ism": "(III) ISM",
+        "total": "Σ SIST. SANEAMIENTO",
+        "pop": "Población adicional con red (hab)",
+        "usdHab": "CAPEX red / hab adicional ($)"
+      },
+      "chart": {
+        "title": "CAPEX por ano",
+        "district": "Distrito",
+        "alc": "Rede",
+        "tar": "Tratamento",
+        "y": "milhões USD",
+        "cov": "cobertura"
+      },
+      "check": {
+        "ok": "Com os valores do estudo, os resultados coincidem com a planilha (erro relativo máximo {err}).",
+        "bad": "Atenção: a verificação contra a planilha encontrou desvio de {err}."
+      },
+      "note": "Meta aplicada igualmente à coleta e ao tratamento. Prazo = ano meta − 2024. Custos unitários, faixa de população e carga da ETE são definidos pela população de 2024, como na planilha. Valores em USD de 2024."
+    },
+    "res": {
+      "kicker": "",
+      "title": "Resultados do modelo",
+      "items": [
+        "Cobertura, população atendida e investimento <strong>por ano</strong>, de 2025 ao ano meta.",
+        "Calculados <strong>por distrito</strong> e agregáveis por província e região, o nível com melhor confiabilidade.",
+        "Separados por componente: rede, tratamento, instalações mínimas. É o que o Ato 4 apresenta."
+      ],
+      "next": "Ver os resultados"
+    },
+    "submod": {
+      "kicker": "Sub-módulos",
+      "title": "Dois sub-módulos alimentam o SaniPLAN",
+      "lead": "São planilhas independentes. Rodam antes do modelo e entregam a ele dois dados de base: a população projetada de cada distrito e os custos unitários ajustados ao país e à faixa de população."
+    }
+  },
+  "ato4": {
+    "kicker": "",
+    "title": "Resultados 2040",
+    "lead": "Investimento para atender 90% ou 100% da população urbana com rede coletora e tratamento até 2040. Escolha o cenário e o indicador; clique numa província para ver o detalhe.",
+    "ctl": {
+      "meta": "Meta de cobertura",
+      "tipo": "Tipo de rede",
+      "AE": "Econômica",
+      "AC": "Convencional",
+      "indic": "Indicador no mapa"
+    },
+    "u": {
+      "mi": "mi USD",
+      "usdhab": "USD/hab",
+      "mihab": "mi hab"
+    },
+    "k": {
+      "total": "Investimento total (rede + tratamento)",
+      "hab": "Custo por habitante atendido",
+      "alc": "Rede coletora",
+      "tar": "Tratamento",
+      "pop": "População a atender",
+      "ism": "Não inclui as instalações sanitárias mínimas intradomiciliares, estimadas em"
+    },
+    "ind": {
+      "capex": "Investimento total",
+      "capex_hab": "Investimento por habitante",
+      "capex_alc": "Investimento em rede coletora",
+      "capex_tar": "Investimento em tratamento",
+      "inc_alc": "População a conectar à rede",
+      "cov_alc": "Cobertura atual de coleta",
+      "cov_tar": "Cobertura atual de tratamento",
+      "pob24": "População urbana 2024",
+      "pob40": "População urbana 2040",
+      "n_dm": "Distritos municipais",
+      "m_conex": "Extensão de rede por ligação"
+    },
+    "d": {
+      "reg": "Região",
+      "ndm": "Distritos municipais"
+    },
+    "hint": "Clique numa província no mapa ou na lista para ver o detalhe.",
+    "note": "Valores de março de 2025 (índice de custos ENR). CAPEX de rede coletora (ligações, rede, transporte) e tratamento (ETE e emissários). Custo por habitante = investimento ÷ população adicional atendida com coleta e tratamento. Resultados mais confiáveis por província e região do que por distrito."
+  },
+  "creditos": {
+    "title": "Autores",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "sources": "Fontes: ONE (censos 2002, 2010, 2022; ENHOGAR 2021), INAPA, GHSL/Copernicus, OpenStreetMap, Overture Maps, Landsat 7 (USGS), Sentinel-2 (ESA)."
+  },
+  "map": {
+    "pop": "População (censo 2022, distribuída)",
+    "popShort": "hab",
+    "edif": "Construções",
+    "ruas": "Ruas",
+    "mEdif": "m de rua por construção",
+    "habEdif": "hab por construção",
+    "ghs": "População GHSL (original)",
+    "ghsAdj": "População GHSL (corrigida)",
+    "cls": "Classe",
+    "clsOficial": "Urbana oficial",
+    "clsReclass": "Reclassificada para urbana",
+    "clsRural": "Rural",
+    "flagPop": "População sem construções",
+    "flagEdif": "Construções sem população",
+    "dmPop": "População urbana ajustada",
+    "dmPopOne": "População urbana (ONE)",
+    "dmMconex": "Extensão de rede por ligação",
+    "dmDomconex": "Domicílios por ligação",
+    "dmCov": "Cobertura de esgoto atual",
+    "dmPob40": "População urbana 2040",
+    "provCov": "Cobertura de esgoto (província)",
+    "prov": "Província",
+    "close": "Fechar",
+    "clsRuralOficial": "Rural oficial (ONE)",
+    "urbanLabel": "URBANA",
+    "ruralLabel": "RURAL"
+  },
+  "ui": {
+    "more": "Saiba mais",
+    "less": "Menos",
+    "building": "Em construção"
+  }
+}
