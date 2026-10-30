@@ -108,8 +108,8 @@
     [2002, 2010, 2022, 2030, 2040].forEach(yr => { s += `<text class="tick" x="${X(yr)}" y="${H - mb + 18}" text-anchor="middle">${yr}</text>`; });
     s += `<line class="ax" x1="${ml}" x2="${W - mr}" y1="${H - mb}" y2="${H - mb}"/>`;
     s += `<text class="axlbl" x="${ml}" y="${mt - 6}">${esc(t('ato3.pob.chart.mil'))} ${esc(t('ato3.pob.chart.yAxis'))}</text>`;
-    // linha tracejada censo 2022 -> base 2024
-    if (census.length) { const c = census[census.length - 1]; s += `<line x1="${X(c[0])}" y1="${Y(c[1])}" x2="${X(proj[0][0])}" y2="${Y(proj[0][1])}" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 4"/>`; }
+    // linha tracejada ligando os censos (2002 -> 2010 -> 2022) e o último censo à base 2024
+    if (census.length) { s += `<polyline points="${[...census, proj[0]].map(p => `${X(p[0])},${Y(p[1])}`).join(' ')}" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 4"/>`; }
     s += `<polyline class="ln" stroke="${COLORS.alc}" points="${proj.map(p => `${X(p[0])},${Y(p[1])}`).join(' ')}"/>`;
     census.forEach(p => { s += `<circle class="dot" cx="${X(p[0])}" cy="${Y(p[1])}" r="5"/>`; });
     const last = proj[proj.length - 1];
@@ -148,22 +148,23 @@
     const levels = [1, 2, 3, 4], names = T('ato3.custos.ete.chart.levels') || ['Avançado', 'Intermediário', 'Básico', 'Primário'];
     const f = (L, code) => SaniSim.ptarCostPerKg(L, code, tb, 1) * (hab ? G / 1000 : 1);
     const W = chartW(wrap), H = Math.round(Math.max(240, W * 0.53)), ml = 56, mr = W < 420 ? 86 : 104, mt = 18, mb = 44;
-    const lx0 = 1, lx1 = 5; // log10(10) .. log10(100000)
-    const yTop = f(10, 1) * 1.15, yBot = f(100000, 4) / 1.3; // eixo y logarítmico
-    const ly0 = Math.log10(yBot), ly1 = Math.log10(yTop);
-    const X = (L) => ml + (Math.log10(L) - lx0) / (lx1 - lx0) * (W - ml - mr);
-    const Y = (v) => mt + (1 - (Math.log10(v) - ly0) / (ly1 - ly0)) * (H - mt - mb);
+    const LMIN = 1000, LMAX = 100000; // kg DBO₅/d; eixos lineares
+    const ystep = niceStep(f(LMIN, 1), 5), yTop = Math.ceil(f(LMIN, 1) / ystep) * ystep;
+    const X = (L) => ml + (L - LMIN) / (LMAX - LMIN) * (W - ml - mr);
+    const Y = (v) => mt + (1 - v / yTop) * (H - mt - mb);
     let s = svgEl(W, H);
-    for (let d = Math.floor(ly0); d <= Math.ceil(ly1); d++) {
-      [1, 2, 5].forEach(m => { const v = m * Math.pow(10, d); if (v < yBot || v > yTop) return;
-        s += `<line class="grid" x1="${ml}" x2="${W - mr}" y1="${Y(v)}" y2="${Y(v)}" ${m === 1 ? '' : 'opacity=".35"'}/><text class="tick" x="${ml - 8}" y="${Y(v) + 4}" text-anchor="end">${fmtInt(v)}</text>`; });
+    for (let v = 0; v <= yTop; v += ystep) {
+      s += `<line class="grid" x1="${ml}" x2="${W - mr}" y1="${Y(v)}" y2="${Y(v)}"/><text class="tick" x="${ml - 8}" y="${Y(v) + 4}" text-anchor="end">${fmtInt(v)}</text>`;
     }
-    [10, 100, 1000, 10000, 100000].forEach(L => { s += `<line class="grid" y1="${mt}" y2="${H - mb}" x1="${X(L)}" x2="${X(L)}"/><text class="tick" x="${X(L)}" y="${H - mb + 18}" text-anchor="middle">${fmtInt(L)}</text>`; });
+    const xstep = niceStep(LMAX, 5);
+    const xticks = [LMIN]; for (let L = xstep; L <= LMAX; L += xstep) xticks.push(L);
+    xticks.forEach(L => { s += `<line class="grid" y1="${mt}" y2="${H - mb}" x1="${X(L)}" x2="${X(L)}"/><text class="tick" x="${X(L)}" y="${H - mb + 18}" text-anchor="middle">${fmtInt(L)}</text>`; });
     s += `<line class="ax" x1="${ml}" x2="${W - mr}" y1="${H - mb}" y2="${H - mb}"/>`;
-    s += `<text class="axlbl" x="${ml}" y="${mt - 6}">${esc(t(hab ? 'ato3.custos.ete.chart.yHab' : 'ato3.custos.ete.chart.yKg'))} (log)</text>`;
+    s += `<text class="axlbl" x="${ml}" y="${mt - 6}">${esc(t(hab ? 'ato3.custos.ete.chart.yHab' : 'ato3.custos.ete.chart.yKg'))}</text>`;
     s += `<text class="axlbl" x="${W - mr}" y="${H - 6}" text-anchor="end">${esc(t('ato3.custos.ete.chart.x'))}</text>`;
-    const N = 40, loads = Array.from({ length: N + 1 }, (_, i) => Math.pow(10, lx0 + (lx1 - lx0) * i / N));
-    const lab = levels.map((code, i) => ({ i, y: Y(f(100000, code)) }));
+    // amostragem mais densa perto da origem, onde a curva é mais íngreme
+    const N = 80, loads = Array.from({ length: N + 1 }, (_, i) => LMIN + (LMAX - LMIN) * Math.pow(i / N, 2));
+    const lab = levels.map((code, i) => ({ i, y: Y(f(LMAX, code)) }));
     for (let k = 1; k < lab.length; k++) if (lab[k].y - lab[k - 1].y < 13) lab[k].y = lab[k - 1].y + 13; // evita sobreposição dos rótulos
     levels.forEach((code, i) => {
       s += `<polyline class="ln" stroke="${COLORS.lvl[i]}" points="${loads.map(L => `${X(L)},${Y(f(L, code))}`).join(' ')}"/>`;
@@ -174,7 +175,7 @@
     wrap.innerHTML = s;
     const svg = wrap.querySelector('svg'), hit = svg.querySelector('.hit'), cross = svg.querySelector('#sp-ete-cross'), tip = tooltip(wrap);
     hit.addEventListener('mousemove', e => {
-      const p = svgPoint(svg, e); const L = Math.pow(10, lx0 + (p.x - ml) / (W - ml - mr) * (lx1 - lx0));
+      const p = svgPoint(svg, e); const L = Math.min(LMAX, Math.max(LMIN, LMIN + (p.x - ml) / (W - ml - mr) * (LMAX - LMIN)));
       cross.setAttribute('x1', p.x); cross.setAttribute('x2', p.x); cross.setAttribute('visibility', 'visible');
       tip.innerHTML = `<b>${fmtInt(L)} kg DBO₅/d</b>` + levels.map((c, i) => `<br><span style="color:${COLORS.lvl[i]}">●</span> ${esc(names[i])}: ${fmtInt(f(L, c))}`).join('');
       const r = svg.getBoundingClientRect(); tip.style.left = `${p.px}px`; tip.style.top = `${Math.max(90, p.py)}px`; tip.hidden = false;

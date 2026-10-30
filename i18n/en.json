@@ -1,3 +1,668 @@
 {
-  "_meta": { "lang": "en", "label": "EN", "status": "to translate: missing keys fall back to Portuguese" }
+  "_meta": {
+    "lang": "en",
+    "label": "EN",
+    "status": "translation v1"
+  },
+  "nav": {
+    "ato0": "Overview",
+    "ato1": "Data",
+    "ato2": "Spatial analysis",
+    "ato3": "SaniPLAN",
+    "ato4": "Results",
+    "lang": "Language",
+    "prev": "Previous slide",
+    "next": "Next slide"
+  },
+  "capa": {
+    "eyebrow": "National Sanitation Investment Plan",
+    "title": "PNI Sanitation<br>Dominican Republic",
+    "subtitle": "Investment estimate (CAPEX) to achieve universal urban wastewater collection and treatment by 2040, using spatial data analysis and the SaniPLAN model.",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "date": "2025",
+    "scroll": "Scroll to start",
+    "stat1": "10-ha hexagons analyzed",
+    "stat2": "municipal districts",
+    "stat3": "urban inhabitants (2022, adjusted)"
+  },
+  "ato0": {
+    "kicker": "Overview",
+    "title": "How much does it cost to achieve universal urban sanitation in the Dominican Republic?",
+    "s1": {
+      "title": "A model at the center",
+      "items": [
+        "<strong>SaniPLAN</strong> calculates the investment required to reach a coverage target.",
+        "<strong>Spatial data</strong> generate the parameters for each district.",
+        "The <strong>results</strong> show where the needs are and what they cost."
+      ]
+    },
+    "s2": {
+      "title": "We start with the data",
+      "items": [
+        "Censuses, satellite imagery, streets, buildings and network records.",
+        "Each source has a different level of aggregation.",
+        "Spatial analysis turns these sources into indicators by district."
+      ]
+    },
+    "node": {
+      "censo": "ONE censuses<br>2002 · 2010 · 2022",
+      "sat": "Satellite<br>imagery",
+      "ruas": "Streets<br>(OpenStreetMap)",
+      "edif": "Buildings<br>(Overture Maps)",
+      "cad": "Network records<br>and coverage",
+      "custos": "Unit costs<br>and targets",
+      "spatial": "Spatial analysis",
+      "saniplan": "Population, coverage and investment projection model",
+      "capex": "Investment<br>(CAPEX)",
+      "charts": "Projections<br>2024–2040",
+      "map": "Maps by<br>province",
+      "decide": "Project<br>prioritization"
+    },
+    "detail": {
+      "censo": "Total and urban population by municipal district in the last three censuses. Basis for the baseline and the projection to 2040.",
+      "sat": "Used to validate global population sources and to check urban areas that the census classifies as rural.",
+      "ruas": "Street length in each urban area. It is the proxy indicator for sewer network length per connection.",
+      "edif": "Footprint of each building (25 to 500 m²). Used to estimate households per connection and to correct the population distribution.",
+      "cad": "Areas served by existing networks (records and projects) and sewer coverage by province.",
+      "custos": "Reference costs for networks, connections, WWTPs, outfalls and on-site solutions. Targets: coverage % and year.",
+      "spatial": "10-ha hexagonal grid for the whole country. Each hexagon receives population, buildings and streets, and is then aggregated by district.",
+      "saniplan": "Excel spreadsheet that projects population and coverage year by year and calculates the CAPEX for collection, conveyance and treatment by district.",
+      "capex": "Total investment and investment per inhabitant, split between sewer network and treatment.",
+      "charts": "Annual evolution of the population served and of investment up to the target year.",
+      "map": "Results aggregated by province and region, the level with the best reliability.",
+      "decide": "Compare needs and costs across regions to rank programs and projects."
+    }
+  },
+  "ato1": {
+    "kicker": "",
+    "title": "The data required",
+    "lead": "A national plan depends on where people live, how the city is built and where service already exists.",
+    "problema": {
+      "title": "The problem with aggregated data",
+      "items": [
+        "Many plans use averages by municipality or by country.",
+        "An average hides where the population actually is.",
+        "Network costs depend on density and street layout, which vary within a single district."
+      ]
+    },
+    "grid": {
+      "title": "One value per district × a 100 m grid",
+      "items": [
+        "<strong>By district:</strong> the census population applies to the whole polygon, including empty areas.",
+        "<strong>By hexagon:</strong> the same population distributed across the hexagons where there are buildings.",
+        "The district total is preserved. What changes is knowing <strong>where</strong> people are."
+      ],
+      "toggleA": "By district",
+      "toggleB": "By hexagon"
+    },
+    "fontes": {
+      "title": "Sources and levels of aggregation",
+      "items": [
+        "Each dot shows the most detailed level at which the data exist.",
+        "Population is available at fine scale. Sewer coverage, only by province. Treatment, only as a national average.",
+        "The result is never more precise than the most aggregated data used in the calculation."
+      ],
+      "levels": [
+        "Building",
+        "100 m grid",
+        "10-ha hex",
+        "District",
+        "Province",
+        "Country"
+      ],
+      "rows": {
+        "edif": "Buildings (Overture Maps)",
+        "ruas": "Streets (OpenStreetMap)",
+        "ghs": "Modeled population (GHSL)",
+        "censo": "Population, ONE census 2022",
+        "cad": "Network records (11 districts)",
+        "cob": "Sewer coverage (ENHOGAR / Census)",
+        "trat": "Treated wastewater (UN estimate)",
+        "custos": "Reference unit costs"
+      },
+      "note": "Hollow dot = partial data (only in some districts).",
+      "dirFine": "← less aggregated · more detail",
+      "dirCoarse": "more aggregated · less detail →"
+    }
+  },
+  "ato2": {
+    "kicker": "",
+    "title": "Spatial analysis",
+    "lead": "From the country to the city block, and back to the district.",
+    "niveis": {
+      "title": "From the country to the district",
+      "items": [
+        "<strong>Country:</strong> 32 provinces, 393 municipal districts.",
+        "<strong>Province:</strong> the level at which sewer coverage data exist.",
+        "<strong>District:</strong> the level of the census and of the SaniPLAN parameters.",
+        "We will zoom in on <strong>Santo Domingo Este</strong>, in Santo Domingo province."
+      ]
+    },
+    "hex": {
+      "title": "Why a 10-ha hexagonal grid",
+      "items": [
+        "Same area everywhere in the country: indicators are comparable across places.",
+        "Hexagons have 6 equidistant neighbors, which makes it easier to detect urban continuity.",
+        "10 ha reduces the noise of point data and keeps sub-district detail.",
+        "<strong>486,526</strong> hexagons cover the country; <strong>1,311</strong> in Santo Domingo Este."
+      ],
+      "hint": "Click a hexagon to see its indicators."
+    },
+    "ghs": {
+      "title": "Correcting the modeled population",
+      "items": [
+        "The global grid (GHSL) sometimes places population in industrial or empty areas.",
+        "<strong>Red:</strong> population without buildings → population set to zero.",
+        "<strong>Blue:</strong> buildings without population → buildings × inhabitants per household.",
+        "The 2022 census population is then redistributed proportionally."
+      ]
+    },
+    "censo": {
+      "title": "An inconsistency in the census",
+      "items": [
+        "Between 2010 and 2022 the country's rural population grew by about <strong>550,000</strong>, against the urbanization trend.",
+        "In Santo Domingo Este, the rural population went from <strong>40,099</strong> to <strong>116,935</strong> (+192%).",
+        "<strong>Blue:</strong> official urban area. <strong>Amber:</strong> area that the census classifies as rural.",
+        "The imagery shows why: the area classified as rural has been urbanized."
+      ],
+      "swipe": "Drag the slider to compare 2010 and 2022",
+      "y2010": "2010 · Landsat 7",
+      "y2022": "2022 · Sentinel-2"
+    },
+    "reclass": {
+      "title": "Reclassifying what is already city",
+      "items": [
+        "<strong>Blue:</strong> official urban area (ONE, 2021).",
+        "<strong>Amber:</strong> hexagons with more than 100 buildings and at least 50% of neighbors built up.",
+        "In Santo Domingo Este: <strong>148</strong> hexagons, <strong>~100,000</strong> inhabitants and <strong>23,944</strong> buildings now count as urban.",
+        "Nationwide, the urban population considered is <strong>860,000</strong> above the census."
+      ],
+      "legOficial": "Official urban",
+      "legReclass": "Reclassified",
+      "legRural": "Rural"
+    },
+    "indic": {
+      "title": "Indicators by district",
+      "items": [
+        "<strong>Street meters per building:</strong> proxy indicator for meters of network per connection.",
+        "<strong>Families per building:</strong> indicator of households per connection (verticalization).",
+        "Calculated only in consolidated urban areas and filtered to remove extreme values.",
+        "These values feed into SaniPLAN for each district."
+      ],
+      "hint": "Click a district to see the values used in the model."
+    },
+    "cobertura": {
+      "title": "Current coverage",
+      "items": [
+        "Sewer coverage exists only by province (ENHOGAR 2021 / Census 2022).",
+        "Where network records exist, the population served was recalculated within the network area.",
+        "Coverage in the remaining districts is adjusted to preserve the province total.",
+        "Treatment: national average of ~50% of the wastewater collected."
+      ]
+    },
+    "hexsat": {
+      "title": "The hexagons over the 2022 imagery",
+      "items": [
+        "Each amber hexagon lies outside the official urban area but has more than 100 buildings and built-up neighbors.",
+        "On the imagery, the street and block pattern appears where the census records rural area.",
+        "The reclassification follows what is seen on the ground, not the administrative boundary."
+      ],
+      "hint": "Click a hexagon to see buildings, streets and population."
+    }
+  },
+  "ato3": {
+    "kicker": "",
+    "title": "SaniPLAN",
+    "lead": "Excel model to project population, coverage and investment from municipal or district data.",
+    "authors": "Model by Pery Nazareth. Application to the Dominican Republic and spatial analysis by Leonardo Nazareth.",
+    "subnav": {
+      "inicio": "< INICIO",
+      "config": "CONFIG",
+      "lb": "L. BASE",
+      "pob": "POB",
+      "calc": "CALC",
+      "result": "RESULTADOS",
+      "hint": "The buttons reproduce the spreadsheet's navigation bar and lead to each scene in this part."
+    },
+    "fluxo": {
+      "kicker": "",
+      "title": "Model flow",
+      "lead": "Four steps, always in the same order. Each district is a row; each year, a column.",
+      "cols": {
+        "in": {
+          "title": "Inputs",
+          "items": [
+            "List of municipalities or districts",
+            "Current population and previous censuses",
+            "Current collection and treatment coverage",
+            "Reference unit costs",
+            "Targets: coverage % and year",
+            "Adjustment parameters"
+          ]
+        },
+        "sub": {
+          "title": "Sub-models",
+          "items": [
+            "Year-by-year population projection",
+            "Redistribution of provincial coverage among districts",
+            "Unit costs adjusted by city size, construction difficulty and treatment level"
+          ]
+        },
+        "calc": {
+          "title": "Annual calculation",
+          "items": [
+            "2024 baseline → target, in equal steps",
+            "New households and inhabitants each year",
+            "Increment × unit cost = CAPEX for the year"
+          ]
+        },
+        "out": {
+          "title": "Results",
+          "items": [
+            "Population served by year",
+            "Coverage by year",
+            "CAPEX by component: network, connections, conveyance, treatment, minimum sanitary facilities"
+          ]
+        }
+      },
+      "prints": "The spreadsheet sheets",
+      "printsHint": "Click to enlarge.",
+      "shots": {
+        "inicio": "<INICIO>: project identification and modeling sequence",
+        "lb": "LB: baseline by district (population, coverage, targets)",
+        "calc": "CALC: parameters and unit costs by district",
+        "calc1": "CALC (zoom): collection network block",
+        "calc2": "CALC (zoom): treatment block",
+        "result": "<RESULT>: national summary and table by province"
+      },
+      "flow4": "Sequence diagram of the <INICIO> sheet: parameters → baseline and targets → coverage and investment calculation → results report.",
+      "lightboxClose": "Close"
+    },
+    "pob": {
+      "kicker": "",
+      "title": "Population projection",
+      "lead": "Five candidate curves per district. The choice depends on how many censuses exist and on the shape of the trend.",
+      "methods": {
+        "title": "Methods",
+        "items": [
+          "<strong>Logistic:</strong> grows toward a saturation population.",
+          "<strong>Decreasing rate:</strong> growth that slows over time.",
+          "<strong>Gompertz:</strong> asymmetric S-curve; the most used (374 districts).",
+          "<strong>Linear:</strong> constant increment per year.",
+          "<strong>Geometric:</strong> constant rate per year."
+        ]
+      },
+      "matrix": {
+        "title": "Selection matrix",
+        "intro": "The three censuses (2002, 2010, 2022) define the case; each case has an order of preference for the short and long term.",
+        "head": [
+          "Case",
+          "Population",
+          "Rate",
+          "Acceleration",
+          "Censuses",
+          "Short term",
+          "Long term"
+        ],
+        "rows": [
+          [
+            "1",
+            "increasing",
+            "positive",
+            "–",
+            "2",
+            "linear, Gompertz",
+            "linear"
+          ],
+          [
+            "2",
+            "increasing",
+            "positive",
+            "increasing",
+            "3",
+            "geometric, linear, logistic",
+            "Gompertz, linear"
+          ],
+          [
+            "3",
+            "increasing",
+            "positive",
+            "decreasing",
+            "3",
+            "linear, Gompertz, decreasing rate",
+            "logistic, Gompertz"
+          ],
+          [
+            "4",
+            "decreasing",
+            "negative",
+            "increasing",
+            "3",
+            "geometric, Gompertz",
+            "Gompertz"
+          ],
+          [
+            "5",
+            "decreasing",
+            "negative",
+            "decreasing",
+            "2",
+            "Gompertz, geometric",
+            "geometric, Gompertz"
+          ],
+          [
+            "6",
+            "decreasing",
+            "negative",
+            "–",
+            "2",
+            "Gompertz, geometric",
+            "geometric, linear"
+          ]
+        ],
+        "note": "Districts created after 2002 or 2010 have their population redistributed to the 2022 boundaries and use only two data points."
+      },
+      "calib": {
+        "title": "National calibration",
+        "items": [
+          "The sum of the districts was adjusted year by year to the official national projection (ONE).",
+          "Urbanization: 86.88% of the total population in 2040.",
+          "Baseline: <strong>8,875,227</strong> urban inhabitants in 2024."
+        ]
+      },
+      "chart": {
+        "select": "District",
+        "census": "Censuses (urban)",
+        "proj": "Projection",
+        "yAxis": "inhabitants",
+        "curve": "Curve",
+        "y2040": "2040",
+        "hint": "Hover over the chart to read the values.",
+        "mil": "k"
+      }
+    },
+    "custos": {
+      "kicker": "",
+      "title": "Unit costs",
+      "lead": "Reference costs loaded in the model and adjusted by district. Users can replace them with their own.",
+      "rede": {
+        "title": "Sewer network",
+        "items": [
+          "Two types: <strong>conventional (AC)</strong> and <strong>simplified (AE)</strong>.",
+          "Three levels of construction difficulty: low, medium, high. In the metropolitan district, always high.",
+          "Cost per connection = m of network per connection × $/m + house connection + transport factor (trunk sewers, pumping).",
+          "<strong>Densification (infill):</strong> 10% of new connections are served by the existing network (−10%).",
+          "<strong>m of network per connection</strong> and <strong>households per connection</strong> come from the spatial analysis (Part 2)."
+        ],
+        "tableTitle": "Reference costs (USD 2024)",
+        "head": [
+          "Difficulty",
+          "AC network $/m",
+          "AE network $/m",
+          "AC house conn. $/conn.",
+          "AE house conn. $/conn."
+        ],
+        "photoAC": "Conventional network: deep trenches, larger-diameter pipes.",
+        "photoAE": "Simplified (condominial) network: shallow, small-diameter pipes, short house connections.",
+        "desglose": "Breakdown of the unit cost per meter (services, materials, indirect costs), basis of the cost module."
+      },
+      "ete": {
+        "title": "Treatment",
+        "items": [
+          "Cost curve by load: $/kg BOD₅·day = 35,000 × load<sup>−0.303</sup>. The larger the plant, the lower the cost per kg.",
+          "Based on actual WWTP costs in Latin America and the Caribbean.",
+          "Four treatment levels, with a factor applied to the curve: primary ×0.25, basic ×0.60, intermediate ×1.00, advanced ×1.25.",
+          "Required BOD removal: 85–88% inland, 67–77% on the coast. It defines the level.",
+          "Per capita load: 40, 50 or 60 g BOD/inhab·day, by city size."
+        ],
+        "chart": {
+          "title": "WWTP cost curve",
+          "yKg": "USD per kg BOD₅·day",
+          "yHab": "USD per inhabitant",
+          "x": "load (kg BOD₅/day)",
+          "modeKg": "$/kg BOD",
+          "modeHab": "$/inhab.",
+          "levels": [
+            "Advanced",
+            "Intermediate",
+            "Basic",
+            "Primary"
+          ],
+          "gNote": "$/inhab. calculated with 50 g BOD/inhab·day.",
+          "hint": "Hover to read the values."
+        }
+      },
+      "emis": {
+        "title": "Submarine outfall",
+        "items": [
+          "Six coastal districts with more than 100,000 inhabitants: Puerto Plata, Bajos de Haina, La Romana, San Pedro de Macorís, Santo Domingo de Guzmán and Santo Domingo Este.",
+          "Length: 1,500 m (100,000–300,000 inhab.) or 3,000 m (above 300,000).",
+          "Cost per meter as a function of diameter, estimated from population; added to the WWTP cost per inhabitant."
+        ],
+        "photo": "Submarine outfall during installation."
+      },
+      "insitu": {
+        "title": "On-site solutions and minimum facilities",
+        "items": [
+          "<strong>On-site:</strong> containment (dry or flush toilet) and septic sludge treatment. Target = 100% sewered, so on-site sanitation is not included in the scenarios.",
+          "<strong>ISM (minimum household sanitary facilities):</strong> 19% of new connected households × USD 1,484.51, from 2025 to 2034.",
+          "Shown separately in the results: they are neither network nor treatment."
+        ]
+      },
+      "size": {
+        "title": "Size matters",
+        "lead": "The 2024 population defines the district's size band. The band defines construction difficulty, network cost, transport factor, per capita load and treatment level.",
+        "head": [
+          "Band",
+          "Population",
+          "Difficulty",
+          "AC network $/m",
+          "Transport factor",
+          "g BOD/inhab·day",
+          "Removal inland / coast",
+          "Districts"
+        ],
+        "note": "Difficulty and costs apply outside the metropolitan district (DOM-M: always high). Removal of 85/67% up to 11,001 inhabitants, 88/77% above."
+      },
+      "difLabels": {
+        "Bajo": "Low",
+        "Medio": "Medium",
+        "Alto": "High"
+      }
+    },
+    "sim": {
+      "kicker": "",
+      "title": "Try the model",
+      "lead": "JavaScript replica of the CALC and RESULTADOS sheets, with the spreadsheet's exact calculation chain. Change the yellow cells and the scenario in red; the rest is fixed.",
+      "legend": {
+        "input": "editable input",
+        "fixed": "fixed study data",
+        "scen": "scenario",
+        "out": "result"
+      },
+      "banner": [
+        "Support model for the preparation of a Sanitation Plan",
+        "Population Projection, Coverage and Estimate of Required Investment",
+        "Dominican Republic · urban"
+      ],
+      "sheetTitle": "CALCULATION BY DISTRICT",
+      "resultTitle": "SUMMARY OF RESULTS FOR THE SELECTION",
+      "tabCalc": "CALC",
+      "tabResult": "RESULTADOS",
+      "scen": {
+        "title": "Escenario Activo",
+        "pop": "Población",
+        "popV": "URBANO",
+        "type": "Tipo Alc",
+        "meta": "Meta de Cobertura (%)",
+        "year": "Año Meta",
+        "plazo": "Plazo (años)",
+        "base": "Línea de Base (año)",
+        "AC": "AC · conventional",
+        "AE": "AE · simplified"
+      },
+      "search": {
+        "label": "Add district",
+        "placeholder": "District or province name…",
+        "max": "Maximum of 8 districts.",
+        "none": "No district found."
+      },
+      "restore": "Restore study values",
+      "remove": "Remove",
+      "cols": {
+        "n": "n",
+        "name": "District",
+        "prov": "Province",
+        "pop0": "Pop 2024 (inhab.)",
+        "popH": "Pop target year (inhab.)",
+        "habDom": "inhab./hh",
+        "rng": "Band",
+        "diff": "Difficulty",
+        "covAlc": "Current collection cov. (%)",
+        "covTar": "Current treatment cov. (%)",
+        "mConn": "m network / connection",
+        "domConn": "hh / connection",
+        "costM": "$/m network",
+        "costRam": "$/conn. house conn.",
+        "fT": "Transport factor",
+        "costDom": "$/hh",
+        "popRef": "WWTP ref. pop.",
+        "load": "kg BOD/d",
+        "level": "Treatment level",
+        "costHab": "$/inhab. treatment",
+        "capexAlc": "Network CAPEX ($)",
+        "capexTar": "Treatment CAPEX ($)",
+        "capexTot": "Total CAPEX ($)",
+        "usdHab": "$/inhab.",
+        "sum": "Σ selection"
+      },
+      "levels": {
+        "1": "1 Avanzado",
+        "2": "2 Intermedio",
+        "3": "3 Básico",
+        "4": "4 Primario"
+      },
+      "cuadro": {
+        "title": "Cuadro Síntesis · Inversión Estimada (CAPEX $)",
+        "red": "(I) SANEAMIENTO tipo RED",
+        "alc": "ALCANTARILLADO",
+        "tar": "PTAR + emisario",
+        "insitu": "(II) SANEAMIENTO tipo IN-SITU",
+        "ism": "(III) ISM",
+        "total": "Σ SIST. SANEAMIENTO",
+        "pop": "Población adicional con red (hab)",
+        "usdHab": "CAPEX red / hab adicional ($)"
+      },
+      "chart": {
+        "title": "CAPEX by year",
+        "district": "District",
+        "alc": "Network",
+        "tar": "Treatment",
+        "y": "USD million",
+        "cov": "coverage"
+      },
+      "check": {
+        "ok": "With the study values, the results match the spreadsheet (maximum relative error {err}).",
+        "bad": "Warning: the check against the spreadsheet found a deviation of {err}."
+      },
+      "note": "Target applied equally to collection and treatment. Time horizon = target year − 2024. Unit costs, population band and WWTP load are defined by the 2024 population, as in the spreadsheet. Values in 2024 USD."
+    },
+    "res": {
+      "kicker": "",
+      "title": "Model results",
+      "items": [
+        "Coverage, population served and investment <strong>by year</strong>, from 2025 to the target year.",
+        "Calculated <strong>by district</strong> and aggregable by province and region, the level with the best reliability.",
+        "Separated by component: network, treatment, minimum facilities. This is what Part 4 presents."
+      ],
+      "next": "View the results"
+    },
+    "submod": {
+      "kicker": "Sub-modules",
+      "title": "Two sub-modules feed SaniPLAN",
+      "lead": "They are independent spreadsheets. They run before the model and deliver two baseline inputs to it: the projected population of each district and the unit costs adjusted to the country and to the population band."
+    }
+  },
+  "ato4": {
+    "kicker": "",
+    "title": "Results 2040",
+    "lead": "Investment to serve 90% or 100% of the urban population with sewer collection and treatment by 2040. Choose the scenario and the indicator; click a province to see the detail.",
+    "ctl": {
+      "meta": "Coverage target",
+      "tipo": "Network type",
+      "AE": "Simplified",
+      "AC": "Conventional",
+      "indic": "Map indicator"
+    },
+    "u": {
+      "mi": "M USD",
+      "usdhab": "USD/inhab.",
+      "mihab": "M inhab."
+    },
+    "k": {
+      "total": "Total investment (network + treatment)",
+      "hab": "Cost per inhabitant served",
+      "alc": "Sewer network",
+      "tar": "Treatment",
+      "pop": "Population to be served",
+      "ism": "Does not include minimum in-house sanitary facilities, estimated at"
+    },
+    "ind": {
+      "capex": "Total investment",
+      "capex_hab": "Investment per inhabitant",
+      "capex_alc": "Sewer network investment",
+      "capex_tar": "Treatment investment",
+      "inc_alc": "Population to be connected to the network",
+      "cov_alc": "Current collection coverage",
+      "cov_tar": "Current treatment coverage",
+      "pob24": "Urban population 2024",
+      "pob40": "Urban population 2040",
+      "n_dm": "Municipal districts",
+      "m_conex": "Network length per connection"
+    },
+    "d": {
+      "reg": "Region",
+      "ndm": "Municipal districts"
+    },
+    "hint": "Click a province on the map or in the list to see the detail.",
+    "note": "March 2025 values (ENR cost index). CAPEX for sewer network (connections, network, conveyance) and treatment (WWTPs and outfalls). Cost per inhabitant = investment ÷ additional population served with collection and treatment. Results are more reliable by province and region than by district."
+  },
+  "creditos": {
+    "title": "Authors",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "sources": "Sources: ONE (censuses 2002, 2010, 2022; ENHOGAR 2021), INAPA, GHSL/Copernicus, OpenStreetMap, Overture Maps, Landsat 7 (USGS), Sentinel-2 (ESA)."
+  },
+  "map": {
+    "pop": "Population (2022 census, distributed)",
+    "popShort": "inhab.",
+    "edif": "Buildings",
+    "ruas": "Streets",
+    "mEdif": "m of street per building",
+    "habEdif": "inhab. per building",
+    "ghs": "GHSL population (original)",
+    "ghsAdj": "GHSL population (corrected)",
+    "cls": "Class",
+    "clsOficial": "Official urban",
+    "clsReclass": "Reclassified as urban",
+    "clsRural": "Rural",
+    "flagPop": "Population without buildings",
+    "flagEdif": "Buildings without population",
+    "dmPop": "Adjusted urban population",
+    "dmPopOne": "Urban population (ONE)",
+    "dmMconex": "Network length per connection",
+    "dmDomconex": "Households per connection",
+    "dmCov": "Current sewer coverage",
+    "dmPob40": "Urban population 2040",
+    "provCov": "Sewer coverage (province)",
+    "prov": "Province",
+    "close": "Close",
+    "clsRuralOficial": "Official rural (ONE)",
+    "urbanLabel": "URBAN",
+    "ruralLabel": "RURAL"
+  },
+  "ui": {
+    "more": "Learn more",
+    "less": "Less",
+    "building": "Under construction"
+  }
 }

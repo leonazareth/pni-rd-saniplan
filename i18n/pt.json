@@ -419,7 +419,7 @@
           "title": "Curva de custo da ETE",
           "yKg": "USD por kg DBO₅·dia",
           "yHab": "USD por habitante",
-          "x": "carga (kg DBO₅/dia, escala log)",
+          "x": "carga (kg DBO₅/dia)",
           "modeKg": "$/kg DBO",
           "modeHab": "$/hab",
           "levels": [
