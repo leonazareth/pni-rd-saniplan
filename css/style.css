@@ -72,11 +72,18 @@ strong { color: #fff; font-weight: 600; }
 .eyebrow, .kicker { font: 500 12px/1.3 var(--f-data); letter-spacing: .14em; text-transform: uppercase; color: var(--reclass); margin: 0 0 14px; }
 .capa h1 { font-size: clamp(44px, 8vw, 104px); line-height: .92; font-weight: 800; font-stretch: 78%; letter-spacing: -.01em; text-transform: uppercase; }
 .capa-sub { max-width: 58ch; font-size: clamp(16px, 1.6vw, 19px); color: var(--muted); margin: 24px 0 32px; }
-.capa-stats { display: flex; flex-wrap: wrap; gap: 16px 48px; margin: 0 0 32px; }
+.capa-stats { display: flex; flex-wrap: wrap; gap: 16px 48px; margin: 0 0 40px; }
 .capa-stats div { display: grid; gap: 2px; }
 .capa-stats dt { font-size: clamp(26px, 3.4vw, 40px); font-weight: 500; color: #fff; }
 .capa-stats dd { margin: 0; font-size: 13px; color: var(--muted); max-width: 22ch; }
-.capa-authors { font: 600 15px/1.4 var(--f-display); letter-spacing: .02em; margin: 0 0 40px; }
+/* canto inferior direito, abaixo do mapa: autores e a pergunta central do estudo */
+.capa-right { position: absolute; right: var(--gutter-r); bottom: 56px; display: grid; justify-items: end; gap: 22px; text-align: right; }
+.capa-authors { margin: 0; padding-right: 22px; font: 700 clamp(18px, 1.7vw, 24px)/1.2 var(--f-display); font-stretch: 85%; letter-spacing: .01em; color: var(--reclass); }
+.capa-question { max-width: 28ch; text-wrap: balance; margin: 0; padding-right: 18px; border-right: 4px solid var(--reclass); font: 700 clamp(22px, 2.3vw, 34px)/1.15 var(--f-display); font-stretch: 85%; color: #fff; }
+@media (max-width: 899px) {
+  .capa-right { position: static; justify-items: start; text-align: left; margin-top: 8px; }
+  .capa-question { max-width: none; padding: 0 0 0 16px; border-right: 0; border-left: 4px solid var(--reclass); }
+}
 .scroll-cue { display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--f-data); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
 .scroll-cue::after { content: ""; width: 1px; height: 28px; background: currentColor; animation: cue 2s ease-in-out infinite; }
 @keyframes cue { 50% { transform: translateY(6px); opacity: .4; } }
@@ -108,9 +115,7 @@ strong { color: #fff; font-weight: 600; }
 .note { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
 
 /* diagrama (ato 0) ----------------------------------------------------- */
-.scrolly--diagram .sticky { display: grid; grid-template-rows: auto 1fr; padding-block: 24px 16px; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
-.diagram-head { position: relative; z-index: 3; width: 100%; padding-left: calc(var(--band-w) + 90px); }
-.diagram-head h2 { font-size: clamp(22px, 2.6vw, 34px); line-height: 1.1; font-weight: 700; font-stretch: 85%; max-width: 30ch; }
+.scrolly--diagram .sticky { display: grid; grid-template-rows: minmax(0, 1fr); padding-block: 24px 16px; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
 .diagram { position: relative; min-height: 0; display: grid; place-items: center; }
 .dg-stage { position: relative; width: min(1000px, 100%); aspect-ratio: 1000 / 560; max-height: 100%; transform-origin: 0 50%; transition: transform .9s cubic-bezier(.6,0,.2,1); container-type: inline-size; }
 @media (min-width: 900px) { .diagram { place-items: center end; } .dg-stage { width: min(1000px, calc(100% - var(--band-w) - 60px)); } }
@@ -143,7 +148,6 @@ strong { color: #fff; font-weight: 600; }
 .xl-grid .in { background: var(--xl-input); text-align: right; }
 .xl-grid .r { text-align: right; }
 .xl-grid .tot { color: var(--xl-red); font-weight: 700; text-align: right; }
-.diagram-head { transition: opacity .6s; }
 .diagram[data-focus="inputs"] .dg-node:not(.in):not(.spatial) { opacity: .3; }
 .diagram[data-focus="inputs"] .dg-node.in .ico, .diagram[data-focus="inputs"] .dg-node.spatial .ico { border-color: currentColor; box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 18%, transparent); }
 .dg-node .ico { transition: transform .2s, border-color .4s, box-shadow .4s; }
@@ -152,9 +156,6 @@ strong { color: #fff; font-weight: 600; }
 .dg-pop { position: absolute; right: 0; bottom: 0; width: min(360px, 100%); background: var(--ink-3); border: 1px solid var(--line); border-radius: 4px; padding: 14px 16px; font-size: 14px; color: #c9d3da; z-index: 4; }
 .dg-pop p { margin: 0; }
 .dg-pop-title { font: 600 15px/1.2 var(--f-display); color: #fff; margin-bottom: 6px !important; }
-@media (max-width: 899px) {
-  .diagram-head { padding-left: 0; }
-}
 
 /* mapa ------------------------------------------------------------------ */
 #map { position: absolute; inset: 0; background: var(--ink); }

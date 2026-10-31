@@ -32,7 +32,8 @@ function observeSteps() {
   const handlers = { ato0: id => DIAGRAM.setStep(id), mapstory: id => MAPSTORY.setStep(id) };
   const groups = [...document.querySelectorAll('.scrolly')].map(sec => ({ id: sec.id, steps: [...sec.querySelectorAll('.step')], active: null }));
   const nav = [...document.querySelectorAll('.acts a')];
-  const acts = ['ato0', 'ato1', 'ato2', 'ato3', 'ato4'].map(id => document.getElementById(id)).filter(Boolean);
+  const acts = ['intro', 'ato0', 'ato1', 'ato2', 'ato3', 'ato4'].map(id => document.getElementById(id)).filter(Boolean);
+  const navOf = { ato0: 'intro' }; // abertura e diagrama formam a "Visão geral"
   let queued = false;
 
   function update() {
@@ -54,7 +55,7 @@ function observeSteps() {
     // ato atual na barra superior: o último cujo topo já passou do meio da tela
     let cur = null;
     acts.forEach(el => { if (el.getBoundingClientRect().top <= mid) cur = el.id; });
-    nav.forEach(a => a.classList.toggle('on', a.getAttribute('href') === `#${cur}`));
+    nav.forEach(a => a.classList.toggle('on', a.getAttribute('href') === `#${navOf[cur] || cur}`));
   }
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
   window.addEventListener('scroll', schedule, { passive: true });
@@ -62,10 +63,10 @@ function observeSteps() {
   update();
 }
 
-/* Botões ‹ › da barra superior: percorrem os "slides" (capa, cada passo das
-   cenas com mapa/diagrama, cada bloco do Ato 3, resultados e créditos). */
+/* Botões ‹ › da barra superior: percorrem os "slides" (capa, abertura, cada passo
+   das cenas com mapa/diagrama, cada bloco do Ato 3, resultados e créditos). */
 function pager() {
-  const targets = [...document.querySelectorAll('#capa, .scrolly .step, #ato3 .sp-head, #ato3 .sp-submod-head, #ato3 .sp-scene, #ato4, .credits')];
+  const targets = [...document.querySelectorAll('#capa, #intro .sp-scene, .scrolly .step, #ato3 .sp-head, #ato3 .sp-submod-head, #ato3 .sp-scene, #ato4, .credits')];
   const prev = document.getElementById('pg-prev'), next = document.getElementById('pg-next'), pos = document.getElementById('pg-pos');
   const isStep = el => el.classList.contains('step');
   const topbar = () => document.querySelector('.topbar').offsetHeight;
@@ -109,8 +110,7 @@ function pager() {
 (async function main() {
   await I18N.set(I18N.initial());
   renderLadder();
-  I18N.onChange(renderLadder);
-  CAPA.draw();
+  I18N.onChange(renderLadder);  CAPA.draw();
   DIAGRAM.init();
   MAPSTORY.init();
   RESULTS.init();

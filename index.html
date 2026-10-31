@@ -18,7 +18,7 @@
 <header class="topbar">
   <a class="brand" href="#capa"><span class="brand-mark" aria-hidden="true"></span><span>PNI Saneamento · RD</span></a>
   <nav class="acts" aria-label="Seções">
-    <a href="#ato0" data-i18n="nav.ato0">Visão geral</a>
+    <a href="#intro" data-i18n="nav.ato0">Visão geral</a>
     <a href="#ato1" data-i18n="nav.ato1">Dados</a>
     <a href="#ato2" data-i18n="nav.ato2">Análise espacial</a>
     <a href="#ato3" data-i18n="nav.ato3">SaniPLAN</a>
@@ -44,12 +44,85 @@
     <h1 data-i18n-html="capa.title">PNI Saneamento<br>República Dominicana</h1>
     <p class="capa-sub" data-i18n="capa.subtitle"></p>
     <dl class="capa-stats">
-      <div><dt class="num" data-count="486526">486.526</dt><dd data-i18n="capa.stat1"></dd></div>
       <div><dt class="num" data-count="393">393</dt><dd data-i18n="capa.stat2"></dd></div>
       <div><dt class="num" data-count="8660698" data-format="mi">8,66 mi</dt><dd data-i18n="capa.stat3"></dd></div>
     </dl>
-    <p class="capa-authors"><span data-i18n="capa.authors">Pery Nazareth · Leonardo Nazareth</span> · <span data-i18n="capa.date">2025</span></p>
-    <a class="scroll-cue" href="#ato0" data-i18n="capa.scroll">Role para começar</a>
+    <a class="scroll-cue" href="#intro" data-i18n="capa.scroll">Role para começar</a>
+    <div class="capa-right">
+      <p class="capa-authors" data-i18n="capa.authors">Pery Nazareth · Leonardo Nazareth</p>
+      <p class="capa-question" data-i18n="ato0.title"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ABERTURA · as cinco ideias do SaniPLAN (Pery Nazareth), uma por slide ---- -->
+<section id="intro" class="act act--intro">
+  <div class="act-inner act-inner--wide sp">
+
+    <!-- 1 · o que faz -->
+    <article class="sp-scene in-scene" id="in-faz">
+      <p class="kicker" data-i18n="intro.faz.k"></p>
+      <h3 data-i18n="intro.faz.title"></h3>
+      <p class="sp-io-label" data-i18n="intro.faz.outLabel"></p>
+      <ul class="sp-outs">
+        <li class="sp-out"><span class="sp-pic sp-pic--trend"></span><span class="sp-out-sym">%</span><h4 data-i18n="intro.faz.outs.cob.title"></h4><p data-i18n="intro.faz.outs.cob.text"></p></li>
+        <li class="sp-out"><span class="sp-pic sp-pic--people"></span><span class="sp-out-sym">hab</span><h4 data-i18n="intro.faz.outs.pop.title"></h4><p data-i18n="intro.faz.outs.pop.text"></p></li>
+        <li class="sp-out"><span class="sp-pic sp-pic--coins"></span><span class="sp-out-sym">$</span><h4 data-i18n="intro.faz.outs.capex.title"></h4><p data-i18n="intro.faz.outs.capex.text"></p></li>
+      </ul>
+    </article>
+
+    <!-- 2 · tipo de saneamento -->
+    <article class="sp-scene in-scene" id="in-tipo">
+      <p class="kicker" data-i18n="intro.tipo.k"></p>
+      <h3 data-i18n="intro.tipo.title"></h3>
+      <div class="in-or-grid">
+        <div class="in-card">
+          <h4 data-i18n-html="intro.tipo.rede.t"></h4>
+          <ul class="sp-list" data-i18n-list="intro.tipo.rede.items"></ul>
+          <div class="in-photos">
+            <figure><img src="img/saniplan/obra_ac.jpg" alt="" loading="lazy"></figure>
+          </div>
+        </div>
+        <span class="in-or" data-i18n="intro.or"></span>
+        <div class="in-card">
+          <h4 data-i18n-html="intro.tipo.insitu.t"></h4>
+          <ul class="sp-list" data-i18n-list="intro.tipo.insitu.items"></ul>
+          <div class="in-photos">
+            <figure class="in-photo--diagram"><img src="img/saniplan/latrina_vip.jpg" alt="" loading="lazy"><figcaption data-i18n="intro.tipo.photoLatrina"></figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3 · o que define o investimento -->
+    <article class="sp-scene in-scene" id="in-fatores">
+      <p class="kicker" data-i18n="intro.fatores.k"></p>
+      <h3 data-i18n="intro.fatores.title"></h3>
+      <ul class="in-factors">
+        <li class="in-card"><h4 data-i18n="intro.fatores.tec.t"></h4><ul class="sp-list" data-i18n-list="intro.fatores.tec.items"></ul></li>
+        <li class="in-card"><h4 data-i18n="intro.fatores.local.t"></h4><ul class="sp-list" data-i18n-list="intro.fatores.local.items"></ul></li>
+        <li class="in-card"><h4 data-i18n="intro.fatores.custo.t"></h4><ul class="sp-list in-costs" data-i18n-list="intro.fatores.custo.items"></ul></li>
+      </ul>
+      <p class="in-costnote" data-i18n-html="intro.fatores.costNote"></p>
+    </article>
+
+    <!-- 4 · República Dominicana: análise espacial -->
+    <article class="sp-scene in-scene" id="in-rd">
+      <p class="kicker in-k--rd" data-i18n="intro.rd.k"></p>
+      <h3 data-i18n="intro.rd.title"></h3>
+      <div class="in-rd">
+        <div>
+          <p class="in-rd-lead" data-i18n="intro.rd.lead"></p>
+          <ul class="in-rd-list" data-i18n-list="intro.rd.items"></ul>
+        </div>
+        <dl class="in-rd-stats">
+          <div><dt class="num">486.526</dt><dd data-i18n="intro.rd.stat1"></dd></div>
+          <div><dt class="num">393</dt><dd data-i18n="intro.rd.stat2"></dd></div>
+        </dl>
+      </div>
+      <p class="in-note" data-i18n="intro.rd.next"></p>
+    </article>
+
   </div>
 </section>
 
@@ -57,10 +130,6 @@
 <section id="ato0" class="scrolly scrolly--diagram">
   <div class="sticky">
     <div class="band" aria-hidden="true"></div>
-    <div class="diagram-head">
-      <p class="kicker" data-i18n="ato0.kicker"></p>
-      <h2 data-i18n="ato0.title"></h2>
-    </div>
     <div class="diagram" id="diagram">
       <div class="dg-stage" id="dg-stage">
         <svg class="dg-wires" id="dg-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true"></svg>
@@ -206,11 +275,10 @@
       <p class="kicker" data-i18n="ato3.kicker"></p>
       <h2 data-i18n="ato3.title"></h2>
       <p class="lead" data-i18n="ato3.lead"></p>
-      <p class="sp-authors" data-i18n="ato3.authors"></p>
       <nav class="sp-xlnav" aria-label="SaniPLAN">
         <span class="sp-xlnav-banner"><span class="sp-xllogo">san<b>i</b>plan</span></span>
         <span class="sp-xlnav-btns">
-          <a href="#sp-fluxo" data-i18n="ato3.subnav.inicio"></a>
+          <a href="#sp-precisa" data-i18n="ato3.subnav.inicio"></a>
           <a href="#sp-custos" data-i18n="ato3.subnav.config"></a>
           <a href="#sp-fluxo" data-i18n="ato3.subnav.lb"></a>
           <a href="#sp-pob" data-i18n="ato3.subnav.pob"></a>
@@ -220,6 +288,20 @@
       </nav>
       <p class="sp-hint" data-i18n="ato3.subnav.hint"></p>
     </header>
+
+    <!-- o que o modelo precisa (slide 5 da apresentação BID) ---------------- -->
+    <article class="sp-scene" id="sp-precisa">
+      <h3 data-i18n="ato3.precisa.title"></h3>
+      <p class="sp-lead" data-i18n="ato3.precisa.lead"></p>
+      <ul class="sp-needs">
+        <li class="sp-need"><span class="sp-need-vis"><span class="sp-pic sp-pic--list"></span></span><h4 data-i18n="ato3.precisa.items.lista.title"></h4><p data-i18n="ato3.precisa.items.lista.text"></p></li>
+        <li class="sp-need"><span class="sp-need-vis"><span class="sp-pic sp-pic--people"></span></span><h4 data-i18n="ato3.precisa.items.pop.title"></h4><p data-i18n="ato3.precisa.items.pop.text"></p></li>
+        <li class="sp-need"><span class="sp-need-vis sp-need-sym">%</span><h4 data-i18n="ato3.precisa.items.cob.title"></h4><p data-i18n="ato3.precisa.items.cob.text"></p></li>
+        <li class="sp-need"><span class="sp-need-vis sp-need-sym">$/un</span><h4 data-i18n="ato3.precisa.items.custo.title"></h4><p data-i18n="ato3.precisa.items.custo.text"></p></li>
+        <li class="sp-need"><span class="sp-need-vis sp-need-sym" data-i18n="ato3.precisa.units.meta"></span><h4 data-i18n="ato3.precisa.items.meta.title"></h4><p data-i18n="ato3.precisa.items.meta.text"></p></li>
+        <li class="sp-need"><span class="sp-need-vis"><span class="sp-pic sp-pic--wrench"></span></span><h4 data-i18n="ato3.precisa.items.param.title"></h4><p data-i18n="ato3.precisa.items.param.text"></p></li>
+      </ul>
+    </article>
 
     <!-- cena 11 · fluxo do modelo ---------------------------------------- -->
     <article class="sp-scene" id="sp-fluxo">
@@ -299,13 +381,6 @@
           <div class="sp-svgwrap" id="sp-pob-svg"></div>
           <p class="sp-chart-foot"><span id="sp-pob-curve"></span> <span class="sp-muted" data-i18n="ato3.pob.chart.hint"></span></p>
         </div>
-      </div>
-
-      <div class="sp-matrix">
-        <h4 data-i18n="ato3.pob.matrix.title"></h4>
-        <p class="sp-muted" data-i18n="ato3.pob.matrix.intro"></p>
-        <div class="sp-tablewrap"><table class="sp-table" id="sp-matrix"></table></div>
-        <p class="note" data-i18n="ato3.pob.matrix.note"></p>
       </div>
     </article>
 

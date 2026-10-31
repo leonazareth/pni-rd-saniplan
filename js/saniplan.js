@@ -38,12 +38,7 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) close(); });
   }
 
-  /* ---------------------------------------------------------- tabelas (cena 12/13) */
-  function renderMatrix() {
-    const el = $('sp-matrix'); if (!el) return;
-    const head = T('ato3.pob.matrix.head') || [], rows = T('ato3.pob.matrix.rows') || [];
-    el.innerHTML = `<thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td class="${i >= 5 ? 'sp-wrap' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>`;
-  }
+  /* ------------------------------------------------------------- tabelas (cena 13) */
   function renderRedeTable() {
     const el = $('sp-redetable'); if (!el || !data) return;
     const uc = data.tables.alcUnitCosts.DOM, head = T('ato3.custos.rede.head') || [];
@@ -389,13 +384,13 @@
     document.querySelectorAll('#ato3 [data-i18n-placeholder]').forEach(el => { const v = T(el.dataset.i18nPlaceholder); if (typeof v === 'string') el.placeholder = v; });
   }
   function renderAll() {
-    applyPlaceholders(); renderMatrix(); renderRedeTable(); renderSizeTable(); renderPobChart(); renderEteChart();
+    applyPlaceholders(); renderRedeTable(); renderSizeTable(); renderPobChart(); renderEteChart();
     if ($('sp-sheet') && data) { selfCheck(); renderSim(); }
   }
   async function init() {
     if (!document.getElementById('ato3')) return;
     initLightbox();
-    applyPlaceholders(); renderMatrix();
+    applyPlaceholders();
     try {
       [data, hist] = await Promise.all([DATA.get(SIM_URL), DATA.get(HIST_URL).catch(() => null)]);
     } catch (e) { console.error('SaniPLAN: dados não carregados', e); return; }

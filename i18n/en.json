@@ -23,7 +23,89 @@
     "scroll": "Scroll to start",
     "stat1": "10-ha hexagons analyzed",
     "stat2": "municipal districts",
-    "stat3": "urban inhabitants (2022, adjusted)"
+    "stat3": "adjusted urban population (2022)"
+  },
+  "intro": {
+    "or": "or",
+    "faz": {
+      "k": "What it does",
+      "title": "SaniPLAN estimates the investment in safely managed sanitation required to reach coverage targets set by the user.",
+      "outLabel": "Outputs",
+      "outs": {
+        "cob": { "title": "Service coverage", "text": "Share of the population with safely managed sanitation at the end of the plan." },
+        "pop": { "title": "Population served", "text": "Inhabitants served by safely managed sanitation." },
+        "capex": { "title": "Required investment (CAPEX)", "text": "Total investment required to reach the coverage targets." }
+      }
+    },
+    "tipo": {
+      "k": "Type of sanitation",
+      "title": "The model works with sanitation based on sewer networks or on on-site containment.",
+      "rede": {
+        "t": "<b class=\"in-hl\">Sewered</b> sanitation",
+        "items": [
+          "Conventional or simplified network, with house connections.",
+          "Conveyance of wastewater to the treatment plant (WWTP).",
+          "Treatment at four levels, from primary to advanced, and submarine outfall."
+        ]
+      },
+      "insitu": {
+        "t": "Sanitation with <b class=\"in-hl\">on-site containment</b>",
+        "items": [
+          "Dry or water-flush toilet, with containment on the plot.",
+          "Collection and treatment of septic sludge."
+        ]
+      },
+      "photoLatrina": "Ventilated improved pit latrine (VIP). Source: Tilley et al., Compendium of Sanitation Systems and Technologies, 2nd ed. (Eawag, 2014)."
+    },
+    "fatores": {
+      "k": "What drives the investment",
+      "title": "The investment (CAPEX) is calculated from the adopted technology standard, local characteristics and reference unit costs.",
+      "tec": {
+        "t": "Technology standard",
+        "items": [
+          "Network type: conventional or simplified",
+          "Treatment level: primary, basic, intermediate or advanced",
+          "Submarine outfall"
+        ]
+      },
+      "local": {
+        "t": "Local characteristics",
+        "items": [
+          "City size",
+          "Construction difficulty",
+          "Network length per connection",
+          "Households per connection",
+          "Inland or coastal"
+        ]
+      },
+      "custo": {
+        "t": "Reference unit costs",
+        "items": [
+          "Network <span class=\"in-u\">$/m</span>",
+          "Connections <span class=\"in-u\">$/unit</span>",
+          "Conveyance <span class=\"in-u\">% $</span>",
+          "Treatment per BOD load <span class=\"in-u\">$/BOD</span>",
+          "Submarine outfall <span class=\"in-u\">$/m</span>",
+          "On-site <span class=\"in-u\">$/unit</span>"
+        ]
+      },
+      "costNote": "<span class=\"in-l\">The model comes preloaded with reference unit costs.</span><span class=\"in-l\">Users can keep them to make their work easier, or apply their own reference costs.</span>"
+    },
+    "rd": {
+      "k": "In the Dominican Republic",
+      "title": "For the Dominican Republic, the study used spatial data analysis to feed the model.",
+      "lead": "Censuses, satellite imagery, streets and buildings were combined on a hexagon grid covering the whole country and aggregated by district. This yields parameters that the model would otherwise have to assume:",
+      "items": [
+        "Network length per connection",
+        "Households per connection",
+        "Corrected distribution of the urban population",
+        "Population densities",
+        "Areas already served by sewers"
+      ],
+      "stat1": "10-ha hexagons",
+      "stat2": "municipal districts",
+      "next": "Next: how the data and the model fit together."
+    }
   },
   "ato0": {
     "kicker": "Overview",
@@ -66,9 +148,9 @@
       "cad": "Areas served by existing networks (records and projects) and sewer coverage by province.",
       "custos": "Reference costs for networks, connections, WWTPs, outfalls and on-site solutions. Targets: coverage % and year.",
       "spatial": "10-ha hexagonal grid for the whole country. Each hexagon receives population, buildings and streets, and is then aggregated by district.",
-      "saniplan": "Excel spreadsheet that projects population and coverage year by year and calculates the CAPEX for collection, conveyance and treatment by district.",
+      "saniplan": "Excel spreadsheet that projects population and coverage up to the target year and calculates the CAPEX for collection, conveyance and treatment by district.",
       "capex": "Total investment and investment per inhabitant, split between sewer network and treatment.",
-      "charts": "Annual evolution of the population served and of investment up to the target year.",
+      "charts": "Population served, coverage and total investment up to the target year.",
       "map": "Results aggregated by province and region, the level with the best reliability.",
       "decide": "Compare needs and costs across regions to rank programs and projects."
     }
@@ -214,7 +296,6 @@
     "kicker": "",
     "title": "SaniPLAN",
     "lead": "Excel model to project population, coverage and investment from municipal or district data.",
-    "authors": "Model by Pery Nazareth. Application to the Dominican Republic and spatial analysis by Leonardo Nazareth.",
     "subnav": {
       "inicio": "< INICIO",
       "config": "CONFIG",
@@ -223,6 +304,19 @@
       "calc": "CALC",
       "result": "RESULTADOS",
       "hint": "The buttons reproduce the spreadsheet's navigation bar and lead to each scene in this part."
+    },
+    "precisa": {
+      "title": "What the model needs",
+      "lead": "Six groups of information feed the model. With them, the spreadsheet computes everything shown in the next scenes.",
+      "items": {
+        "lista": { "title": "List of municipalities or districts", "text": "The unit of calculation: each one is a row in the spreadsheet." },
+        "pop": { "title": "Existing and projected population", "text": "Censuses and current population; the POB sub-model projects year by year." },
+        "cob": { "title": "Existing sanitation coverage", "text": "Wastewater collection and treatment at baseline." },
+        "custo": { "title": "Unit implementation costs", "text": "Network, connections, conveyance and treatment, by size and difficulty." },
+        "meta": { "title": "Coverage targets", "text": "Percentage to reach and target year." },
+        "param": { "title": "Adjustment parameters", "text": "Regional factors, sanitation type and treatment level." }
+      },
+      "units": { "meta": "% · years" }
     },
     "fluxo": {
       "kicker": "",
@@ -249,18 +343,17 @@
           ]
         },
         "calc": {
-          "title": "Annual calculation",
+          "title": "Calculation",
           "items": [
             "2024 baseline → target, in equal steps",
-            "New households and inhabitants each year",
-            "Increment × unit cost = CAPEX for the year"
+            "Households and inhabitants to be served",
+            "Increment × unit cost = CAPEX"
           ]
         },
         "out": {
           "title": "Results",
           "items": [
-            "Population served by year",
-            "Coverage by year",
+            "Population served and coverage in the target year",
             "CAPEX by component: network, connections, conveyance, treatment, minimum sanitary facilities"
           ]
         }
@@ -281,7 +374,7 @@
     "pob": {
       "kicker": "",
       "title": "Population projection",
-      "lead": "Five candidate curves per district. The choice depends on how many censuses exist and on the shape of the trend.",
+      "lead": "We developed population projections for each district from historical census data and population growth curves, adjusted to the official projections of the ONE.",
       "methods": {
         "title": "Methods",
         "items": [
@@ -291,76 +384,6 @@
           "<strong>Linear:</strong> constant increment per year.",
           "<strong>Geometric:</strong> constant rate per year."
         ]
-      },
-      "matrix": {
-        "title": "Selection matrix",
-        "intro": "The three censuses (2002, 2010, 2022) define the case; each case has an order of preference for the short and long term.",
-        "head": [
-          "Case",
-          "Population",
-          "Rate",
-          "Acceleration",
-          "Censuses",
-          "Short term",
-          "Long term"
-        ],
-        "rows": [
-          [
-            "1",
-            "increasing",
-            "positive",
-            "–",
-            "2",
-            "linear, Gompertz",
-            "linear"
-          ],
-          [
-            "2",
-            "increasing",
-            "positive",
-            "increasing",
-            "3",
-            "geometric, linear, logistic",
-            "Gompertz, linear"
-          ],
-          [
-            "3",
-            "increasing",
-            "positive",
-            "decreasing",
-            "3",
-            "linear, Gompertz, decreasing rate",
-            "logistic, Gompertz"
-          ],
-          [
-            "4",
-            "decreasing",
-            "negative",
-            "increasing",
-            "3",
-            "geometric, Gompertz",
-            "Gompertz"
-          ],
-          [
-            "5",
-            "decreasing",
-            "negative",
-            "decreasing",
-            "2",
-            "Gompertz, geometric",
-            "geometric, Gompertz"
-          ],
-          [
-            "6",
-            "decreasing",
-            "negative",
-            "–",
-            "2",
-            "Gompertz, geometric",
-            "geometric, linear"
-          ]
-        ],
-        "note": "Districts created after 2002 or 2010 have their population redistributed to the 2022 boundaries and use only two data points."
       },
       "calib": {
         "title": "National calibration",
@@ -571,7 +594,7 @@
       "kicker": "",
       "title": "Model results",
       "items": [
-        "Coverage, population served and investment <strong>by year</strong>, from 2025 to the target year.",
+        "Coverage, population served and <strong>total investment</strong> to reach the target.",
         "Calculated <strong>by district</strong> and aggregable by province and region, the level with the best reliability.",
         "Separated by component: network, treatment, minimum facilities. This is what Part 4 presents."
       ],

@@ -23,7 +23,89 @@
     "scroll": "Role para começar",
     "stat1": "hexágonos de 10 ha analisados",
     "stat2": "distritos municipais",
-    "stat3": "habitantes urbanos (2022, ajustado)"
+    "stat3": "população urbana ajustada (2022)"
+  },
+  "intro": {
+    "or": "ou",
+    "faz": {
+      "k": "O que faz",
+      "title": "O SaniPLAN estima o investimento necessário em saneamento seguro para atingir metas de cobertura definidas pelo usuário.",
+      "outLabel": "Outputs",
+      "outs": {
+        "cob": { "title": "Cobertura dos serviços", "text": "Percentual da população com saneamento seguro em final de plano." },
+        "pop": { "title": "População atendida", "text": "Habitantes atendidos por saneamento seguro." },
+        "capex": { "title": "Investimento necessário (CAPEX)", "text": "Investimento total necessário para atingir as metas de cobertura." }
+      }
+    },
+    "tipo": {
+      "k": "Tipo de saneamento",
+      "title": "O modelo trabalha com saneamento baseado em redes coletoras ou em contenção in situ (on-site).",
+      "rede": {
+        "t": "Saneamento com <b class=\"in-hl\">rede</b>",
+        "items": [
+          "Rede convencional ou econômica, com ligações domiciliares.",
+          "Transporte do esgoto até a estação de tratamento (ETE).",
+          "Tratamento em quatro níveis, do primário ao avançado, e emissário submarino."
+        ]
+      },
+      "insitu": {
+        "t": "Saneamento com <b class=\"in-hl\">contenção in situ</b>",
+        "items": [
+          "Sanitário seco ou com descarga hídrica, com contenção no próprio lote.",
+          "Coleta e tratamento do lodo séptico."
+        ]
+      },
+      "photoLatrina": "Latrina de poço ventilada (VIP). Fonte: Tilley et al., Compendium of Sanitation Systems and Technologies, 2ª ed. (Eawag, 2014)."
+    },
+    "fatores": {
+      "k": "O que define o investimento",
+      "title": "O investimento (CAPEX) é calculado em função do padrão tecnológico admitido, das características locais e dos custos unitários de referência.",
+      "tec": {
+        "t": "Padrão tecnológico",
+        "items": [
+          "Tipo de rede: convencional ou econômica",
+          "Nível de tratamento: primário, básico, intermediário ou avançado",
+          "Emissário submarino"
+        ]
+      },
+      "local": {
+        "t": "Características locais",
+        "items": [
+          "Porte da cidade",
+          "Dificuldade construtiva",
+          "Extensão de rede por ligação",
+          "Domicílios por ligação",
+          "Interior ou litoral"
+        ]
+      },
+      "custo": {
+        "t": "Custos unitários de referência",
+        "items": [
+          "Rede <span class=\"in-u\">$/m</span>",
+          "Ligações <span class=\"in-u\">$/ud</span>",
+          "Transporte <span class=\"in-u\">% $</span>",
+          "Tratamento por carga de DBO <span class=\"in-u\">$/DBO</span>",
+          "Emissário submarino <span class=\"in-u\">$/m</span>",
+          "In situ <span class=\"in-u\">$/ud</span>"
+        ]
+      },
+      "costNote": "<span class=\"in-l\">O modelo vem carregado com custos unitários de referência.</span><span class=\"in-l\">O usuário pode usá-los pra facilitar seu trabalho, ou aplicar custos de referência próprios.</span>"
+    },
+    "rd": {
+      "k": "Na República Dominicana",
+      "title": "No caso da República Dominicana, o estudo fez uso de análise de dados espaciais para alimentar o modelo.",
+      "lead": "Censos, imagens de satélite, ruas e construções foram cruzados numa grade de hexágonos para todo o país e agregados por distrito. Daí saem parâmetros que, sem esses dados, o modelo teria de supor:",
+      "items": [
+        "Extensão de rede por ligação",
+        "Domicílios por ligação",
+        "Distribuição da população urbana corrigida",
+        "Densidades populacionais",
+        "Áreas já atendidas por rede"
+      ],
+      "stat1": "hexágonos de 10 ha",
+      "stat2": "distritos municipais",
+      "next": "A seguir: como os dados e o modelo se encaixam."
+    }
   },
   "ato0": {
     "kicker": "Visão geral",
@@ -66,9 +148,9 @@
       "cad": "Áreas atendidas por redes existentes (cadastros e projetos) e cobertura de esgotamento por província.",
       "custos": "Custos de referência de redes, ligações, ETEs, emissários e soluções individuais. Metas: % de cobertura e ano.",
       "spatial": "Grade hexagonal de 10 ha para todo o país. Cada hexágono recebe população, construções e ruas, e depois é agregado por distrito.",
-      "saniplan": "Planilha Excel que projeta população e cobertura ano a ano e calcula o CAPEX de coleta, transporte e tratamento por distrito.",
+      "saniplan": "Planilha Excel que projeta população e cobertura até o ano meta e calcula o CAPEX de coleta, transporte e tratamento por distrito.",
       "capex": "Investimento total e por habitante, separado entre rede coletora e tratamento.",
-      "charts": "Evolução anual da população atendida e do investimento até o ano meta.",
+      "charts": "População atendida, cobertura e investimento total até o ano meta.",
       "map": "Resultados agregados por província e região, o nível com melhor confiabilidade.",
       "decide": "Comparar necessidades e custos entre regiões para ordenar programas e projetos."
     }
@@ -214,7 +296,6 @@
     "kicker": "",
     "title": "SaniPLAN",
     "lead": "Modelo em Excel para projetar população, cobertura e investimento a partir de dados por município ou distrito.",
-    "authors": "Modelo de Pery Nazareth. Aplicação à República Dominicana e análise espacial de Leonardo Nazareth.",
     "subnav": {
       "inicio": "< INICIO",
       "config": "CONFIG",
@@ -223,6 +304,19 @@
       "calc": "CALC",
       "result": "RESULTADOS",
       "hint": "Os botões reproduzem a barra de navegação da planilha e levam a cada cena deste ato."
+    },
+    "precisa": {
+      "title": "O que o modelo precisa",
+      "lead": "Seis grupos de informação alimentam o modelo. Com eles, a planilha calcula tudo o que vem nas próximas cenas.",
+      "items": {
+        "lista": { "title": "Lista de municípios ou distritos", "text": "A unidade de cálculo: cada um é uma linha da planilha." },
+        "pop": { "title": "População existente e projeção", "text": "Censos e população atual; o sub-modelo POB projeta ano a ano." },
+        "cob": { "title": "Cobertura de saneamento existente", "text": "Coleta e tratamento de esgoto na linha de base." },
+        "custo": { "title": "Custos unitários de implantação", "text": "Rede, ligações, transporte e tratamento, por porte e dificuldade." },
+        "meta": { "title": "Metas de cobertura", "text": "Percentual a alcançar e ano-alvo." },
+        "param": { "title": "Parâmetros de ajuste", "text": "Fatores regionais, tipo de saneamento e nível de tratamento." }
+      },
+      "units": { "meta": "% · anos" }
     },
     "fluxo": {
       "kicker": "",
@@ -249,18 +343,17 @@
           ]
         },
         "calc": {
-          "title": "Cálculo anual",
+          "title": "Cálculo",
           "items": [
             "Linha de base 2024 → meta, em passos iguais",
-            "Domicílios e habitantes novos a cada ano",
-            "Incremento × custo unitário = CAPEX do ano"
+            "Domicílios e habitantes a atender",
+            "Incremento × custo unitário = CAPEX"
           ]
         },
         "out": {
           "title": "Resultados",
           "items": [
-            "População atendida por ano",
-            "Cobertura por ano",
+            "População atendida e cobertura no ano meta",
             "CAPEX por componente: rede, ligações, transporte, tratamento, instalações mínimas"
           ]
         }
@@ -281,7 +374,7 @@
     "pob": {
       "kicker": "",
       "title": "Projeção de população",
-      "lead": "Cinco curvas candidatas por distrito. A escolha depende de quantos censos existem e da forma da tendência.",
+      "lead": "Desenvolvemos projeções de população para cada distrito a partir dos dados históricos dos censos e de curvas de crescimento populacional, ajustadas às projeções oficiais da ONE.",
       "methods": {
         "title": "Métodos",
         "items": [
@@ -291,76 +384,6 @@
           "<strong>Linear:</strong> incremento constante por ano.",
           "<strong>Geométrica:</strong> taxa constante por ano."
         ]
-      },
-      "matrix": {
-        "title": "Matriz de seleção",
-        "intro": "Os três censos (2002, 2010, 2022) definem o caso; cada caso tem uma ordem de preferência para o curto e o longo prazo.",
-        "head": [
-          "Caso",
-          "População",
-          "Taxa",
-          "Aceleração",
-          "Censos",
-          "Curto prazo",
-          "Longo prazo"
-        ],
-        "rows": [
-          [
-            "1",
-            "crescente",
-            "positiva",
-            "–",
-            "2",
-            "linear, Gompertz",
-            "linear"
-          ],
-          [
-            "2",
-            "crescente",
-            "positiva",
-            "crescente",
-            "3",
-            "geométrica, linear, logística",
-            "Gompertz, linear"
-          ],
-          [
-            "3",
-            "crescente",
-            "positiva",
-            "decrescente",
-            "3",
-            "linear, Gompertz, decrescente",
-            "logística, Gompertz"
-          ],
-          [
-            "4",
-            "decrescente",
-            "negativa",
-            "crescente",
-            "3",
-            "geométrica, Gompertz",
-            "Gompertz"
-          ],
-          [
-            "5",
-            "decrescente",
-            "negativa",
-            "decrescente",
-            "2",
-            "Gompertz, geométrica",
-            "geométrica, Gompertz"
-          ],
-          [
-            "6",
-            "decrescente",
-            "negativa",
-            "–",
-            "2",
-            "Gompertz, geométrica",
-            "geométrica, linear"
-          ]
-        ],
-        "note": "Distritos criados depois de 2002 ou 2010 recebem a população redistribuída para os limites de 2022 e usam só dois pontos."
       },
       "calib": {
         "title": "Calibração nacional",
@@ -566,7 +589,7 @@
       "kicker": "",
       "title": "Resultados do modelo",
       "items": [
-        "Cobertura, população atendida e investimento <strong>por ano</strong>, de 2025 ao ano meta.",
+        "Cobertura, população atendida e <strong>investimento total</strong> para atingir a meta.",
         "Calculados <strong>por distrito</strong> e agregáveis por província e região, o nível com melhor confiabilidade.",
         "Separados por componente: rede, tratamento, instalações mínimas. É o que o Ato 4 apresenta."
       ],

@@ -20,6 +20,76 @@
 .sp-xlnav-btns a.is-on { background: var(--xl-nav-on); }
 .sp-xlnav-btns a:hover { filter: brightness(1.08); }
 
+/* abertura: as cinco ideias do SaniPLAN, uma por slide -------------------- */
+.in-scene { min-height: calc(100svh - var(--topbar-h)); display: flex; flex-direction: column; justify-content: center; padding-block: 56px; box-sizing: border-box; }
+.act--intro .act-inner { padding-block: 0; }
+.act--intro .in-scene:first-child { border-top: 0; }
+.sp-scene.in-scene > h3 { font-size: clamp(26px, 2.9vw, 42px); line-height: 1.15; font-weight: 700; font-stretch: 90%; max-width: 46ch; margin: 0 0 40px; }
+.in-card { background: var(--ink-2); border: 1px solid var(--line); border-top: 3px solid var(--reclass); border-radius: 4px; padding: 22px; min-width: 0; }
+.in-card h4 { font-size: 19px; margin-bottom: 12px; }
+/* palavra-chave do título do cartão (REDE, CONTENÇÃO IN SITU) */
+.in-hl { color: var(--reclass); text-transform: uppercase; letter-spacing: .03em; font-size: 1.15em; }
+.in-card p { margin: 0; font-size: 15px; line-height: 1.5; color: #cfd8de; }
+.in-note { margin: 22px 0 0; font-size: 15px; color: var(--muted); }
+/* duas alternativas lado a lado, separadas por "ou" */
+.in-or-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 18px; align-items: stretch; }
+.in-or { align-self: center; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); background: var(--ink-3); font: 600 13px/1 var(--f-data); letter-spacing: .08em; text-transform: uppercase; color: var(--fg); }
+.in-or-grid > .in-card { display: flex; flex-direction: column; }
+.in-photos { margin-top: auto; padding-top: 18px; }
+.in-photos figure { margin: 0; }
+.in-photos img { display: block; width: 100%; aspect-ratio: 1386 / 752; object-fit: cover; border-radius: 3px; }
+.in-photo--diagram img { object-fit: contain; background: #fff; }
+.in-photos figcaption { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+/* nota abaixo dos três fatores: custos de referência pré-carregados ou próprios, uma frase por linha */
+.in-costnote { margin: 28px 0 0; padding-left: 18px; border-left: 4px solid var(--reclass); font: 500 clamp(18px, 1.6vw, 23px)/1.35 var(--f-body); color: var(--fg); }
+.in-l { display: block; }
+.in-l + .in-l { margin-top: .35em; }
+/* três fatores que somam no CAPEX */
+.in-factors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.in-factors .in-card { position: relative; min-height: 300px; padding: 26px 24px; }
+.in-factors .in-card h4 { font-size: 23px; margin-bottom: 18px; }
+.in-factors .sp-list { gap: 12px; }
+.in-factors .sp-list li { font-size: 16px; }
+.in-factors .in-card:nth-child(-n+2) .sp-list li { font-size: 18px; }
+/* custos: nome à esquerda, unidade à direita */
+.in-costs li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+.in-u { font: 600 13px/1.5 var(--f-data); color: var(--reclass); white-space: nowrap; }
+.in-factors .in-card:not(:nth-child(3))::after { content: "+"; position: absolute; right: -14px; top: 50%; transform: translate(50%, -50%); font: 700 22px/1 var(--f-display); color: var(--muted); z-index: 1; }
+/* República Dominicana: análise espacial */
+.in-k--rd { color: var(--urban); }
+.in-rd { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.in-rd-lead { margin: 0 0 20px; font-size: clamp(19px, 1.6vw, 22px); line-height: 1.45; color: #dbe3e8; max-width: 60ch; }
+.in-rd-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.in-rd-list li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.in-rd-list li { border-left: 4px solid var(--urban); padding: 8px 0 8px 14px; font-size: 16px; font-weight: 600; color: #fff; background: var(--ink-2); }
+.in-rd-stats { margin: 0; display: grid; gap: 22px; }
+.in-rd-stats dt { font: 700 clamp(40px, 4.4vw, 64px)/1 var(--f-display); font-stretch: 80%; color: var(--urban); }
+.in-rd-stats dd { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+
+/* o que o modelo precisa (slide 5 da apresentação BID) e outputs ------------- */
+.sp-outs, .sp-needs { list-style: none; margin: 0; padding: 0; }
+/* rótulo que agrupa os três cartões como outputs do modelo */
+.sp-io-label { margin: 0 0 14px; font: 600 30px/1 var(--f-data); letter-spacing: .14em; text-transform: uppercase; color: var(--flow); }
+.sp-outs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.sp-out { position: relative; background: var(--ink-2); border: 1px solid var(--line); border-top: 3px solid var(--flow); border-radius: 4px; padding: 24px 22px 22px; min-width: 0; }
+/* ícones originais da apresentação (PNG com transparência) usados como máscara, na cor do texto */
+.sp-pic { display: block; height: 100%; background: currentColor; -webkit-mask: var(--pic) center / contain no-repeat; mask: var(--pic) center / contain no-repeat; }
+.sp-pic--trend { --pic: url(../img/saniplan/icons/trend.png); aspect-ratio: 136 / 139; }
+.sp-pic--people { --pic: url(../img/saniplan/icons/people.png); aspect-ratio: 288 / 142; }
+.sp-pic--coins { --pic: url(../img/saniplan/icons/coins.png); aspect-ratio: 266 / 191; }
+.sp-pic--list { --pic: url(../img/saniplan/icons/list.png); aspect-ratio: 106 / 125; }
+.sp-pic--wrench { --pic: url(../img/saniplan/icons/wrench.png); aspect-ratio: 110 / 110; }
+.sp-out > .sp-pic { height: 64px; color: #d0d6da; margin-bottom: 18px; }
+.sp-out-sym { position: absolute; top: 18px; right: 22px; font: 700 clamp(34px, 3.6vw, 48px)/1 var(--f-display); font-stretch: 85%; color: #fff; }
+.sp-out h4 { font-size: 19px; margin-bottom: 8px; }
+.sp-out p, .sp-need p { margin: 0; font-size: 14px; line-height: 1.45; color: #cfd8de; }
+.sp-needs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.sp-need { background: var(--ink-2); border: 1px solid var(--line); border-top: 3px solid var(--urban); border-radius: 4px; padding: 20px 18px 18px; min-width: 0; }
+/* área do ícone ou do símbolo, como no slide: mesma altura para todos os cartões */
+.sp-need-vis { display: flex; align-items: center; height: 52px; margin-bottom: 14px; color: #d0d6da; }
+.sp-need-sym { font: 700 40px/1 var(--f-display); font-stretch: 85%; color: #fff; white-space: nowrap; }
+.sp-need h4 { font-size: 16px; margin-bottom: 6px; }
+
 /* cenas ------------------------------------------------------------------ */
 .sp-scene { padding: 64px 0; border-top: 1px solid var(--line); scroll-margin-top: calc(var(--topbar-h) + 12px); }
 .sp-scene h3 { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.04; font-weight: 700; font-stretch: 85%; margin: 0 0 14px; }
@@ -76,14 +146,9 @@
 .sp-table th, .sp-table td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; white-space: nowrap; }
 .sp-table th { font: 500 10.5px/1.3 var(--f-data); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .sp-table td { color: #cfd8de; }
-.sp-table td.sp-wrap { white-space: normal; min-width: 14ch; }
 .sp-table--num td:not(:first-child), .sp-table--num th:not(:first-child) { text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; }
 .sp-table .sp-em { color: #fff; }
 .sp-table .sp-lo { color: var(--flow); } .sp-table .sp-mid { color: var(--reclass); } .sp-table .sp-hi { color: var(--alert); }
-.sp-matrix { margin-top: 44px; }
-.sp-matrix h4 { margin-bottom: 6px; }
-.sp-matrix .sp-muted { margin: 0 0 12px; font-size: 14px; }
-#sp-matrix td:first-child { font-family: var(--f-data); color: #fff; }
 
 /* gráficos ----------------------------------------------------------------- */
 .sp-chartbox { background: var(--ink-2); border: 1px solid var(--line); border-radius: 4px; padding: 14px 16px 10px; min-width: 0; }
@@ -223,6 +288,13 @@
   .sp-grid-2--rev > .sp-text { order: 0; }
   .sp-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-flow-col:not(:last-child)::after { display: none; }
+  .sp-outs { grid-template-columns: minmax(0, 1fr); }
+  .in-scene { min-height: 0; }
+  .in-or-grid, .in-factors, .in-rd { grid-template-columns: minmax(0, 1fr); }
+  .in-or { justify-self: center; }
+  .in-factors .in-card:not(:nth-child(3))::after { right: 50%; top: auto; bottom: -14px; transform: translate(50%, 50%); }
+  .sp-out > .sp-pic { height: 48px; margin-bottom: 12px; }
+  .sp-needs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-sheet-top, .sp-sheet-top--res { grid-template-columns: minmax(0, 1fr); }
 }
@@ -231,6 +303,7 @@
   .sp-head { margin-bottom: 40px; }
   .sp-scene { padding: 44px 0; }
   .sp-flow { grid-template-columns: minmax(0, 1fr); }
+  .sp-needs { grid-template-columns: minmax(0, 1fr); }
   .sp-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .sp-thumb { font-size: 12px; }
   .sp-flow4 { grid-template-columns: minmax(0, 1fr); }
