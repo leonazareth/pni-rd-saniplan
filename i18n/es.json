@@ -1,3 +1,742 @@
 {
-  "_meta": { "lang": "es", "label": "ES", "status": "por traducir: las claves faltantes usan el texto en portugués" }
+  "_meta": {
+    "lang": "es",
+    "label": "ES",
+    "status": "traducción v2"
+  },
+  "nav": {
+    "ato0": "Visión general",
+    "ato1": "Datos",
+    "ato2": "Análisis espacial",
+    "ato3": "SaniPLAN",
+    "ato4": "Resultados",
+    "lang": "Idioma",
+    "prev": "Diapositiva anterior",
+    "next": "Siguiente diapositiva"
+  },
+  "capa": {
+    "title": "¿Cuánto cuesta universalizar los servicios de saneamiento seguro en un país o región?",
+    "subtitle": "Uso de SaniPLAN y análisis de datos espaciales para estimar las inversiones necesarias (CAPEX) en función de metas de cobertura.",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "scroll": "Desplácese para comenzar",
+    "stat1": "hexágonos de 10 ha analizados",
+    "stat2": "distritos municipales",
+    "stat3": "población urbana ajustada (2022)",
+    "caseLabel": "Caso:",
+    "caseName": "República Dominicana",
+    "caseScope": "Saneamiento urbano"
+  },
+  "intro": {
+    "or": "o",
+    "faz": {
+      "k": "Qué hace",
+      "title": "SaniPLAN estima la inversión necesaria en saneamiento seguro para alcanzar metas de cobertura definidas por el usuario.",
+      "outLabel": "Resultados",
+      "outs": {
+        "cob": {
+          "title": "Cobertura de los servicios",
+          "text": "Porcentaje de la población con saneamiento seguro al final del plan."
+        },
+        "pop": {
+          "title": "Población atendida",
+          "text": "Habitantes atendidos por saneamiento seguro."
+        },
+        "capex": {
+          "title": "Inversión necesaria (CAPEX)",
+          "text": "Inversión total necesaria para alcanzar las metas de cobertura."
+        }
+      }
+    },
+    "tipo": {
+      "k": "Tipos de saneamiento",
+      "title": "El modelo trabaja con saneamiento basado en redes colectoras o en contención in situ (on-site).",
+      "rede": {
+        "t": "Saneamiento con <b class=\"in-hl\">red</b>",
+        "items": [
+          "Red colectora",
+          "Conexiones",
+          "Módulos sanitarios",
+          "Estructuras de transporte de aguas residuales",
+          "Plantas de tratamiento de aguas residuales o emisarios submarinos"
+        ]
+      },
+      "insitu": {
+        "t": "Saneamiento con <b class=\"in-hl\">contención in situ</b>",
+        "items": [
+          "Sistemas de contención in situ",
+          "Módulos sanitarios",
+          "Plantas de tratamiento de lodos sépticos"
+        ]
+      },
+      "comp": "Componentes",
+      "photoLatrina": "Letrina de hoyo seco",
+      "photoFossa": "Inodoro con fosa séptica y pozo de absorción"
+    },
+    "fatores": {
+      "k": "Qué define la inversión",
+      "title": "La inversión (CAPEX) se calcula en función del estándar tecnológico admitido, de las características locales y de los costos unitarios de referencia.",
+      "tec": {
+        "t": "Estándar tecnológico",
+        "redeT": "Red",
+        "rede": [
+          "Red colectora: alcantarillado convencional o económico",
+          "Plantas de tratamiento de aguas residuales: niveles primario, básico, intermedio o avanzado"
+        ],
+        "insituT": "In situ",
+        "insitu": [
+          "Contención in situ: letrinas o fosas sépticas y pozos de absorción",
+          "Plantas de tratamiento de lodos sépticos"
+        ]
+      },
+      "local": {
+        "t": "Características locales",
+        "items": [
+          "Tamaño de la localidad",
+          "Ubicación",
+          "Nivel de dificultad constructiva",
+          "Extensión de red por conexión",
+          "Verticalización",
+          "Tipo de suelo",
+          "Y otras"
+        ]
+      },
+      "custo": {
+        "t": "Costos unitarios de referencia",
+        "items": [
+          "Red <span class=\"in-u\">$/m</span>",
+          "Conexiones <span class=\"in-u\">$/ud</span>",
+          "Transporte <span class=\"in-u\">% $</span>",
+          "Tratamiento por carga de DBO <span class=\"in-u\">$/DBO</span>",
+          "Emisario submarino <span class=\"in-u\">$/m</span>",
+          "In situ <span class=\"in-u\">$/ud</span>"
+        ]
+      },
+      "costNote": "<span class=\"in-l\">El modelo viene cargado con costos unitarios de referencia.</span><span class=\"in-l\">El usuario puede utilizarlos para facilitar su trabajo, o aplicar costos de referencia propios.</span>"
+    },
+    "rd": {
+      "k": "En la República Dominicana",
+      "title": "En el caso de la República Dominicana, el estudio utilizó análisis de datos espaciales para alimentar el modelo.",
+      "lead": "Censos, imágenes satelitales, calles y edificaciones se cruzaron en una malla hexagonal para todo el país y se agregaron por distrito. De ahí salen parámetros que, sin esos datos, el modelo tendría que suponer:",
+      "items": [
+        "Extensión de red por conexión",
+        "Domicilios por conexión",
+        "Distribución de la población urbana corregida",
+        "Densidades poblacionales",
+        "Áreas ya atendidas por red"
+      ],
+      "stat1": "hexágonos de 10 ha",
+      "stat2": "distritos municipales",
+      "next": "A continuación: cómo se articulan los datos y el modelo."
+    },
+    "oque": {
+      "k": "Qué es",
+      "text": "<b class=\"hl-brand\">SaniPLAN</b> es un modelo de simulación de código abierto, <span class=\"hl-line\">ajustable a características locales</span>, desarrollado en Excel, con la finalidad de apoyar la preparación de planes nacionales o regionales de <mark class=\"hl\">inversión en saneamiento</mark> en América Latina y el Caribe.",
+      "tags": [
+        "Código abierto",
+        "Excel",
+        "Ajustable a características locales",
+        "Planes nacionales o regionales"
+      ],
+      "flow": {
+        "in": "Datos",
+        "model": "Modelo",
+        "out": "Resultados"
+      }
+    }
+  },
+  "ato0": {
+    "kicker": "Visión general",
+    "title": "¿Cuánto cuesta universalizar el saneamiento urbano en la República Dominicana?",
+    "s1": {
+      "title": "Un modelo en el centro",
+      "items": [
+        "El <strong>SaniPLAN</strong> calcula la inversión necesaria para alcanzar una meta de cobertura.",
+        "Los <strong>datos espaciales</strong> generan los parámetros de cada distrito.",
+        "Los <strong>resultados</strong> muestran dónde están las necesidades y cuánto cuestan."
+      ]
+    },
+    "s2": {
+      "title": "Empezamos por los datos",
+      "items": [
+        "Censos, imágenes satelitales, calles, edificaciones y catastros de redes.",
+        "Cada fuente tiene un nivel de agregación distinto.",
+        "El análisis espacial transforma esas fuentes en indicadores por distrito."
+      ]
+    },
+    "node": {
+      "censo": "Censos ONE<br>2002 · 2010 · 2022",
+      "sat": "Imágenes<br>satelitales",
+      "ruas": "Calles<br>(OpenStreetMap)",
+      "edif": "Edificaciones<br>(Overture Maps)",
+      "cad": "Catastro de redes<br>y cobertura",
+      "custos": "Costos unitarios<br>y metas",
+      "spatial": "Análisis espacial",
+      "saniplan": "Modelo de proyección de población, cobertura e inversión",
+      "capex": "Inversión<br>(CAPEX)",
+      "charts": "Proyecciones<br>2024–2040",
+      "map": "Mapas por<br>provincia",
+      "decide": "Priorización<br>de proyectos"
+    },
+    "detail": {
+      "censo": "Población total y urbana por distrito municipal en los tres últimos censos. Base para la línea de base y la proyección hasta 2040.",
+      "sat": "Se usan para validar las fuentes globales de población y verificar áreas urbanas que el censo clasifica como rurales.",
+      "ruas": "Extensión de vías en cada área urbana. Es el indicador indirecto de la extensión de red colectora por conexión.",
+      "edif": "Contorno de cada edificación (25 a 500 m²). Permite estimar domicilios por conexión y corregir la distribución de la población.",
+      "cad": "Áreas atendidas por redes existentes (catastros y proyectos) y cobertura de alcantarillado por provincia.",
+      "custos": "Costos de referencia de redes, conexiones, PTAR, emisarios y soluciones individuales. Metas: % de cobertura y año.",
+      "spatial": "Malla hexagonal de 10 ha para todo el país. Cada hexágono recibe población, edificaciones y calles, y luego se agrega por distrito.",
+      "saniplan": "Planilla de Excel que proyecta población y cobertura hasta el año meta y calcula el CAPEX de recolección, transporte y tratamiento por distrito.",
+      "capex": "Inversión total y por habitante, separada entre red colectora y tratamiento.",
+      "charts": "Población atendida, cobertura e inversión total hasta el año meta.",
+      "map": "Resultados agregados por provincia y región, el nivel con mejor confiabilidad.",
+      "decide": "Comparar necesidades y costos entre regiones para ordenar programas y proyectos."
+    }
+  },
+  "ato1": {
+    "kicker": "",
+    "title": "Los datos necesarios",
+    "lead": "Un plan nacional depende de dónde vive la gente, de cómo está construida la ciudad y de dónde ya existe servicio.",
+    "problema": {
+      "title": "El problema de los datos agregados",
+      "items": [
+        "Muchos planes usan promedios por municipio o por país.",
+        "Un promedio esconde dónde está realmente la población.",
+        "Los costos de red dependen de la densidad y del trazado de las calles, que varían dentro de un mismo distrito."
+      ]
+    },
+    "grid": {
+      "title": "Un dato por distrito × una malla de 100 m",
+      "items": [
+        "<strong>Por distrito:</strong> la población del censo vale para todo el polígono, incluidas las áreas vacías.",
+        "<strong>Por hexágono:</strong> la misma población distribuida en los hexágonos donde hay edificaciones.",
+        "El total del distrito se conserva. Lo que cambia es saber <strong>dónde</strong> está la gente."
+      ],
+      "toggleA": "Por distrito",
+      "toggleB": "Por hexágono"
+    },
+    "fontes": {
+      "title": "Fuentes y niveles de agregación",
+      "items": [
+        "Cada punto muestra el nivel más detallado en que existe el dato.",
+        "La población está disponible en escala fina. La cobertura de alcantarillado, solo por provincia. El tratamiento, solo como promedio nacional.",
+        "El resultado nunca es más preciso que el dato más agregado usado en el cálculo."
+      ],
+      "levels": [
+        "Edificación",
+        "Malla 100 m",
+        "Hex 10 ha",
+        "Distrito",
+        "Provincia",
+        "País"
+      ],
+      "rows": {
+        "edif": "Edificaciones (Overture Maps)",
+        "ruas": "Calles (OpenStreetMap)",
+        "ghs": "Población modelada (GHSL)",
+        "censo": "Población, censo ONE 2022",
+        "cad": "Catastro de redes (11 distritos)",
+        "cob": "Cobertura de alcantarillado (ENHOGAR / Censo)",
+        "trat": "Aguas residuales tratadas (estimación ONU)",
+        "custos": "Costos unitarios de referencia"
+      },
+      "note": "Punto vacío = dato parcial (solo en algunos distritos).",
+      "dirFine": "← menos agregado · más detalle",
+      "dirCoarse": "más agregado · menos detalle →"
+    }
+  },
+  "ato2": {
+    "kicker": "",
+    "title": "Análisis espacial",
+    "lead": "Del país a la manzana, y de vuelta al distrito.",
+    "niveis": {
+      "title": "Del país al distrito",
+      "items": [
+        "<strong>País:</strong> 32 provincias, 393 distritos municipales.",
+        "<strong>Provincia:</strong> nivel en que existe el dato de cobertura de alcantarillado.",
+        "<strong>Distrito:</strong> nivel del censo y de los parámetros del SaniPLAN.",
+        "Nos acercaremos a <strong>Santo Domingo Este</strong>, en la provincia de Santo Domingo."
+      ]
+    },
+    "hex": {
+      "title": "Por qué una malla hexagonal de 10 ha",
+      "items": [
+        "Misma área en todo el país: indicadores comparables entre lugares.",
+        "Los hexágonos tienen 6 vecinos equidistantes, lo que facilita detectar continuidad urbana.",
+        "10 ha reduce el ruido de datos puntuales y mantiene detalle subdistrital.",
+        "<strong>486,526</strong> hexágonos cubren el país; <strong>1,311</strong> en Santo Domingo Este."
+      ],
+      "hint": "Haga clic en un hexágono para ver sus indicadores."
+    },
+    "ghs": {
+      "title": "Corregir la población modelada",
+      "items": [
+        "La malla global (GHSL) a veces coloca población en áreas industriales o vacías.",
+        "<strong>Rojo:</strong> población sin edificaciones → población en cero.",
+        "<strong>Azul:</strong> edificaciones sin población → edificaciones × habitantes por domicilio.",
+        "Después, la población del censo 2022 se redistribuye proporcionalmente."
+      ]
+    },
+    "censo": {
+      "title": "Una inconsistencia en el censo",
+      "items": [
+        "Entre 2010 y 2022 la población rural del país creció cerca de <strong>550 mil</strong>, contra la tendencia de urbanización.",
+        "En Santo Domingo Este, la población rural pasó de <strong>40,099</strong> a <strong>116,935</strong> (+192%).",
+        "<strong>Azul:</strong> área urbana oficial. <strong>Ámbar:</strong> área que el censo clasifica como rural.",
+        "Las imágenes muestran por qué: el área clasificada como rural fue urbanizada."
+      ],
+      "swipe": "Arrastre la línea de tiempo para comparar 2010 y 2022",
+      "y2010": "2010 · Landsat 7",
+      "y2022": "2022 · Sentinel-2"
+    },
+    "reclass": {
+      "title": "Reclasificar lo que ya es ciudad",
+      "items": [
+        "<strong>Azul:</strong> área urbana oficial (ONE, 2021).",
+        "<strong>Ámbar:</strong> hexágonos con más de 100 edificaciones y al menos 50% de vecinos construidos.",
+        "En Santo Domingo Este: <strong>148</strong> hexágonos, <strong>~100 mil</strong> habitantes y <strong>23,944</strong> edificaciones pasan a contar como urbanos.",
+        "En el país, la población urbana considerada quedó <strong>860 mil</strong> por encima del censo."
+      ],
+      "legOficial": "Urbana oficial",
+      "legReclass": "Reclasificada",
+      "legRural": "Rural"
+    },
+    "indic": {
+      "title": "Indicadores por distrito",
+      "items": [
+        "<strong>Metros de calle por edificación:</strong> indicador indirecto de metros de red por conexión.",
+        "<strong>Familias por edificación:</strong> indicador de domicilios por conexión (verticalización).",
+        "Se calculan solo en las áreas urbanas consolidadas y se filtran para eliminar valores extremos.",
+        "Estos valores entran en el SaniPLAN para cada distrito."
+      ],
+      "hint": "Haga clic en un distrito para ver los valores usados en el modelo."
+    },
+    "cobertura": {
+      "title": "Cobertura actual",
+      "items": [
+        "La cobertura de alcantarillado existe solo por provincia (ENHOGAR 2021 / Censo 2022).",
+        "Donde hay catastro de redes, la población atendida se recalculó dentro del área de la red.",
+        "La cobertura de los demás distritos se ajusta para mantener el total de la provincia.",
+        "Tratamiento: promedio nacional de ~50% de las aguas residuales recolectadas."
+      ]
+    },
+    "hexsat": {
+      "title": "Los hexágonos sobre la imagen de 2022",
+      "items": [
+        "Cada hexágono en ámbar está fuera del área urbana oficial, pero tiene más de 100 edificaciones y vecinos construidos.",
+        "Sobre la imagen, la trama de calles y manzanas aparece donde el censo registra área rural.",
+        "La reclasificación sigue lo que se ve en el terreno, no el límite administrativo."
+      ],
+      "hint": "Haga clic en un hexágono para ver edificaciones, calles y población."
+    }
+  },
+  "ato3": {
+    "kicker": "",
+    "title": "SaniPLAN",
+    "lead": "Modelo en Excel para proyectar población, cobertura e inversión a partir de datos por municipio o distrito.",
+    "subnav": {
+      "inicio": "< INICIO",
+      "config": "CONFIG",
+      "lb": "L. BASE",
+      "pob": "POB",
+      "calc": "CALC",
+      "result": "RESULTADOS",
+      "hint": "Los botones reproducen la barra de navegación de la planilla y llevan a cada escena de este acto."
+    },
+    "precisa": {
+      "title": "Insumos necesarios",
+      "lead": "Seis grupos de información alimentan el modelo. Con ellos, la planilla calcula todo lo que aparece en las próximas escenas.",
+      "items": {
+        "lista": {
+          "title": "Lista de municipios o localidades",
+          "text": "Cada uno es una fila de la planilla."
+        },
+        "pop": {
+          "title": "Población existente y proyección",
+          "text": "Población actual y proyección de población para el período de proyecto, por localidad."
+        },
+        "cob": {
+          "title": "Cobertura de saneamiento existente",
+          "text": "Situación existente en la línea de base: recolección y tratamiento de aguas residuales, y contención y tratamiento de lodos sépticos."
+        },
+        "custo": {
+          "title": "Costos unitarios de implantación",
+          "text": "Por tipo de saneamiento y componente del sistema."
+        },
+        "meta": {
+          "title": "Metas de cobertura",
+          "text": "Porcentaje a alcanzar y año meta."
+        },
+        "param": {
+          "title": "Parámetros de ajuste",
+          "text": "Tipos de saneamiento admitidos, factores locales, niveles de tratamiento requeridos, etc."
+        }
+      },
+      "units": {
+        "meta": "% · años"
+      }
+    },
+    "fluxo": {
+      "kicker": "",
+      "title": "Flujo del modelo",
+      "lead": "Cuatro etapas, siempre en el mismo orden. Cada distrito es una fila; cada año, una columna.",
+      "cols": {
+        "in": {
+          "title": "Entradas",
+          "items": [
+            "Lista de municipios o distritos",
+            "Población actual y censos anteriores",
+            "Cobertura actual de recolección y tratamiento",
+            "Costos unitarios de referencia",
+            "Metas: % de cobertura y año",
+            "Parámetros de ajuste"
+          ]
+        },
+        "sub": {
+          "title": "Submódulos",
+          "items": [
+            "Proyección de población año a año",
+            "Redistribución de la cobertura provincial entre distritos",
+            "Costos unitarios ajustados por tamaño, dificultad y nivel de tratamiento"
+          ]
+        },
+        "calc": {
+          "title": "Cálculo",
+          "items": [
+            "Línea de base 2024 → meta, en pasos iguales",
+            "Domicilios y habitantes a atender",
+            "Incremento × costo unitario = CAPEX"
+          ]
+        },
+        "out": {
+          "title": "Resultados",
+          "items": [
+            "Población atendida y cobertura en el año meta",
+            "CAPEX por componente: red, conexiones, transporte, tratamiento, instalaciones mínimas"
+          ]
+        }
+      },
+      "prints": "Las hojas de la planilla",
+      "printsHint": "Haga clic para ampliar.",
+      "shots": {
+        "inicio": "<INICIO>: identificación del proyecto y secuencia de modelación",
+        "lb": "LB: línea de base por distrito (población, cobertura, metas)",
+        "calc": "CALC: parámetros y costos unitarios por distrito",
+        "calc1": "CALC (zoom): bloque de red colectora",
+        "calc2": "CALC (zoom): bloque de tratamiento",
+        "result": "<RESULT>: síntesis nacional y tabla por provincia"
+      },
+      "flow4": "Diagrama de secuencia de la hoja <INICIO>: parámetros → línea de base y metas → cálculo de cobertura e inversión → informe de resultados.",
+      "lightboxClose": "Cerrar"
+    },
+    "pob": {
+      "kicker": "",
+      "title": "Proyección de población",
+      "lead": "En el caso del estudio realizado para la República Dominicana, se desarrollaron proyecciones de población para cada distrito a partir de los datos históricos de los censos y de curvas de crecimiento poblacional, ajustadas a las proyecciones oficiales de la ONE.",
+      "methods": {
+        "title": "Métodos",
+        "items": [
+          "<strong>Logística:</strong> crece hasta una población de saturación.",
+          "<strong>Tasa decreciente:</strong> crecimiento que disminuye con el tiempo.",
+          "<strong>Gompertz:</strong> curva en S asimétrica; la más usada (374 distritos).",
+          "<strong>Lineal:</strong> incremento constante por año.",
+          "<strong>Geométrica:</strong> tasa constante por año."
+        ]
+      },
+      "calib": {
+        "title": "Calibración nacional",
+        "items": [
+          "La suma de los distritos se ajustó año a año a la proyección oficial del país (ONE).",
+          "Urbanización: 86.88% de la población total en 2040.",
+          "Línea de base: <strong>8,875,227</strong> habitantes urbanos en 2024."
+        ]
+      },
+      "chart": {
+        "select": "Distrito",
+        "census": "Censos (urbana)",
+        "proj": "Proyección",
+        "yAxis": "habitantes",
+        "curve": "Curva",
+        "y2040": "2040",
+        "hint": "Pase el cursor sobre el gráfico para leer los valores.",
+        "mil": "mil"
+      }
+    },
+    "custos": {
+      "kicker": "",
+      "title": "Costos unitarios",
+      "lead": "En el caso del estudio realizado para la República Dominicana, se admitieron los siguientes costos unitarios, ya convertidos a los costos del país.",
+      "rede": {
+        "title": "Red colectora",
+        "items": [
+          "Dos tipos: <strong>convencional (AC)</strong> y <strong>económico (AE)</strong>.",
+          "Tres niveles de dificultad constructiva: bajo, medio, alto. En el distrito metropolitano, siempre alto.",
+          "Costo por conexión = m de red por conexión × $/m + ramal + factor de transporte (colectores, bombeo).",
+          "<strong>Adensamiento:</strong> 10% de las nuevas conexiones son atendidas por la red existente (−10%).",
+          "<strong>m de red por conexión</strong> y <strong>domicilios por conexión</strong> provienen del análisis espacial (Acto 2)."
+        ],
+        "tableTitle": "Costos de referencia (USD 2024)",
+        "head": [
+          "Dificultad",
+          "Red AC $/m",
+          "Red AE $/m",
+          "Ramal AC $/con.",
+          "Ramal AE $/con."
+        ],
+        "photoAC": "Red convencional: zanjas profundas, tubería de mayor diámetro.",
+        "photoAE": "Red económica (condominial): tubería poco profunda y de pequeño diámetro, ramales cortos.",
+        "desglose": "Composición del costo unitario por metro (servicios, materiales, indirectos), base del módulo de costos."
+      },
+      "ete": {
+        "title": "Tratamiento",
+        "items": [
+          "Curvas de costo para plantas de tratamiento de aguas residuales en función de la carga de DBO afluente y del nivel de tratamiento pretendido.",
+          "Cuatro curvas, una para cada nivel estándar de tratamiento (remoción de DBO): primario, básico, intermedio y avanzado.",
+          "Curvas basadas en costos de PTAR implantadas en América Latina y el Caribe.",
+          "En cumplimiento de la legislación ambiental de la República Dominicana, se consideraron remociones de DBO de 85% a 88% para el interior y de 67% a 77% para la región litoral.",
+          "Se consideró una carga per cápita variable en función de la población del distrito, de 40 a 60 g DBO/hab·día."
+        ],
+        "chart": {
+          "title": "Curva de costo de la PTAR",
+          "yKg": "USD por kg DBO₅·día",
+          "yHab": "USD por habitante",
+          "x": "carga (kg DBO₅/día)",
+          "modeKg": "$/kg DBO",
+          "modeHab": "$/hab",
+          "levels": [
+            "Avanzado",
+            "Intermedio",
+            "Básico",
+            "Primario"
+          ],
+          "gNote": "$/hab calculado con 50 g DBO/hab·día.",
+          "hint": "Pase el cursor para leer los valores."
+        },
+        "credit": "Curvas: módulo de costos unitarios para plantas de tratamiento de aguas residuales desarrollado por el consultor Dr. Konrad Buchauer (2024)."
+      },
+      "emis": {
+        "title": "Emisario submarino",
+        "items": [
+          "Seis distritos costeros con más de 100 mil habitantes: Puerto Plata, Bajos de Haina, La Romana, San Pedro de Macorís, Santo Domingo de Guzmán y Santo Domingo Este.",
+          "Longitud: 1,500 m (100–300 mil hab.) o 3,000 m (más de 300 mil).",
+          "Costo por metro en función del diámetro, estimado según la población; se suma al costo de la PTAR por habitante."
+        ],
+        "photo": "Emisario submarino en instalación."
+      },
+      "size": {
+        "title": "El tamaño importa",
+        "lead": "La población de 2024 define el rango del distrito. El rango define dificultad, costo de la red, factor de transporte, carga per cápita y nivel de tratamiento.",
+        "head": [
+          "Rango",
+          "Población",
+          "Dificultad",
+          "Red AC $/m",
+          "Factor transporte",
+          "g DBO/hab·día",
+          "Remoción interior / litoral",
+          "Distritos"
+        ],
+        "note": "Dificultad y costos valen fuera del distrito metropolitano (DOM-M: siempre alto). Remoción de 85/67% hasta 11,001 habitantes, 88/77% por encima.",
+        "caption": "Cuadro resumen de los principales costos unitarios y parámetros básicos admitidos en el estudio realizado para la República Dominicana."
+      },
+      "difLabels": {
+        "Bajo": "Bajo",
+        "Medio": "Medio",
+        "Alto": "Alto"
+      }
+    },
+    "sim": {
+      "kicker": "",
+      "title": "Pruebe el modelo",
+      "lead": "Réplica en JavaScript de las hojas CALC y RESULTADOS, con la cadena de cálculo exacta de la planilla. Modifique las celdas amarillas y el escenario en rojo; el resto es fijo.",
+      "legend": {
+        "input": "entrada editable",
+        "fixed": "dato fijo del estudio",
+        "scen": "escenario",
+        "out": "resultado"
+      },
+      "banner": [
+        "Modelo de apoyo a la elaboración de Plan de Saneamiento",
+        "Proyección de Población, Cobertura y Estimación de la Inversión Necesaria",
+        "República Dominicana · urbano"
+      ],
+      "sheetTitle": "CÁLCULO POR DISTRITO",
+      "resultTitle": "SÍNTESIS DE RESULTADOS DE LA SELECCIÓN",
+      "tabCalc": "CALC",
+      "tabResult": "RESULTADOS",
+      "scen": {
+        "title": "Escenario Activo",
+        "pop": "Población",
+        "popV": "URBANO",
+        "type": "Tipo Alc",
+        "meta": "Meta de Cobertura (%)",
+        "year": "Año Meta",
+        "plazo": "Plazo (años)",
+        "base": "Línea de Base (año)",
+        "AC": "AC · convencional",
+        "AE": "AE · económico"
+      },
+      "search": {
+        "label": "Agregar distrito",
+        "placeholder": "Nombre del distrito o provincia…",
+        "max": "Máximo de 8 distritos.",
+        "none": "No se encontró ningún distrito."
+      },
+      "restore": "Restaurar valores del estudio",
+      "remove": "Quitar",
+      "cols": {
+        "n": "n",
+        "name": "Distrito",
+        "prov": "Provincia",
+        "pop0": "Pob 2024 (hab)",
+        "popH": "Pob año meta (hab)",
+        "habDom": "hab/dom",
+        "rng": "Rng",
+        "diff": "Dificultad",
+        "covAlc": "Cob. recolección actual (%)",
+        "covTar": "Cob. trat. actual (%)",
+        "mConn": "m red / conexión",
+        "domConn": "dom / conexión",
+        "costM": "$/m red",
+        "costRam": "$/con. ramal",
+        "fT": "Factor transp.",
+        "costDom": "$/dom",
+        "popRef": "Pob ref PTAR",
+        "load": "kg DBO/d",
+        "level": "Nivel trat.",
+        "costHab": "$/hab trat.",
+        "capexAlc": "CAPEX red ($)",
+        "capexTar": "CAPEX trat. ($)",
+        "capexTot": "CAPEX total ($)",
+        "usdHab": "$/hab",
+        "sum": "Σ selección"
+      },
+      "levels": {
+        "1": "1 Avanzado",
+        "2": "2 Intermedio",
+        "3": "3 Básico",
+        "4": "4 Primario"
+      },
+      "cuadro": {
+        "title": "Cuadro Síntesis · Inversión Estimada (CAPEX $)",
+        "red": "(I) SANEAMIENTO tipo RED",
+        "alc": "ALCANTARILLADO",
+        "tar": "PTAR + emisario",
+        "insitu": "(II) SANEAMIENTO tipo IN-SITU",
+        "ism": "(III) ISM",
+        "total": "Σ SIST. SANEAMIENTO",
+        "pop": "Población adicional con red (hab)",
+        "usdHab": "CAPEX red / hab adicional ($)"
+      },
+      "chart": {
+        "title": "CAPEX por año",
+        "district": "Distrito",
+        "alc": "Red",
+        "tar": "Tratamiento",
+        "y": "millones USD",
+        "cov": "cobertura"
+      },
+      "check": {
+        "ok": "Con los valores del estudio, los resultados coinciden con la planilla (error relativo máximo {err}).",
+        "bad": "Atención: la verificación contra la planilla encontró una desviación de {err}."
+      },
+      "note": "Meta aplicada por igual a la recolección y al tratamiento. Plazo = año meta − 2024. Los costos unitarios, el rango de población y la carga de la PTAR se definen por la población de 2024, como en la planilla. Valores en USD de 2024."
+    },
+    "res": {
+      "kicker": "",
+      "title": "Resultados del modelo",
+      "items": [
+        "Cobertura, población atendida e <strong>inversión total</strong> para alcanzar la meta.",
+        "Calculados <strong>por distrito</strong> y agregables por provincia y región, el nivel con mejor confiabilidad.",
+        "Separados por componente: red, tratamiento, instalaciones mínimas. Es lo que presenta el Acto 4."
+      ],
+      "next": "Ver los resultados"
+    },
+    "submod": {
+      "kicker": "Módulos externos",
+      "title": "Dos módulos externos alimentan SaniPLAN",
+      "lead": "Son planillas independientes que proveen dos datos básicos: la proyección de población por localidad y los costos unitarios de referencia para los cálculos."
+    }
+  },
+  "ato4": {
+    "kicker": "",
+    "title": "Resultados 2040",
+    "lead": "Inversión para atender al 90% o al 100% de la población urbana con red colectora y tratamiento hasta 2040. Elija el escenario y el indicador; haga clic en una provincia para ver el detalle.",
+    "ctl": {
+      "meta": "Meta de cobertura",
+      "tipo": "Tipo de red",
+      "AE": "Económica",
+      "AC": "Convencional",
+      "indic": "Indicador en el mapa"
+    },
+    "u": {
+      "mi": "MM USD",
+      "usdhab": "USD/hab",
+      "mihab": "M hab"
+    },
+    "k": {
+      "total": "Inversión total (red + tratamiento)",
+      "hab": "Costo por habitante atendido",
+      "alc": "Red colectora",
+      "tar": "Tratamiento",
+      "pop": "Población a atender",
+      "ism": "No incluye las instalaciones sanitarias mínimas intradomiciliarias, estimadas en"
+    },
+    "ind": {
+      "capex": "Inversión total",
+      "capex_hab": "Inversión por habitante",
+      "capex_alc": "Inversión en red colectora",
+      "capex_tar": "Inversión en tratamiento",
+      "inc_alc": "Población a conectar a la red",
+      "cov_alc": "Cobertura actual de recolección",
+      "cov_tar": "Cobertura actual de tratamiento",
+      "pob24": "Población urbana 2024",
+      "pob40": "Población urbana 2040",
+      "n_dm": "Distritos municipales",
+      "m_conex": "Extensión de red por conexión"
+    },
+    "d": {
+      "reg": "Región",
+      "ndm": "Distritos municipales"
+    },
+    "hint": "Haga clic en una provincia en el mapa o en la lista para ver el detalle.",
+    "note": "Valores de marzo de 2025 (índice de costos ENR). CAPEX de red colectora (conexiones, red, transporte) y tratamiento (PTAR y emisarios). Costo por habitante = inversión ÷ población adicional atendida con recolección y tratamiento. Resultados más confiables por provincia y región que por distrito."
+  },
+  "creditos": {
+    "title": "Autores",
+    "authors": "Pery Nazareth · Leonardo Nazareth",
+    "sources": "Fuentes: ONE (censos 2002, 2010, 2022; ENHOGAR 2021), INAPA, GHSL/Copernicus, OpenStreetMap, Overture Maps, Landsat 7 (USGS), Sentinel-2 (ESA)."
+  },
+  "map": {
+    "pop": "Población (censo 2022, distribuida)",
+    "popShort": "hab",
+    "edif": "Edificaciones",
+    "ruas": "Calles",
+    "mEdif": "m de calle por edificación",
+    "habEdif": "hab por edificación",
+    "ghs": "Población GHSL (original)",
+    "ghsAdj": "Población GHSL (corregida)",
+    "cls": "Clase",
+    "clsOficial": "Urbana oficial",
+    "clsReclass": "Reclasificada como urbana",
+    "clsRural": "Rural",
+    "flagPop": "Población sin edificaciones",
+    "flagEdif": "Edificaciones sin población",
+    "dmPop": "Población urbana ajustada",
+    "dmPopOne": "Población urbana (ONE)",
+    "dmMconex": "Extensión de red por conexión",
+    "dmDomconex": "Domicilios por conexión",
+    "dmCov": "Cobertura de alcantarillado actual",
+    "dmPob40": "Población urbana 2040",
+    "provCov": "Cobertura de alcantarillado (provincia)",
+    "prov": "Provincia",
+    "close": "Cerrar",
+    "clsRuralOficial": "Rural oficial (ONE)",
+    "urbanLabel": "URBANA",
+    "ruralLabel": "RURAL"
+  },
+  "ui": {
+    "more": "Más información",
+    "less": "Menos",
+    "building": "En construcción"
+  }
 }

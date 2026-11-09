@@ -40,24 +40,71 @@
 <section id="capa" class="capa">
   <canvas id="capa-canvas" aria-hidden="true"></canvas>
   <div class="capa-inner">
-    <p class="eyebrow" data-i18n="capa.eyebrow">Plano Nacional de Investimentos em Saneamento</p>
-    <h1 data-i18n-html="capa.title">PNI Saneamento<br>República Dominicana</h1>
+    <h1 class="capa-q" data-i18n="capa.title">Quanto custa universalizar serviços de saneamento seguro em um país ou região?</h1>
     <p class="capa-sub" data-i18n="capa.subtitle"></p>
+    <div class="capa-case">
+      <p class="capa-case-k" data-i18n="capa.caseLabel">Caso:</p>
+      <p class="capa-case-name" data-i18n="capa.caseName">República Dominicana</p>
+      <p class="capa-case-scope" data-i18n="capa.caseScope">Saneamento urbano</p>
+    </div>
     <dl class="capa-stats">
       <div><dt class="num" data-count="393">393</dt><dd data-i18n="capa.stat2"></dd></div>
       <div><dt class="num" data-count="8660698" data-format="mi">8,66 mi</dt><dd data-i18n="capa.stat3"></dd></div>
     </dl>
     <a class="scroll-cue" href="#intro" data-i18n="capa.scroll">Role para começar</a>
-    <div class="capa-right">
-      <p class="capa-authors" data-i18n="capa.authors">Pery Nazareth · Leonardo Nazareth</p>
-      <p class="capa-question" data-i18n="ato0.title"></p>
-    </div>
+    <p class="capa-authors" data-i18n="capa.authors">Pery Nazareth · Leonardo Nazareth</p>
   </div>
 </section>
 
 <!-- ABERTURA · as cinco ideias do SaniPLAN (Pery Nazareth), uma por slide ---- -->
 <section id="intro" class="act act--intro">
   <div class="act-inner act-inner--wide sp">
+
+    <!-- 0 · o que é: texto + diagrama simplificado (entradas → SaniPLAN → resultados) -->
+    <article class="sp-scene in-scene" id="in-oque">
+      <div class="in-oque">
+        <div class="in-oque-txt">
+          <p class="kicker" data-i18n="intro.oque.k"></p>
+          <p class="in-oque-text" data-i18n-html="intro.oque.text"></p>
+          <ul class="in-tags" data-i18n-list="intro.oque.tags"></ul>
+        </div>
+        <div class="in-oque-vis">
+        <div class="diagram diagram--compact" id="diagram">
+          <div class="dg-stage" id="dg-stage">
+            <svg class="dg-wires" id="dg-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <button class="dg-node in" data-node="censo" style="--x:70;--y:70"><span class="ico" data-icon="people"></span><span class="lbl" data-i18n-html="ato0.node.censo"></span></button>
+            <button class="dg-node in" data-node="sat" style="--x:70;--y:160"><span class="ico" data-icon="sat"></span><span class="lbl" data-i18n-html="ato0.node.sat"></span></button>
+            <button class="dg-node in" data-node="ruas" style="--x:70;--y:250"><span class="ico" data-icon="roads"></span><span class="lbl" data-i18n-html="ato0.node.ruas"></span></button>
+            <button class="dg-node in" data-node="edif" style="--x:70;--y:340"><span class="ico" data-icon="bldg"></span><span class="lbl" data-i18n-html="ato0.node.edif"></span></button>
+            <button class="dg-node in" data-node="cad" style="--x:70;--y:430"><span class="ico" data-icon="pipes"></span><span class="lbl" data-i18n-html="ato0.node.cad"></span></button>
+            <button class="dg-node in" data-node="custos" style="--x:330;--y:470"><span class="ico" data-icon="cost"></span><span class="lbl" data-i18n-html="ato0.node.custos"></span></button>
+
+            <button class="dg-node spatial" data-node="spatial" style="--x:290;--y:250"><span class="ico ico--lg" data-icon="hex"></span><span class="lbl" data-i18n="ato0.node.spatial"></span></button>
+
+            <button class="dg-node core" data-node="saniplan" style="--x:500;--y:250" aria-label="SaniPLAN">
+              <span class="xl">
+                <span class="xl-banner"><span class="xl-logo">san<b>i</b>plan</span></span>
+                <span class="xl-nav"><i>&lt; INICIO</i><i>L. BASE</i><i>CALC</i><i class="on">RESULTADOS</i></span>
+                <span class="xl-grid" id="xl-mini"></span>
+              </span>
+              <span class="lbl" data-i18n="ato0.node.saniplan"></span>
+            </button>
+
+            <button class="dg-node out" data-node="capex" style="--x:850;--y:90"><span class="ico" data-icon="coins"></span><span class="lbl" data-i18n-html="ato0.node.capex"></span></button>
+            <button class="dg-node out" data-node="charts" style="--x:850;--y:200"><span class="ico" data-icon="bars"></span><span class="lbl" data-i18n-html="ato0.node.charts"></span></button>
+            <button class="dg-node out" data-node="map" style="--x:850;--y:310"><span class="ico ico--map" id="ico-rd"></span><span class="lbl" data-i18n-html="ato0.node.map"></span></button>
+            <button class="dg-node out" data-node="decide" style="--x:850;--y:420"><span class="ico" data-icon="rank"></span><span class="lbl" data-i18n-html="ato0.node.decide"></span></button>
+          </div>
+          <div class="dg-pop" id="dg-pop" hidden>
+            <p class="dg-pop-title" id="dg-pop-title"></p>
+            <p id="dg-pop-text"></p>
+          </div>
+        </div>
+          <ol class="in-flow" aria-hidden="true"><li data-i18n="intro.oque.flow.in"></li><li data-i18n="intro.oque.flow.model"></li><li data-i18n="intro.oque.flow.out"></li></ol>
+        </div>
+      </div>
+    </article>
 
     <!-- 1 · o que faz -->
     <article class="sp-scene in-scene" id="in-faz">
@@ -78,6 +125,7 @@
       <div class="in-or-grid">
         <div class="in-card">
           <h4 data-i18n-html="intro.tipo.rede.t"></h4>
+          <p class="in-comp" data-i18n="intro.tipo.comp"></p>
           <ul class="sp-list" data-i18n-list="intro.tipo.rede.items"></ul>
           <div class="in-photos">
             <figure><img src="img/saniplan/obra_ac.jpg" alt="" loading="lazy"></figure>
@@ -86,9 +134,11 @@
         <span class="in-or" data-i18n="intro.or"></span>
         <div class="in-card">
           <h4 data-i18n-html="intro.tipo.insitu.t"></h4>
+          <p class="in-comp" data-i18n="intro.tipo.comp"></p>
           <ul class="sp-list" data-i18n-list="intro.tipo.insitu.items"></ul>
-          <div class="in-photos">
-            <figure class="in-photo--diagram"><img src="img/saniplan/latrina_vip.jpg" alt="" loading="lazy"><figcaption data-i18n="intro.tipo.photoLatrina"></figcaption></figure>
+          <div class="in-photos in-photos--insitu">
+            <figure class="in-photo--diagram"><img src="img/saniplan/insitu_latrina.png" alt="" loading="lazy"><figcaption data-i18n="intro.tipo.photoLatrina"></figcaption></figure>
+            <figure class="in-photo--diagram"><img src="img/saniplan/insitu_fossa.png" alt="" loading="lazy"><figcaption data-i18n="intro.tipo.photoFossa"></figcaption></figure>
           </div>
         </div>
       </div>
@@ -99,7 +149,7 @@
       <p class="kicker" data-i18n="intro.fatores.k"></p>
       <h3 data-i18n="intro.fatores.title"></h3>
       <ul class="in-factors">
-        <li class="in-card"><h4 data-i18n="intro.fatores.tec.t"></h4><ul class="sp-list" data-i18n-list="intro.fatores.tec.items"></ul></li>
+        <li class="in-card"><h4 data-i18n="intro.fatores.tec.t"></h4><p class="in-comp" data-i18n="intro.fatores.tec.redeT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.rede"></ul><p class="in-comp" data-i18n="intro.fatores.tec.insituT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.insitu"></ul></li>
         <li class="in-card"><h4 data-i18n="intro.fatores.local.t"></h4><ul class="sp-list" data-i18n-list="intro.fatores.local.items"></ul></li>
         <li class="in-card"><h4 data-i18n="intro.fatores.custo.t"></h4><ul class="sp-list in-costs" data-i18n-list="intro.fatores.custo.items"></ul></li>
       </ul>
@@ -116,62 +166,13 @@
           <ul class="in-rd-list" data-i18n-list="intro.rd.items"></ul>
         </div>
         <dl class="in-rd-stats">
-          <div><dt class="num">486.526</dt><dd data-i18n="intro.rd.stat1"></dd></div>
-          <div><dt class="num">393</dt><dd data-i18n="intro.rd.stat2"></dd></div>
+          <div class="in-rd-stat"><div><dt class="num" data-count="486526">486.526</dt><dd data-i18n="intro.rd.stat1"></dd></div><svg class="rd-viz rd-hex" id="rd-hex" aria-hidden="true"></svg></div>
+          <div class="in-rd-stat"><div><dt class="num" data-count="393">393</dt><dd data-i18n="intro.rd.stat2"></dd></div><svg class="rd-viz rd-map" id="rd-map" aria-hidden="true"></svg></div>
         </dl>
       </div>
       <p class="in-note" data-i18n="intro.rd.next"></p>
     </article>
 
-  </div>
-</section>
-
-<!-- ATO 0 · DIAGRAMA ------------------------------------------------- -->
-<section id="ato0" class="scrolly scrolly--diagram">
-  <div class="sticky">
-    <div class="band" aria-hidden="true"></div>
-    <div class="diagram" id="diagram">
-      <div class="dg-stage" id="dg-stage">
-        <svg class="dg-wires" id="dg-wires" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true"></svg>
-
-        <button class="dg-node in" data-node="censo" style="--x:70;--y:70"><span class="ico" data-icon="people"></span><span class="lbl" data-i18n-html="ato0.node.censo"></span></button>
-        <button class="dg-node in" data-node="sat" style="--x:70;--y:160"><span class="ico" data-icon="sat"></span><span class="lbl" data-i18n-html="ato0.node.sat"></span></button>
-        <button class="dg-node in" data-node="ruas" style="--x:70;--y:250"><span class="ico" data-icon="roads"></span><span class="lbl" data-i18n-html="ato0.node.ruas"></span></button>
-        <button class="dg-node in" data-node="edif" style="--x:70;--y:340"><span class="ico" data-icon="bldg"></span><span class="lbl" data-i18n-html="ato0.node.edif"></span></button>
-        <button class="dg-node in" data-node="cad" style="--x:70;--y:430"><span class="ico" data-icon="pipes"></span><span class="lbl" data-i18n-html="ato0.node.cad"></span></button>
-        <button class="dg-node in" data-node="custos" style="--x:330;--y:470"><span class="ico" data-icon="cost"></span><span class="lbl" data-i18n-html="ato0.node.custos"></span></button>
-
-        <button class="dg-node spatial" data-node="spatial" style="--x:290;--y:250"><span class="ico ico--lg" data-icon="hex"></span><span class="lbl" data-i18n="ato0.node.spatial"></span></button>
-
-        <button class="dg-node core" data-node="saniplan" style="--x:500;--y:250" aria-label="SaniPLAN">
-          <span class="xl">
-            <span class="xl-banner"><span class="xl-logo">san<b>i</b>plan</span></span>
-            <span class="xl-nav"><i>&lt; INICIO</i><i>L. BASE</i><i>CALC</i><i class="on">RESULTADOS</i></span>
-            <span class="xl-grid" id="xl-mini"></span>
-          </span>
-          <span class="lbl" data-i18n="ato0.node.saniplan"></span>
-        </button>
-
-        <button class="dg-node out" data-node="capex" style="--x:850;--y:90"><span class="ico" data-icon="coins"></span><span class="lbl" data-i18n-html="ato0.node.capex"></span></button>
-        <button class="dg-node out" data-node="charts" style="--x:850;--y:200"><span class="ico" data-icon="bars"></span><span class="lbl" data-i18n-html="ato0.node.charts"></span></button>
-        <button class="dg-node out" data-node="map" style="--x:850;--y:310"><span class="ico ico--map" id="ico-rd"></span><span class="lbl" data-i18n-html="ato0.node.map"></span></button>
-        <button class="dg-node out" data-node="decide" style="--x:850;--y:420"><span class="ico" data-icon="rank"></span><span class="lbl" data-i18n-html="ato0.node.decide"></span></button>
-      </div>
-      <div class="dg-pop" id="dg-pop" hidden>
-        <p class="dg-pop-title" id="dg-pop-title"></p>
-        <p id="dg-pop-text"></p>
-      </div>
-    </div>
-  </div>
-  <div class="steps">
-    <article class="step" data-step="a0-1">
-      <h3 data-i18n="ato0.s1.title"></h3>
-      <ul data-i18n-list="ato0.s1.items"></ul>
-    </article>
-    <article class="step" data-step="a0-2">
-      <h3 data-i18n="ato0.s2.title"></h3>
-      <ul data-i18n-list="ato0.s2.items"></ul>
-    </article>
   </div>
 </section>
 
@@ -289,7 +290,7 @@
       <p class="sp-hint" data-i18n="ato3.subnav.hint"></p>
     </header>
 
-    <!-- o que o modelo precisa (slide 5 da apresentação BID) ---------------- -->
+    <!-- inputs necessários ------------------------------------------------- -->
     <article class="sp-scene" id="sp-precisa">
       <h3 data-i18n="ato3.precisa.title"></h3>
       <p class="sp-lead" data-i18n="ato3.precisa.lead"></p>
@@ -344,7 +345,7 @@
       </div>
     </article>
 
-    <!-- sub-módulos: projeção de população e custos unitários ------------ -->
+    <!-- módulos externos: projeção de população e custos unitários -------- -->
     <div class="sp-submod" id="sp-submod">
     <header class="sp-submod-head">
       <p class="kicker" data-i18n="ato3.submod.kicker"></p>
@@ -423,20 +424,19 @@
             </div>
             <div class="sp-svgwrap" id="sp-ete-svg"></div>
             <p class="sp-chart-foot"><span class="sp-muted" data-i18n="ato3.custos.ete.chart.gNote"></span> <span class="sp-muted" data-i18n="ato3.custos.ete.chart.hint"></span></p>
+            <p class="sp-credit" data-i18n="ato3.custos.ete.credit"></p>
           </div>
         </div>
       </div>
 
-      <!-- c · emissário · d · in situ -->
-      <div class="sp-block sp-grid-2">
-        <div class="sp-card">
-          <h4 data-i18n="ato3.custos.emis.title"></h4>
-          <ul class="sp-list" data-i18n-list="ato3.custos.emis.items"></ul>
-          <figure class="sp-photo"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/emisario.jpg" data-cap="ato3.custos.emis.photo"><img src="img/saniplan/emisario.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.emis.photo"></figcaption></figure>
-        </div>
-        <div class="sp-card">
-          <h4 data-i18n="ato3.custos.insitu.title"></h4>
-          <ul class="sp-list" data-i18n-list="ato3.custos.insitu.items"></ul>
+      <!-- c · emissário submarino -->
+      <div class="sp-block">
+        <div class="sp-grid-2">
+          <div class="sp-text">
+            <h4 data-i18n="ato3.custos.emis.title"></h4>
+            <ul class="sp-list" data-i18n-list="ato3.custos.emis.items"></ul>
+          </div>
+          <figure class="sp-photo sp-photo--emis"><button type="button" class="sp-thumb sp-thumb--bare" data-full="img/saniplan/emisario.jpg" data-cap="ato3.custos.emis.photo"><img src="img/saniplan/emisario.jpg" alt="" loading="lazy"></button><figcaption data-i18n="ato3.custos.emis.photo"></figcaption></figure>
         </div>
       </div>
 
@@ -445,6 +445,7 @@
         <h4 data-i18n="ato3.custos.size.title"></h4>
         <p class="sp-lead sp-lead--sm" data-i18n="ato3.custos.size.lead"></p>
         <div class="sp-tablewrap"><table class="sp-table sp-table--num" id="sp-sizetable"></table></div>
+        <p class="sp-caption" data-i18n="ato3.custos.size.caption"></p>
         <p class="note" data-i18n="ato3.custos.size.note"></p>
       </div>
     </article>

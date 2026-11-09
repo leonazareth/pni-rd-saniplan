@@ -55,23 +55,40 @@
     el.innerHTML = `<svg viewBox="0 0 100 ${h.toFixed(1)}" aria-hidden="true">${paths}</svg>`;
   }
 
+  /* Explicação de cada ícone: tooltip que acompanha o mouse; no toque, abre perto do ícone. */
   function popover() {
     const pop = document.getElementById('dg-pop');
+    document.body.appendChild(pop);  // fora do diagrama: posição fixa relativa à janela
+    pop.classList.add('dg-tip');
     const fill = key => {
       const lbl = (I18N.t(`ato0.node.${key}`) || '').replace(/<br\s*\/?>/g, ' ');
       document.getElementById('dg-pop-title').textContent = key === 'saniplan' ? 'SaniPLAN' : lbl;
       document.getElementById('dg-pop-text').textContent = I18N.t(`ato0.detail.${key}`) || '';
-    };
-    document.querySelectorAll('.dg-node').forEach(n => n.addEventListener('click', () => {
-      const key = n.dataset.node;
-      const open = n.classList.contains('is-open');
-      document.querySelectorAll('.dg-node.is-open').forEach(x => x.classList.remove('is-open'));
-      if (open) { pop.hidden = true; return; }
-      n.classList.add('is-open');
-      fill(key);
-      pop.hidden = false;
       pop.dataset.key = key;
-    }));
+    };
+    const place = (x, y) => {
+      const w = pop.offsetWidth, h = pop.offsetHeight, m = 12;
+      let left = x + 18, top = y + 18;
+      if (left + w > innerWidth - m) left = x - w - 18;
+      if (top + h > innerHeight - m) top = y - h - 18;
+      pop.style.left = `${Math.max(m, left)}px`;
+      pop.style.top = `${Math.max(m, top)}px`;
+    };
+    const hide = () => { pop.hidden = true; document.querySelectorAll('.dg-node.is-open').forEach(x => x.classList.remove('is-open')); };
+    document.querySelectorAll('.dg-node').forEach(n => {
+      n.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; fill(n.dataset.node); pop.hidden = false; place(e.clientX, e.clientY); });
+      n.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && !pop.hidden) place(e.clientX, e.clientY); });
+      n.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hide(); });
+      n.addEventListener('click', e => {
+        if (e.pointerType === 'mouse') return;  // no mouse o hover já mostra
+        const open = n.classList.contains('is-open');
+        hide();
+        if (open) return;
+        n.classList.add('is-open'); fill(n.dataset.node); pop.hidden = false;
+        const r = n.getBoundingClientRect(); place(r.left + r.width / 2, r.top + r.height / 2);
+      });
+    });
+    window.addEventListener('scroll', () => { if (!pop.hidden) hide(); }, { passive: true });
     I18N.onChange(() => { if (!pop.hidden && pop.dataset.key) fill(pop.dataset.key); });
   }
 

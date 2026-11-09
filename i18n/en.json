@@ -15,15 +15,16 @@
     "next": "Next slide"
   },
   "capa": {
-    "eyebrow": "National Sanitation Investment Plan",
-    "title": "PNI Sanitation<br>Dominican Republic",
-    "subtitle": "Investment estimate (CAPEX) to achieve universal urban wastewater collection and treatment by 2040, using spatial data analysis and the SaniPLAN model.",
+    "title": "How much does it cost to universalize safe sanitation services in a country or region?",
+    "subtitle": "Use of SaniPLAN and spatial data analysis to estimate the investment required (CAPEX) as a function of coverage targets.",
     "authors": "Pery Nazareth · Leonardo Nazareth",
-    "date": "2025",
     "scroll": "Scroll to start",
     "stat1": "10-ha hexagons analyzed",
     "stat2": "municipal districts",
-    "stat3": "adjusted urban population (2022)"
+    "stat3": "adjusted urban population (2022)",
+    "caseLabel": "Case:",
+    "caseName": "Dominican Republic",
+    "caseScope": "Urban sanitation"
   },
   "intro": {
     "or": "or",
@@ -32,50 +33,71 @@
       "title": "SaniPLAN estimates the investment in safely managed sanitation required to reach coverage targets set by the user.",
       "outLabel": "Outputs",
       "outs": {
-        "cob": { "title": "Service coverage", "text": "Share of the population with safely managed sanitation at the end of the plan." },
-        "pop": { "title": "Population served", "text": "Inhabitants served by safely managed sanitation." },
-        "capex": { "title": "Required investment (CAPEX)", "text": "Total investment required to reach the coverage targets." }
+        "cob": {
+          "title": "Service coverage",
+          "text": "Share of the population with safely managed sanitation at the end of the plan."
+        },
+        "pop": {
+          "title": "Population served",
+          "text": "Inhabitants served by safely managed sanitation."
+        },
+        "capex": {
+          "title": "Required investment (CAPEX)",
+          "text": "Total investment required to reach the coverage targets."
+        }
       }
     },
     "tipo": {
-      "k": "Type of sanitation",
+      "k": "Types of sanitation",
       "title": "The model works with sanitation based on sewer networks or on on-site containment.",
       "rede": {
         "t": "<b class=\"in-hl\">Sewered</b> sanitation",
         "items": [
-          "Conventional or simplified network, with house connections.",
-          "Conveyance of wastewater to the treatment plant (WWTP).",
-          "Treatment at four levels, from primary to advanced, and submarine outfall."
+          "Sewer network",
+          "Connections",
+          "Household sanitary modules",
+          "Wastewater conveyance structures",
+          "Wastewater treatment plants or submarine outfalls"
         ]
       },
       "insitu": {
         "t": "Sanitation with <b class=\"in-hl\">on-site containment</b>",
         "items": [
-          "Dry or water-flush toilet, with containment on the plot.",
-          "Collection and treatment of septic sludge."
+          "On-site containment systems",
+          "Household sanitary modules",
+          "Septic sludge treatment plants"
         ]
       },
-      "photoLatrina": "Ventilated improved pit latrine (VIP). Source: Tilley et al., Compendium of Sanitation Systems and Technologies, 2nd ed. (Eawag, 2014)."
+      "comp": "Components",
+      "photoLatrina": "Dry pit latrine",
+      "photoFossa": "Toilet with septic tank and soakaway"
     },
     "fatores": {
       "k": "What drives the investment",
       "title": "The investment (CAPEX) is calculated from the adopted technology standard, local characteristics and reference unit costs.",
       "tec": {
         "t": "Technology standard",
-        "items": [
-          "Network type: conventional or simplified",
-          "Treatment level: primary, basic, intermediate or advanced",
-          "Submarine outfall"
+        "redeT": "Network",
+        "rede": [
+          "Sewer network: conventional or low-cost",
+          "Wastewater treatment plants: primary, basic, intermediate or advanced levels"
+        ],
+        "insituT": "On-site",
+        "insitu": [
+          "On-site containment: latrines or septic tanks and soakaways",
+          "Septic sludge treatment plants"
         ]
       },
       "local": {
         "t": "Local characteristics",
         "items": [
-          "City size",
-          "Construction difficulty",
+          "Locality size",
+          "Location",
+          "Construction difficulty level",
           "Network length per connection",
-          "Households per connection",
-          "Inland or coastal"
+          "Building height (verticalization)",
+          "Soil type",
+          "And others"
         ]
       },
       "custo": {
@@ -105,6 +127,21 @@
       "stat1": "10-ha hexagons",
       "stat2": "municipal districts",
       "next": "Next: how the data and the model fit together."
+    },
+    "oque": {
+      "k": "What it is",
+      "text": "<b class=\"hl-brand\">SaniPLAN</b> is an open source simulation model, <span class=\"hl-line\">adjustable to local conditions</span>, developed in Excel to support the preparation of national or regional <mark class=\"hl\">sanitation investment</mark> plans in Latin America and the Caribbean.",
+      "tags": [
+        "Open source",
+        "Excel",
+        "Adjustable to local conditions",
+        "National or regional plans"
+      ],
+      "flow": {
+        "in": "Data",
+        "model": "Model",
+        "out": "Results"
+      }
     }
   },
   "ato0": {
@@ -306,17 +343,37 @@
       "hint": "The buttons reproduce the spreadsheet's navigation bar and lead to each scene in this part."
     },
     "precisa": {
-      "title": "What the model needs",
+      "title": "Required inputs",
       "lead": "Six groups of information feed the model. With them, the spreadsheet computes everything shown in the next scenes.",
       "items": {
-        "lista": { "title": "List of municipalities or districts", "text": "The unit of calculation: each one is a row in the spreadsheet." },
-        "pop": { "title": "Existing and projected population", "text": "Censuses and current population; the POB sub-model projects year by year." },
-        "cob": { "title": "Existing sanitation coverage", "text": "Wastewater collection and treatment at baseline." },
-        "custo": { "title": "Unit implementation costs", "text": "Network, connections, conveyance and treatment, by size and difficulty." },
-        "meta": { "title": "Coverage targets", "text": "Percentage to reach and target year." },
-        "param": { "title": "Adjustment parameters", "text": "Regional factors, sanitation type and treatment level." }
+        "lista": {
+          "title": "List of municipalities or localities",
+          "text": "Each one is a row in the spreadsheet."
+        },
+        "pop": {
+          "title": "Existing and projected population",
+          "text": "Current population and population projection for the design period, by locality."
+        },
+        "cob": {
+          "title": "Existing sanitation coverage",
+          "text": "Baseline situation: wastewater collection and treatment, and containment and treatment of septic sludge."
+        },
+        "custo": {
+          "title": "Unit implementation costs",
+          "text": "By type of sanitation and system component."
+        },
+        "meta": {
+          "title": "Coverage targets",
+          "text": "Percentage to reach and target year."
+        },
+        "param": {
+          "title": "Adjustment parameters",
+          "text": "Accepted types of sanitation, local factors, required treatment levels, etc."
+        }
       },
-      "units": { "meta": "% · years" }
+      "units": {
+        "meta": "% · years"
+      }
     },
     "fluxo": {
       "kicker": "",
@@ -374,7 +431,7 @@
     "pob": {
       "kicker": "",
       "title": "Population projection",
-      "lead": "We developed population projections for each district from historical census data and population growth curves, adjusted to the official projections of the ONE.",
+      "lead": "For the study carried out for the Dominican Republic, population projections were developed for each district from historical census data and population growth curves, adjusted to the official ONE projections.",
       "methods": {
         "title": "Methods",
         "items": [
@@ -407,7 +464,7 @@
     "custos": {
       "kicker": "",
       "title": "Unit costs",
-      "lead": "Reference costs loaded in the model and adjusted by district. Users can replace them with their own.",
+      "lead": "For the study carried out for the Dominican Republic, the following unit costs were adopted, already converted to country costs.",
       "rede": {
         "title": "Sewer network",
         "items": [
@@ -432,11 +489,11 @@
       "ete": {
         "title": "Treatment",
         "items": [
-          "Cost curve by load: $/kg BOD₅·day = 35,000 × load<sup>−0.303</sup>. The larger the plant, the lower the cost per kg.",
-          "Based on actual WWTP costs in Latin America and the Caribbean.",
-          "Four treatment levels, with a factor applied to the curve: primary ×0.25, basic ×0.60, intermediate ×1.00, advanced ×1.25.",
-          "Required BOD removal: 85–88% inland, 67–77% on the coast. It defines the level.",
-          "Per capita load: 40, 50 or 60 g BOD/inhab·day, by city size."
+          "Cost curves for wastewater treatment plants as a function of influent BOD load and the intended level of treatment.",
+          "Four curves, one for each standard treatment level (BOD removal): primary, basic, intermediate and advanced.",
+          "Curves based on costs of WWTPs built in Latin America and the Caribbean.",
+          "In compliance with Dominican Republic environmental legislation, BOD removals of 85% to 88% were considered for inland areas and 67% to 77% for the coastal region.",
+          "A per capita load varying with the population of the district was considered, from 40 to 60 g BOD/inhab·day."
         ],
         "chart": {
           "title": "WWTP cost curve",
@@ -453,7 +510,8 @@
           ],
           "gNote": "$/inhab. calculated with 50 g BOD/inhab·day.",
           "hint": "Hover to read the values."
-        }
+        },
+        "credit": "Curves: wastewater treatment plant unit-cost module developed by consultant Dr. Konrad Buchauer (2024)."
       },
       "emis": {
         "title": "Submarine outfall",
@@ -463,14 +521,6 @@
           "Cost per meter as a function of diameter, estimated from population; added to the WWTP cost per inhabitant."
         ],
         "photo": "Submarine outfall during installation."
-      },
-      "insitu": {
-        "title": "On-site solutions and minimum facilities",
-        "items": [
-          "<strong>On-site:</strong> containment (dry or flush toilet) and septic sludge treatment. Target = 100% sewered, so on-site sanitation is not included in the scenarios.",
-          "<strong>ISM (minimum household sanitary facilities):</strong> 19% of new connected households × USD 1,484.51, from 2025 to 2034.",
-          "Shown separately in the results: they are neither network nor treatment."
-        ]
       },
       "size": {
         "title": "Size matters",
@@ -485,7 +535,8 @@
           "Removal inland / coast",
           "Districts"
         ],
-        "note": "Difficulty and costs apply outside the metropolitan district (DOM-M: always high). Removal of 85/67% up to 11,001 inhabitants, 88/77% above."
+        "note": "Difficulty and costs apply outside the metropolitan district (DOM-M: always high). Removal of 85/67% up to 11,001 inhabitants, 88/77% above.",
+        "caption": "Summary table of the main unit costs and basic parameters adopted in the study carried out for the Dominican Republic."
       },
       "difLabels": {
         "Bajo": "Low",
@@ -601,9 +652,9 @@
       "next": "View the results"
     },
     "submod": {
-      "kicker": "Sub-modules",
-      "title": "Two sub-modules feed SaniPLAN",
-      "lead": "They are independent spreadsheets. They run before the model and deliver two baseline inputs to it: the projected population of each district and the unit costs adjusted to the country and to the population band."
+      "kicker": "External modules",
+      "title": "Two external modules feed SaniPLAN",
+      "lead": "These are independent spreadsheets that provide two basic inputs: the population projection by locality and the reference unit costs used in the calculations."
     }
   },
   "ato4": {

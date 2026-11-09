@@ -42,7 +42,7 @@
   function renderRedeTable() {
     const el = $('sp-redetable'); if (!el || !data) return;
     const uc = data.tables.alcUnitCosts.DOM, head = T('ato3.custos.rede.head') || [];
-    const idx = { Bajo: 0, Medio: 3, Alto: 5 }, lbl = { Bajo: ['Baixo', 'sp-lo'], Medio: ['Médio', 'sp-mid'], Alto: ['Alto', 'sp-hi'] };
+    const idx = { Bajo: 0, Medio: 3, Alto: 5 }, dl = T('ato3.custos.difLabels') || {}, lbl = { Bajo: [dl.Bajo || 'Bajo', 'sp-lo'], Medio: [dl.Medio || 'Medio', 'sp-mid'], Alto: [dl.Alto || 'Alto', 'sp-hi'] };
     const rows = Object.keys(idx).map(k => `<tr><td class="${lbl[k][1]}">${lbl[k][0]}</td><td>${fmtDec(uc['Rd.AC'][idx[k]], 2)}</td><td>${fmtDec(uc['Rd.AE'][idx[k]], 2)}</td><td>${fmtDec(uc['Rm.AC'][idx[k]], 2)}</td><td>${fmtDec(uc['Rm.AE'][idx[k]], 2)}</td></tr>`).join('');
     el.innerHTML = `<thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody>`;
   }
@@ -50,7 +50,7 @@
     const el = $('sp-sizetable'); if (!el || !data) return;
     const tb = data.tables, head = T('ato3.custos.size.head') || [];
     const counts = {}; data.dms.forEach(d => { counts[d.rng] = (counts[d.rng] || 0) + 1; });
-    const lbl = { Bajo: ['Baixo', 'sp-lo'], Medio: ['Médio', 'sp-mid'], Alto: ['Alto', 'sp-hi'] };
+    const dl = T('ato3.custos.difLabels') || {}, lbl = { Bajo: [dl.Bajo || 'Bajo', 'sp-lo'], Medio: [dl.Medio || 'Medio', 'sp-mid'], Alto: [dl.Alto || 'Alto', 'sp-hi'] };
     const rows = tb.popRanges.map((r, i) => {
       const dif = tb.alcUnitCosts.DOM.difficulty[i];
       const g = r.max <= 20000 ? 40 : r.max <= 100000 ? 50 : 60;

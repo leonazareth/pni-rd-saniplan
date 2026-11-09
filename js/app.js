@@ -107,10 +107,140 @@ function pager() {
   refresh();
 }
 
+/* Slide "O que é": as palavras acendem conforme a rolagem; destaques (cor, sublinhado,
+   marca-texto) entram quando a rolagem chega neles. */
+function revealText() {
+  const p = document.querySelector('.in-oque-text'), box = document.querySelector('.in-oque');
+  if (!p || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let words = [], marks = [];
+  function split() {
+    const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(n => {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(t => {
+        if (!t) return;
+        if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+        const w = document.createElement('span'); w.className = 'w'; w.textContent = t; frag.appendChild(w);
+      });
+      n.replaceWith(frag);
+    });
+    words = [...p.querySelectorAll('.w')];
+    // cada destaque acende junto com a sua última palavra
+    marks = [...p.querySelectorAll('.hl-brand, .hl-line, .hl')].map(m => ({ m, last: words.indexOf([...m.querySelectorAll('.w')].pop()) }));
+    p.classList.add('reveal'); box.classList.add('reveal-box');
+    update();
+  }
+  function update() {
+    const r = p.getBoundingClientRect(), vh = innerHeight;
+    // começa quando o parágrafo entra pela base; termina com o topo dele a 45% da tela
+    const t = Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.5)));
+    const n = Math.round(t * words.length);
+    words.forEach((w, i) => w.classList.toggle('on', i < n));
+    marks.forEach(({ m, last }) => m.classList.toggle('on', last < n));
+    box.classList.toggle('done', n >= words.length);
+  }
+  let q = false;
+  addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } }, { passive: true });
+  addEventListener('resize', update);
+  split();
+  I18N.onChange(() => requestAnimationFrame(split));  // texto novo do idioma: reparte em palavras
+}
+
+/* Cartões da abertura: entram em sequência (sobem e aparecem) quando a cena chega na tela. */
+function revealCards() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const groups = [
+    ['#in-faz', '.sp-outs > .sp-out'],
+    ['#in-tipo', '.in-or-grid > .in-card, .in-or-grid > .in-or'],
+    ['#in-fatores', '.in-factors > .in-card, .in-costnote'],
+    ['#in-rd', '.in-rd-stat']
+  ].map(([sc, sel]) => {
+    const scene = document.querySelector(sc);
+    if (!scene) return null;
+    scene.querySelectorAll(sel).forEach((el, i) => { el.classList.add('rv'); el.style.setProperty('--i', i); });
+    return scene;
+  }).filter(Boolean);
+  function update() {
+    const vh = innerHeight;
+    groups.forEach(sc => { if (!sc.classList.contains('rv-in') && sc.getBoundingClientRect().top < vh * 0.6) sc.classList.add('rv-in'); });
+  }
+  let q = false;
+  addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } }, { passive: true });
+  update();
+}
+
+/* Slide "Na República Dominicana": favo de hexágonos ao lado do nº de hexágonos e
+   mapa dos distritos que se desenha (de oeste para leste) ao lado do nº de distritos. */
+async function rdViz() {
+  const hex = document.getElementById('rd-hex'), map = document.getElementById('rd-map');
+  if (!hex || !map) return;
+  // mesma projeção e mesmo tamanho nos dois desenhos
+  const bb = [-72.05, 17.45, -68.3, 19.98], k = Math.cos(18.7 * Math.PI / 180), s = 200 / ((bb[2] - bb[0]) * k), H = (bb[3] - bb[1]) * s;
+  const X = x => (x - bb[0]) * k * s, Y = y => (bb[3] - y) * s;
+  const P = ([x, y]) => `${X(x).toFixed(1)},${Y(y).toFixed(1)}`;
+  const [dm, prov] = await Promise.all([DATA.get('data/dm.geojson'), DATA.get('data/provincias.geojson')]);
+
+  // hexágonos dentro do contorno do país; ~1/4 laranja (reclassificados), o resto azul
+  const rings = [];
+  prov.features.forEach(f => {
+    if (!f.geometry) return;
+    const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
+    polys.forEach(p => rings.push(p[0].filter((_, i) => i % 3 === 0).map(([x, y]) => [X(x), Y(y)])));
+  });
+  const inside = (px, py) => rings.some(r => {
+    let c = false;
+    for (let i = 0, j = r.length - 1; i < r.length; j = i++) {
+      const [xi, yi] = r[i], [xj, yj] = r[j];
+      if ((yi > py) !== (yj > py) && px < (xj - xi) * (py - yi) / (yj - yi) + xi) c = !c;
+    }
+    return c;
+  });
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const r = 4.6, w = Math.sqrt(3) * r, cells = [];
+  for (let j = 0; r + j * 1.5 * r < H; j++) for (let i = 0; i * w < 200; i++) {
+    const cx = w / 2 + i * w + (j % 2 ? w / 2 : 0), cy = r + j * 1.5 * r;
+    if (!inside(cx, cy)) continue;
+    const pts = [...Array(6)].map((_, q) => { const a = Math.PI / 180 * (60 * q - 30); return `${(cx + (r - .6) * Math.cos(a)).toFixed(1)},${(cy + (r - .6) * Math.sin(a)).toFixed(1)}`; }).join(' ');
+    cells.push(`<polygon class="hx${rnd() < .27 ? ' hx--o' : ''}" style="--d:${(rnd() * 1.8).toFixed(2)}s" points="${pts}"/>`);
+  }
+  hex.setAttribute('viewBox', `0 0 200 ${H.toFixed(0)}`);
+  hex.innerHTML = cells.join('');
+
+  // contornos dos distritos municipais, desenhados de oeste para leste
+  const paths = dm.features.filter(f => f.geometry).map(f => {
+    const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
+    let minx = 999;
+    const d = polys.map(p => { const ring = p[0].filter((_, i, a) => i % 2 === 0 || i === a.length - 1); ring.forEach(c => { minx = Math.min(minx, c[0]); }); return 'M' + ring.map(P).join('L') + 'Z'; }).join('');
+    const t = (minx - bb[0]) / (bb[2] - bb[0]);
+    return `<path pathLength="1" style="--d:${(t * 2).toFixed(2)}s" d="${d}"/>`;
+  }).join('');
+  map.setAttribute('viewBox', `0 0 200 ${H.toFixed(0)}`);
+  map.innerHTML = `<g>${paths}</g>`;
+}
+
+/* números da capa no formato do idioma */
+function formatStats() {
+  const loc = { pt: 'pt-BR', es: 'es-DO', en: 'en-US' }[I18N.lang] || 'pt-BR';
+  const suf = { pt: 'mi', es: 'M', en: 'M' }[I18N.lang] || 'mi';
+  document.querySelectorAll('.capa-stats [data-count], .in-rd-stats [data-count]').forEach(el => {
+    const v = +el.dataset.count;
+    el.textContent = el.dataset.format === 'mi'
+      ? `${(v / 1e6).toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${suf}`
+      : v.toLocaleString(loc);
+  });
+}
+
 (async function main() {
   await I18N.set(I18N.initial());
   renderLadder();
-  I18N.onChange(renderLadder);  CAPA.draw();
+  formatStats();
+  I18N.onChange(renderLadder);
+  I18N.onChange(formatStats);
+  revealText();
+  revealCards();
+  rdViz();
+  CAPA.draw();
   DIAGRAM.init();
   MAPSTORY.init();
   RESULTS.init();

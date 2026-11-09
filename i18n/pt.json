@@ -15,15 +15,16 @@
     "next": "Próximo slide"
   },
   "capa": {
-    "eyebrow": "Plano Nacional de Investimentos em Saneamento",
-    "title": "PNI Saneamento<br>República Dominicana",
-    "subtitle": "Estimativa de investimento (CAPEX) para universalizar a coleta e o tratamento de esgoto urbano até 2040, com análise de dados espaciais e o modelo SaniPLAN.",
+    "title": "Quanto custa universalizar serviços de saneamento seguro em um país ou região?",
+    "subtitle": "Uso do SaniPLAN e análise de dados espaciais para estimar os investimentos necessários (CAPEX) em função de metas de cobertura.",
     "authors": "Pery Nazareth · Leonardo Nazareth",
-    "date": "2025",
     "scroll": "Role para começar",
     "stat1": "hexágonos de 10 ha analisados",
     "stat2": "distritos municipais",
-    "stat3": "população urbana ajustada (2022)"
+    "stat3": "população urbana ajustada (2022)",
+    "caseLabel": "Caso:",
+    "caseName": "República Dominicana",
+    "caseScope": "Saneamento urbano"
   },
   "intro": {
     "or": "ou",
@@ -32,50 +33,71 @@
       "title": "O SaniPLAN estima o investimento necessário em saneamento seguro para atingir metas de cobertura definidas pelo usuário.",
       "outLabel": "Outputs",
       "outs": {
-        "cob": { "title": "Cobertura dos serviços", "text": "Percentual da população com saneamento seguro em final de plano." },
-        "pop": { "title": "População atendida", "text": "Habitantes atendidos por saneamento seguro." },
-        "capex": { "title": "Investimento necessário (CAPEX)", "text": "Investimento total necessário para atingir as metas de cobertura." }
+        "cob": {
+          "title": "Cobertura dos serviços",
+          "text": "Percentual da população com saneamento seguro em final de plano."
+        },
+        "pop": {
+          "title": "População atendida",
+          "text": "Habitantes atendidos por saneamento seguro."
+        },
+        "capex": {
+          "title": "Investimento necessário (CAPEX)",
+          "text": "Investimento total necessário para atingir as metas de cobertura."
+        }
       }
     },
     "tipo": {
-      "k": "Tipo de saneamento",
+      "k": "Tipos de saneamento",
       "title": "O modelo trabalha com saneamento baseado em redes coletoras ou em contenção in situ (on-site).",
       "rede": {
         "t": "Saneamento com <b class=\"in-hl\">rede</b>",
         "items": [
-          "Rede convencional ou econômica, com ligações domiciliares.",
-          "Transporte do esgoto até a estação de tratamento (ETE).",
-          "Tratamento em quatro níveis, do primário ao avançado, e emissário submarino."
+          "Rede coletora",
+          "Ligações",
+          "Módulos sanitários",
+          "Estruturas de transporte de águas residuais",
+          "Plantas de tratamento de águas residuais ou emissários submarinos"
         ]
       },
       "insitu": {
         "t": "Saneamento com <b class=\"in-hl\">contenção in situ</b>",
         "items": [
-          "Sanitário seco ou com descarga hídrica, com contenção no próprio lote.",
-          "Coleta e tratamento do lodo séptico."
+          "Sistemas de contenção in situ",
+          "Módulos sanitários",
+          "Plantas de tratamento de lodos sépticos"
         ]
       },
-      "photoLatrina": "Latrina de poço ventilada (VIP). Fonte: Tilley et al., Compendium of Sanitation Systems and Technologies, 2ª ed. (Eawag, 2014)."
+      "comp": "Componentes",
+      "photoLatrina": "Latrina com fossa seca",
+      "photoFossa": "Vaso sanitário com fossa séptica e sumidouro"
     },
     "fatores": {
       "k": "O que define o investimento",
       "title": "O investimento (CAPEX) é calculado em função do padrão tecnológico admitido, das características locais e dos custos unitários de referência.",
       "tec": {
         "t": "Padrão tecnológico",
-        "items": [
-          "Tipo de rede: convencional ou econômica",
-          "Nível de tratamento: primário, básico, intermediário ou avançado",
-          "Emissário submarino"
+        "redeT": "Rede",
+        "rede": [
+          "Rede coletora: convencional ou econômica",
+          "Plantas de tratamento de águas residuais: níveis primário, básico, intermediário ou avançado"
+        ],
+        "insituT": "In situ",
+        "insitu": [
+          "Contenção in situ: latrinas ou fossas sépticas e sumidouros",
+          "Plantas de tratamento de lodos sépticos"
         ]
       },
       "local": {
         "t": "Características locais",
         "items": [
-          "Porte da cidade",
-          "Dificuldade construtiva",
+          "Porte da localidade",
+          "Localização",
+          "Nível de dificuldade construtiva",
           "Extensão de rede por ligação",
-          "Domicílios por ligação",
-          "Interior ou litoral"
+          "Verticalização",
+          "Tipo de solo",
+          "E outras"
         ]
       },
       "custo": {
@@ -105,6 +127,21 @@
       "stat1": "hexágonos de 10 ha",
       "stat2": "distritos municipais",
       "next": "A seguir: como os dados e o modelo se encaixam."
+    },
+    "oque": {
+      "k": "O que é",
+      "text": "O <b class=\"hl-brand\">SaniPLAN</b> é um modelo de simulação open source, <span class=\"hl-line\">ajustável a características locais</span>, desenvolvido em Excel, com a finalidade de apoiar a preparação de planos nacionais ou regionais de <mark class=\"hl\">investimento em saneamento</mark> na América Latina e no Caribe.",
+      "tags": [
+        "Open source",
+        "Excel",
+        "Ajustável a características locais",
+        "Planos nacionais ou regionais"
+      ],
+      "flow": {
+        "in": "Dados",
+        "model": "Modelo",
+        "out": "Resultados"
+      }
     }
   },
   "ato0": {
@@ -306,17 +343,37 @@
       "hint": "Os botões reproduzem a barra de navegação da planilha e levam a cada cena deste ato."
     },
     "precisa": {
-      "title": "O que o modelo precisa",
+      "title": "Inputs necessários",
       "lead": "Seis grupos de informação alimentam o modelo. Com eles, a planilha calcula tudo o que vem nas próximas cenas.",
       "items": {
-        "lista": { "title": "Lista de municípios ou distritos", "text": "A unidade de cálculo: cada um é uma linha da planilha." },
-        "pop": { "title": "População existente e projeção", "text": "Censos e população atual; o sub-modelo POB projeta ano a ano." },
-        "cob": { "title": "Cobertura de saneamento existente", "text": "Coleta e tratamento de esgoto na linha de base." },
-        "custo": { "title": "Custos unitários de implantação", "text": "Rede, ligações, transporte e tratamento, por porte e dificuldade." },
-        "meta": { "title": "Metas de cobertura", "text": "Percentual a alcançar e ano-alvo." },
-        "param": { "title": "Parâmetros de ajuste", "text": "Fatores regionais, tipo de saneamento e nível de tratamento." }
+        "lista": {
+          "title": "Lista de municípios ou localidades",
+          "text": "Cada um é uma linha da planilha."
+        },
+        "pop": {
+          "title": "População existente e projeção",
+          "text": "População atual e projeção de população para o período de projeto, por localidade."
+        },
+        "cob": {
+          "title": "Cobertura de saneamento existente",
+          "text": "Situação existente na linha de base: coleta e tratamento de águas residuais, e contenção e tratamento de lodos sépticos."
+        },
+        "custo": {
+          "title": "Custos unitários de implantação",
+          "text": "Por tipo de saneamento e componente do sistema."
+        },
+        "meta": {
+          "title": "Metas de cobertura",
+          "text": "Percentual a alcançar e ano-alvo."
+        },
+        "param": {
+          "title": "Parâmetros de ajuste",
+          "text": "Tipos de saneamento admitidos, fatores locais, níveis de tratamento requeridos etc."
+        }
       },
-      "units": { "meta": "% · anos" }
+      "units": {
+        "meta": "% · anos"
+      }
     },
     "fluxo": {
       "kicker": "",
@@ -374,7 +431,7 @@
     "pob": {
       "kicker": "",
       "title": "Projeção de população",
-      "lead": "Desenvolvemos projeções de população para cada distrito a partir dos dados históricos dos censos e de curvas de crescimento populacional, ajustadas às projeções oficiais da ONE.",
+      "lead": "No caso do estudo realizado para a República Dominicana, foram desenvolvidas projeções de população para cada distrito a partir dos dados históricos dos censos e de curvas de crescimento populacional, ajustadas às projeções oficiais da ONE.",
       "methods": {
         "title": "Métodos",
         "items": [
@@ -407,7 +464,7 @@
     "custos": {
       "kicker": "",
       "title": "Custos unitários",
-      "lead": "Custos de referência carregados no modelo e ajustados por distrito. O usuário pode substituí-los pelos seus.",
+      "lead": "No caso do estudo realizado para a República Dominicana, foram admitidos os seguintes custos unitários, já convertidos aos custos do país.",
       "rede": {
         "title": "Rede coletora",
         "items": [
@@ -432,11 +489,11 @@
       "ete": {
         "title": "Tratamento",
         "items": [
-          "Curva de custo por carga: $/kg DBO₅·dia = 35.000 × carga<sup>−0,303</sup>. Quanto maior a estação, menor o custo por kg.",
-          "Baseada em custos reais de ETEs da América Latina e Caribe.",
-          "Quatro níveis de tratamento, com fator sobre a curva: primário ×0,25, básico ×0,60, intermediário ×1,00, avançado ×1,25.",
-          "Remoção requerida de DBO: 85–88% no interior, 67–77% no litoral. Define o nível.",
-          "Carga per capita: 40, 50 ou 60 g DBO/hab·dia, por porte da cidade."
+          "Curvas de custo para plantas de tratamento de águas residuais em função da carga de DBO afluente e do nível de tratamento pretendido.",
+          "Quatro curvas, uma para cada nível padrão de tratamento (remoção de DBO): primário, básico, intermediário e avançado.",
+          "Curvas baseadas em custos de ETEs implantadas na América Latina e Caribe.",
+          "Em atendimento à legislação ambiental da República Dominicana, foram consideradas remoções de DBO de 85% a 88% para o interior e de 67% a 77% para a região litorânea.",
+          "Foi considerada carga per capita variável em função da população do distrito, de 40 a 60 g DBO/hab·dia."
         ],
         "chart": {
           "title": "Curva de custo da ETE",
@@ -453,7 +510,8 @@
           ],
           "gNote": "$/hab calculado com 50 g DBO/hab·dia.",
           "hint": "Passe o cursor para ler os valores."
-        }
+        },
+        "credit": "Curvas: módulo de custos unitários para plantas de tratamento de águas residuais desenvolvido pelo consultor Dr. Konrad Buchauer (2024)."
       },
       "emis": {
         "title": "Emissário submarino",
@@ -463,14 +521,6 @@
           "Custo por metro em função do diâmetro, estimado pela população; somado ao custo da ETE por habitante."
         ],
         "photo": "Emissário submarino em instalação."
-      },
-      "insitu": {
-        "title": "Soluções individuais e instalações mínimas",
-        "items": [
-          "<strong>In situ:</strong> contenção (sanitário seco ou com descarga hídrica) e tratamento de lodo séptico. Meta = 100% em rede, logo in situ não entra nos cenários.",
-          "<strong>ISM (instalações sanitárias mínimas):</strong> 19% dos novos domicílios ligados × USD 1.484,51, de 2025 a 2034.",
-          "Mostradas à parte nos resultados: não são rede nem tratamento."
-        ]
       },
       "size": {
         "title": "O tamanho importa",
@@ -485,7 +535,13 @@
           "Remoção interior / litoral",
           "Distritos"
         ],
-        "note": "Dificuldade e custos valem fora do distrito metropolitano (DOM-M: sempre alto). Remoção de 85/67% até 11.001 habitantes, 88/77% acima."
+        "note": "Dificuldade e custos valem fora do distrito metropolitano (DOM-M: sempre alto). Remoção de 85/67% até 11.001 habitantes, 88/77% acima.",
+        "caption": "Quadro resumo dos principais custos unitários e parâmetros básicos admitidos no estudo realizado para a República Dominicana."
+      },
+      "difLabels": {
+        "Bajo": "Baixo",
+        "Medio": "Médio",
+        "Alto": "Alto"
       }
     },
     "sim": {
@@ -596,9 +652,9 @@
       "next": "Ver os resultados"
     },
     "submod": {
-      "kicker": "Sub-módulos",
-      "title": "Dois sub-módulos alimentam o SaniPLAN",
-      "lead": "São planilhas independentes. Rodam antes do modelo e entregam a ele dois dados de base: a população projetada de cada distrito e os custos unitários ajustados ao país e à faixa de população."
+      "kicker": "Módulos externos",
+      "title": "Dois módulos externos alimentam o SaniPLAN",
+      "lead": "São planilhas independentes que fornecem dois dados básicos: a projeção de população por localidade e os custos unitários de referência para os cálculos."
     }
   },
   "ato4": {
