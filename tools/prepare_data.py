@@ -110,12 +110,22 @@ pv["cov_alc"] = pv["cod_geogra"].map(lambda c: round(covs[c][0] / covs[c][2], 4)
 pv["cov_tar"] = pv["cod_geogra"].map(lambda c: round(covs[c][1] / covs[c][2], 4) if c in covs else None)
 save(pv[["cod_geogra", "name_es", "cov_alc", "cov_tar", "geometry"]], "provincias.geojson", 4)
 
-# --- Hexágonos urbanos do país (centróides) -------------------------------
-cen = urb.to_crs(32619).copy()
-cen["geometry"] = cen.geometry.centroid
-cen["p"] = cen["pop_adj_census22"].fillna(0).round().astype(int)
-cen["r"] = (cen.urban_consolidated & ~cen.urban_area).astype(int)  # reclassificado
-save(cen[["p", "r", "geometry"]], "hex_urbanos_rd.geojson", 4)
+# --- Hexágonos urbanos do país (geometria real) ---------------------------
+hx = urb.copy()
+hx["p"] = hx["pop_adj_census22"].fillna(0).round().astype(int)
+hx["r"] = (hx.urban_consolidated & ~hx.urban_area).astype(int)  # reclassificado
+# ruas (OpenStreetMap) e construções (Overture Maps) de cada hexágono urbano, e a razão entre elas
+hx["e"] = hx["count_buildings"].fillna(0).round().astype(int)
+hx["s"] = hx["sum_roads_extension"].fillna(0).round().astype(int)
+hx["m"] = (hx["sum_roads_extension"] / hx["count_buildings"].where(hx["count_buildings"] > 0)).astype(float).round(1)
+save(hx[["p", "r", "e", "s", "m", "geometry"]], "hex_urbanos_rd.geojson", 5)
+
+# --- Contorno do país (união das províncias, sem frestas internas) ---------
+import shapely
+un = shapely.unary_union(pv.geometry.buffer(0.002).values).buffer(-0.002)
+ext = [shapely.Polygon(g.exterior) for g in (un.geoms if un.geom_type == "MultiPolygon" else [un])]
+ext = [g for g in ext if g.area > 1e-4]
+save(gpd.GeoDataFrame({"name": ["República Dominicana"]}, geometry=[shapely.MultiPolygon(ext).simplify(0.0008)], crs=4326), "pais.geojson", 4)
 
 # --- Santo Domingo Este: hexágonos completos ------------------------------
 s = grid[grid.coddm6 == SDE].copy()

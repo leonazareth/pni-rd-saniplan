@@ -1,5 +1,5 @@
 /* Capa: o país desenhado pelos 18.352 hexágonos urbanos (centróides).
-   Azul = urbano oficial; âmbar = reclassificado para urbano. */
+   Azul = urbano oficial; laranja = reclassificado para urbano. */
 (function () {
   async function draw() {
     const cv = document.getElementById('capa-canvas');
@@ -41,7 +41,8 @@
       // hexágonos
       const r0 = Math.max(0.6, s * 0.0016);
       hex.features.forEach(f => {
-        const [x, y] = f.geometry.coordinates; const [px, py] = P(x, y);
+        const ring = f.geometry.coordinates[0];  // hexágono real: o centro é o meio de dois vértices opostos
+        const [px, py] = f.geometry.type === 'Point' ? P(...f.geometry.coordinates) : P((ring[0][0] + ring[3][0]) / 2, (ring[0][1] + ring[3][1]) / 2);
         const p = f.properties.p, rec = f.properties.r === 1;
         const r = r0 * (0.7 + Math.min(1.6, Math.sqrt(p) / 30));
         ctx.globalAlpha = rec ? 0.95 : 0.25 + Math.min(0.6, p / 2500);

@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Carlito:wght@400;700&display=swap">
-<link rel="stylesheet" href="css/maplibre-gl.css?v=20261110d">
-<link rel="stylesheet" href="css/style.css?v=20261110d">
-<link rel="stylesheet" href="css/saniplan.css?v=20261110d">
+<link rel="stylesheet" href="css/maplibre-gl.css?v=20261110q">
+<link rel="stylesheet" href="css/style.css?v=20261110q">
+<link rel="stylesheet" href="css/saniplan.css?v=20261110q">
 </head>
 <body>
 
@@ -19,8 +19,7 @@
   <a class="brand" href="#capa"><span class="brand-mark" aria-hidden="true"></span><span>PNI Saneamento · RD</span></a>
   <nav class="acts" aria-label="Seções">
     <a href="#intro" data-i18n="nav.ato0">Visão geral</a>
-    <a href="#ato1" data-i18n="nav.ato1">Dados</a>
-    <a href="#ato2" data-i18n="nav.ato2">Análise espacial</a>
+    <a href="#ato1" data-i18n="nav.ato1">Dados espaciais</a>
     <a href="#ato3" data-i18n="nav.ato3">SaniPLAN</a>
     <a href="#ato4" data-i18n="nav.ato4">Resultados</a>
   </nav>
@@ -175,24 +174,31 @@
   </div>
 </section>
 
-<!-- ATOS 1 E 2 · MAPA FIXO ------------------------------------------- -->
+<!-- DADOS ESPACIAIS · MAPA FIXO------------------------------------------ -->
 <section id="mapstory" class="scrolly scrolly--map">
   <div class="sticky" id="map-sticky">
     <div class="band" aria-hidden="true"></div>
     <div id="map" role="region" aria-label="Mapa"></div>
     <div class="map-legend" id="map-legend" hidden></div>
     <div class="map-swipe timeline" id="map-swipe" hidden>
-      <span class="tl-end" data-i18n="ato2.censo.y2010">2010 · Landsat 7</span>
+      <span class="tl-end" data-i18n="esp.censo.y2010">2010 · Landsat 7</span>
       <div class="tl-track">
         <div class="tl-ticks" id="tl-ticks" aria-hidden="true"></div>
         <output class="tl-year" id="tl-year" for="swipe">2010</output>
         <input type="range" id="swipe" min="0" max="12" step="1" value="0" aria-label="Ano da imagem (2010 a 2022)">
       </div>
-      <span class="tl-end" data-i18n="ato2.censo.y2022">2022 · Sentinel-2</span>
+      <span class="tl-end" data-i18n="esp.censo.y2022">2022 · Sentinel-2</span>
     </div>
     <div class="map-toggle" id="map-toggle" hidden role="group">
-      <button type="button" data-agg="dm" aria-pressed="true" data-i18n="ato1.grid.toggleA">Por distrito</button>
-      <button type="button" data-agg="hex" aria-pressed="false" data-i18n="ato1.grid.toggleB">Por hexágono</button>
+      <button type="button" data-agg="dm" aria-pressed="true" data-i18n="esp.toggle.dm">Por distrito</button>
+      <button type="button" data-agg="hex" aria-pressed="false" data-i18n="esp.toggle.hex">Por hexágono</button>
+    </div>
+    <div class="map-toggle map-toggle--wrap" id="map-indic" hidden role="group">
+      <button type="button" data-ind="m_conex" aria-pressed="true" data-i18n="map.ind.m_conex"></button>
+      <button type="button" data-ind="dom_conex" aria-pressed="false" data-i18n="map.ind.dom_conex"></button>
+      <button type="button" data-ind="hab_per_hogar" aria-pressed="false" data-i18n="map.ind.hab_per_hogar"></button>
+      <button type="button" data-ind="pop_urb_adj" aria-pressed="false" data-i18n="map.ind.pop_urb_adj"></button>
+      <button type="button" data-ind="cov_alc" aria-pressed="false" data-i18n="map.ind.cov_alc"></button>
     </div>
     <aside class="info" id="info" hidden>
       <button type="button" class="info-close" id="info-close" aria-label="Fechar">×</button>
@@ -207,61 +213,45 @@
       <h2 data-i18n="ato1.title"></h2>
       <p class="lead" data-i18n="ato1.lead"></p>
     </article>
-    <article class="step" data-step="a1-problema">
-      <h3 data-i18n="ato1.problema.title"></h3>
-      <ul data-i18n-list="ato1.problema.items"></ul>
-    </article>
-    <article class="step" data-step="a1-grid">
-      <h3 data-i18n="ato1.grid.title"></h3>
-      <ul data-i18n-list="ato1.grid.items"></ul>
-    </article>
-    <article class="step step--wide" data-step="a1-fontes">
-      <h3 data-i18n="ato1.fontes.title"></h3>
-      <ul data-i18n-list="ato1.fontes.items"></ul>
+    <article class="step step--wide" data-step="d-fontes">
+      <h3 data-i18n="esp.fontes.title"></h3>
+      <ul data-i18n-list="esp.fontes.items"></ul>
       <div class="ladder" id="ladder"></div>
-      <p class="note" data-i18n="ato1.fontes.note"></p>
+      <p class="note" data-i18n="esp.fontes.note"></p>
+      <p class="hint" data-i18n="esp.fontes.hint"></p>
     </article>
-
-    <article class="step act-card" id="ato2" data-step="ato2">
-      <p class="kicker" data-i18n="ato2.kicker"></p>
-      <h2 data-i18n="ato2.title"></h2>
-      <p class="lead" data-i18n="ato2.lead"></p>
+    <article class="step" data-step="d-sde-dm">
+      <h3 data-i18n="esp.sdeDm.title"></h3>
+      <ul data-i18n-list="esp.sdeDm.items"></ul>
     </article>
-    <article class="step" data-step="a2-niveis">
-      <h3 data-i18n="ato2.niveis.title"></h3>
-      <ul data-i18n-list="ato2.niveis.items"></ul>
+    <article class="step" data-step="d-sde-hex">
+      <h3 data-i18n="esp.sdeHex.title"></h3>
+      <ul data-i18n-list="esp.sdeHex.items"></ul>
+      <p class="hint" data-i18n="esp.sdeHex.hint"></p>
     </article>
-    <article class="step" data-step="a2-hex">
-      <h3 data-i18n="ato2.hex.title"></h3>
-      <ul data-i18n-list="ato2.hex.items"></ul>
-      <p class="hint" data-i18n="ato2.hex.hint"></p>
+    <article class="step" data-step="d-censo">
+      <h3 data-i18n="esp.censo.title"></h3>
+      <ul data-i18n-list="esp.censo.items"></ul>
+      <p class="hint" data-i18n="esp.censo.swipe"></p>
     </article>
-    <article class="step" data-step="a2-ghs">
-      <h3 data-i18n="ato2.ghs.title"></h3>
-      <ul data-i18n-list="ato2.ghs.items"></ul>
+    <article class="step" data-step="d-reclass">
+      <h3 data-i18n="esp.reclass.title"></h3>
+      <ul data-i18n-list="esp.reclass.items"></ul>
+      <p class="hint" data-i18n="esp.reclass.hint"></p>
     </article>
-    <article class="step" data-step="a2-censo">
-      <h3 data-i18n="ato2.censo.title"></h3>
-      <ul data-i18n-list="ato2.censo.items"></ul>
-      <p class="hint" data-i18n="ato2.censo.swipe"></p>
+    <article class="step" data-step="d-sde-ruas">
+      <h3 data-i18n="esp.sdeRuas.title"></h3>
+      <ul data-i18n-list="esp.sdeRuas.items"></ul>
     </article>
-    <article class="step" data-step="a2-hexsat">
-      <h3 data-i18n="ato2.hexsat.title"></h3>
-      <ul data-i18n-list="ato2.hexsat.items"></ul>
-      <p class="hint" data-i18n="ato2.hexsat.hint"></p>
+    <article class="step" data-step="d-media">
+      <h3 data-i18n="esp.media.title"></h3>
+      <ul data-i18n-list="esp.media.items"></ul>
+      <p class="hint" data-i18n="esp.media.hint"></p>
     </article>
-    <article class="step" data-step="a2-reclass">
-      <h3 data-i18n="ato2.reclass.title"></h3>
-      <ul data-i18n-list="ato2.reclass.items"></ul>
-    </article>
-    <article class="step" data-step="a2-indic">
-      <h3 data-i18n="ato2.indic.title"></h3>
-      <ul data-i18n-list="ato2.indic.items"></ul>
-      <p class="hint" data-i18n="ato2.indic.hint"></p>
-    </article>
-    <article class="step" data-step="a2-cobertura">
-      <h3 data-i18n="ato2.cobertura.title"></h3>
-      <ul data-i18n-list="ato2.cobertura.items"></ul>
+    <article class="step" data-step="d-indic">
+      <h3 data-i18n="esp.indic.title"></h3>
+      <ul data-i18n-list="esp.indic.items"></ul>
+      <p class="hint" data-i18n="esp.indic.hint"></p>
     </article>
   </div>
 </section>
@@ -566,14 +556,14 @@
 </footer>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="js/i18n.js?v=20261110d"></script>
-<script src="js/icons.js?v=20261110d"></script>
-<script src="js/capa.js?v=20261110d"></script>
-<script src="js/diagram.js?v=20261110d"></script>
-<script src="js/mapstory.js?v=20261110d"></script>
-<script src="js/results.js?v=20261110d"></script>
-<script src="js/sanisim.js?v=20261110d"></script>
-<script src="js/saniplan.js?v=20261110d"></script>
-<script src="js/app.js?v=20261110d"></script>
+<script src="js/i18n.js?v=20261110q"></script>
+<script src="js/icons.js?v=20261110q"></script>
+<script src="js/capa.js?v=20261110q"></script>
+<script src="js/diagram.js?v=20261110q"></script>
+<script src="js/mapstory.js?v=20261110q"></script>
+<script src="js/results.js?v=20261110q"></script>
+<script src="js/sanisim.js?v=20261110q"></script>
+<script src="js/saniplan.js?v=20261110q"></script>
+<script src="js/app.js?v=20261110q"></script>
 </body>
 </html>

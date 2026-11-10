@@ -1,7 +1,11 @@
 /* Inicialização: dados, idioma, cenas por rolagem. */
 const DATA = (() => {
   const cache = {};
-  return { get: url => (cache[url] ||= fetch(url).then(r => r.json())) };
+  // os dados levam o mesmo número de versão dos scripts (?v=...), para o navegador não reaproveitar um arquivo antigo
+  let v = '';
+  try { v = new URL(document.currentScript.src).searchParams.get('v') || ''; } catch (e) { /* sem versão */ }
+  const withV = url => (v ? `${url}${url.includes('?') ? '&' : '?'}v=${v}` : url);
+  return { get: url => (cache[url] ||= fetch(withV(url)).then(r => r.json())) };
 })();
 
 /* Escada de níveis de agregação (ato 1). Nível: 0 construção … 5 país.
@@ -10,19 +14,39 @@ const LADDER = [
   ['edif', 0, 'fine'], ['ruas', 0, 'fine'], ['ghs', 1, 'fine'], ['censo', 3, 'fine'],
   ['cad', 2, 'partial'], ['cob', 4, 'coarse'], ['trat', 5, 'coarse'], ['custos', 5, 'coarse']
 ];
+const LADDER_SIZE = [8, 11, 14, 17, 21, 25];  // tamanho do hexágono em cada nível (construção → país)
 function renderLadder() {
-  const levels = I18N.t('ato1.fontes.levels');
-  const head = `<tr><th></th>${levels.map(l => `<th scope="col">${l}</th>`).join('')}</tr>`;
+  const levels = I18N.t('esp.fontes.levels'), areas = I18N.t('esp.fontes.areas') || [];
+  // cabeçalho: nome do nível e a área típica de uma unidade
+  const head = `<tr><th></th>${levels.map((l, i) => `<th scope="col" data-lv="${i}" tabindex="0">${l}<small>${areas[i] || ''}</small></th>`).join('')}</tr>`;
   const body = LADDER.map(([k, lv, kind]) => {
+    // hexágono cheio = nível em que o dado existe; à direita, hexágonos cada vez maiores = agregações possíveis
     const cells = levels.map((_, i) => {
-      const dot = i === lv ? `<span class="lv ${kind === 'fine' ? '' : kind}"></span>` : '';
+      const cls = kind === 'fine' ? '' : kind, size = `style="--s:${LADDER_SIZE[i]}px"`;
+      const dot = i === lv ? `<span class="lv ${cls}" ${size}></span>` : (i > lv && kind !== 'partial' ? `<span class="lv agg ${cls}" ${size}></span>` : '');
       const bar = i >= lv && i < levels.length - 1 && kind !== 'partial' ? '<span class="bar"></span>' : '';
-      return `<td>${bar}${dot}</td>`;
+      return `<td data-lv="${i}">${bar}${dot}</td>`;
     }).join('');
-    return `<tr><td>${I18N.t(`ato1.fontes.rows.${k}`)}</td>${cells}</tr>`;
+    return `<tr><td>${I18N.t(`esp.fontes.rows.${k}`)}</td>${cells}</tr>`;
   }).join('');
-  const dir = `<div class="ladder-dir" aria-hidden="true"><span>${I18N.t('ato1.fontes.dirFine')}</span><i></i><span>${I18N.t('ato1.fontes.dirCoarse')}</span></div>`;
+  const dir = `<div class="ladder-dir" aria-hidden="true"><span>${I18N.t('esp.fontes.dirFine')}</span><i></i><span>${I18N.t('esp.fontes.dirCoarse')}</span></div>`;
   document.getElementById('ladder').innerHTML = `${dir}<table>${head}${body}</table>`;
+}
+/* Passar o mouse (ou focar, ou tocar) numa coluna da tabela mostra aquele nível no mapa. */
+function ladderLevels() {
+  const el = document.getElementById('ladder');
+  let pinned = null;
+  const set = i => {
+    el.querySelectorAll('[data-lv]').forEach(c => c.classList.toggle('is-lv', i !== null && +c.dataset.lv === i));
+    MAPSTORY.setLevel(i);
+  };
+  const lvOf = e => { const c = e.target.closest('[data-lv]'); return c ? +c.dataset.lv : null; };
+  el.addEventListener('mouseover', e => { const i = lvOf(e); if (i !== null) set(i); });
+  el.addEventListener('mouseleave', () => set(pinned));
+  el.addEventListener('focusin', e => { const i = lvOf(e); if (i !== null) set(i); });
+  el.addEventListener('focusout', () => set(pinned));
+  el.addEventListener('click', e => { const i = lvOf(e); if (i === null) return; pinned = pinned === i ? null : i; set(pinned); });
+  I18N.onChange(() => set(pinned));
 }
 
 /* Cena ativa = passo que cruza o meio da tela. Calculado na rolagem (e não com
@@ -32,7 +56,7 @@ function observeSteps() {
   const handlers = { ato0: id => DIAGRAM.setStep(id), mapstory: id => MAPSTORY.setStep(id) };
   const groups = [...document.querySelectorAll('.scrolly')].map(sec => ({ id: sec.id, steps: [...sec.querySelectorAll('.step')], active: null }));
   const nav = [...document.querySelectorAll('.acts a')];
-  const acts = ['intro', 'ato0', 'ato1', 'ato2', 'ato3', 'ato4'].map(id => document.getElementById(id)).filter(Boolean);
+  const acts = ['intro', 'ato0', 'ato1', 'ato3', 'ato4'].map(id => document.getElementById(id)).filter(Boolean);
   const navOf = { ato0: 'intro' }; // abertura e diagrama formam a "Visão geral"
   let queued = false;
 
@@ -276,6 +300,7 @@ function formatStats() {
   renderLadder();
   formatStats();
   I18N.onChange(renderLadder);
+  ladderLevels();
   I18N.onChange(formatStats);
   revealText();
   revealCards();

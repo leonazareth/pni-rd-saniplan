@@ -6,8 +6,7 @@
   },
   "nav": {
     "ato0": "Visão geral",
-    "ato1": "Dados",
-    "ato2": "Análise espacial",
+    "ato1": "Dados espaciais",
     "ato3": "SaniPLAN",
     "ato4": "Resultados",
     "lang": "Idioma",
@@ -194,30 +193,14 @@
   },
   "ato1": {
     "kicker": "",
-    "title": "Os dados necessários",
-    "lead": "Um plano nacional depende de onde as pessoas vivem, de como a cidade está construída e de onde já existe serviço.",
-    "problema": {
-      "title": "O problema dos dados agregados",
-      "items": [
-        "Muitos planos usam médias por município ou por país.",
-        "Uma média esconde onde a população realmente está.",
-        "Custos de rede dependem da densidade e do traçado das ruas, que variam dentro de um mesmo distrito."
-      ]
-    },
-    "grid": {
-      "title": "Um dado por distrito × uma grade de 100 m",
-      "items": [
-        "<strong>Por distrito:</strong> a população do censo vale para o polígono inteiro, inclusive áreas vazias.",
-        "<strong>Por hexágono:</strong> a mesma população distribuída pelos hexágonos onde há construções.",
-        "O total do distrito é preservado. O que muda é saber <strong>onde</strong> estão as pessoas."
-      ],
-      "toggleA": "Por distrito",
-      "toggleB": "Por hexágono"
-    },
+    "title": "Dados espaciais",
+    "lead": "Um plano nacional depende de onde as pessoas vivem, de como a cidade está construída e de onde já existe serviço."
+  },
+  "esp": {
     "fontes": {
       "title": "Fontes e níveis de agregação",
       "items": [
-        "Cada ponto mostra o nível mais detalhado em que o dado existe.",
+        "Cada dado existe num nível diferente. Um distrito tem, em média, <strong>1.240 hexágonos</strong>; uma província, <strong>12 distritos</strong>; o país, 32 províncias.",
         "A população está disponível em escala fina. A cobertura de esgoto, apenas por província. O tratamento, só como média nacional.",
         "O resultado nunca é mais preciso que o dado mais agregado usado no cálculo."
       ],
@@ -229,6 +212,14 @@
         "Província",
         "País"
       ],
+      "areas": [
+        "~100 m²",
+        "1 ha",
+        "10 ha",
+        "~120 km²",
+        "~1.500 km²",
+        "48 mil km²"
+      ],
       "rows": {
         "edif": "Construções (Overture Maps)",
         "ruas": "Ruas (OpenStreetMap)",
@@ -239,49 +230,38 @@
         "trat": "Esgoto tratado (estimativa ONU)",
         "custos": "Custos unitários de referência"
       },
-      "note": "Ponto vazado = dado parcial (só em alguns distritos).",
+      "note": "Hexágono cheio = nível em que o dado existe; os mais claros, à direita, são agregações possíveis. Ponto vazado = dado parcial (só em alguns distritos).",
       "dirFine": "← menos agregado · mais detalhe",
-      "dirCoarse": "mais agregado · menos detalhe →"
-    }
-  },
-  "ato2": {
-    "kicker": "",
-    "title": "Análise espacial",
-    "lead": "Do país ao quarteirão, e de volta ao distrito.",
-    "niveis": {
-      "title": "Do país ao distrito",
+      "dirCoarse": "mais agregado · menos detalhe →",
+      "hint": "Passe o mouse sobre um nível da tabela para vê-lo no mapa. A seguir, vamos aproximar em Santo Domingo Este."
+    },
+    "toggle": {
+      "dm": "Por distrito",
+      "hex": "Por hexágono"
+    },
+    "sdeDm": {
+      "title": "Um dado por distrito",
       "items": [
-        "<strong>País:</strong> 32 províncias, 393 distritos municipais.",
-        "<strong>Província:</strong> nível em que existe o dado de cobertura de esgoto.",
-        "<strong>Distrito:</strong> nível do censo e dos parâmetros do SaniPLAN.",
-        "Vamos aproximar em <strong>Santo Domingo Este</strong>, na província de Santo Domingo."
+        "O censo informa a população por distrito: o valor vale para o polígono inteiro, inclusive áreas vazias.",
+        "Santo Domingo Este: <strong>961.844</strong> habitantes em 131 km²."
       ]
     },
-    "hex": {
-      "title": "Por que uma grade hexagonal de 10 ha",
+    "sdeHex": {
+      "title": "A mesma população, por hexágono de 10 ha",
       "items": [
-        "Mesma área em todo o país: indicadores comparáveis entre lugares.",
-        "Hexágonos têm 6 vizinhos equidistantes, o que facilita detectar continuidade urbana.",
-        "10 ha reduz o ruído de dados pontuais e mantém detalhe sub-distrital.",
+        "A população do censo é distribuída pelos hexágonos onde há construções. O total do distrito é preservado.",
+        "O que muda é saber <strong>onde</strong> estão as pessoas.",
+        "Hexágonos têm a mesma área em todo o país e 6 vizinhos equidistantes, o que facilita detectar continuidade urbana.",
         "<strong>486.526</strong> hexágonos cobrem o país; <strong>1.311</strong> em Santo Domingo Este."
       ],
       "hint": "Clique em um hexágono para ver seus indicadores."
-    },
-    "ghs": {
-      "title": "Corrigir a população modelada",
-      "items": [
-        "A grade global (GHSL) às vezes coloca população em áreas industriais ou vazias.",
-        "<strong>Vermelho:</strong> população sem construções → população zerada.",
-        "<strong>Azul:</strong> construções sem população → construções × habitantes por domicílio.",
-        "Depois, a população do censo 2022 é redistribuída proporcionalmente."
-      ]
     },
     "censo": {
       "title": "Aprimorando os dados disponíveis",
       "items": [
         "Entre 2010 e 2022 a população rural do país cresceu cerca de <strong>550 mil</strong>, contra a tendência de urbanização.",
         "Em Santo Domingo Este, a população rural passou de <strong>40.099</strong> para <strong>116.935</strong> (+192%).",
-        "<strong>Azul:</strong> área urbana oficial. <strong>Âmbar:</strong> área que o censo classifica como rural.",
+        "<strong class=\"tx-urban\">Azul:</strong> área urbana oficial. <strong class=\"tx-reclass\">Laranja:</strong> área que o censo classifica como rural.",
         "As imagens mostram por quê: a área classificada como rural foi urbanizada."
       ],
       "swipe": "Arraste a linha do tempo para comparar 2010 e 2022",
@@ -291,42 +271,40 @@
     "reclass": {
       "title": "Reclassificar o que já é cidade",
       "items": [
-        "<strong>Azul:</strong> área urbana oficial (ONE, 2021).",
-        "<strong>Âmbar:</strong> hexágonos com mais de 100 construções e pelo menos 50% de vizinhos construídos.",
+        "<strong class=\"tx-reclass\">Laranja:</strong> hexágonos fora da área urbana oficial, com mais de 100 construções e pelo menos 50% de vizinhos construídos.",
+        "Sobre a imagem de 2022, a malha de ruas e quadras aparece onde o censo registra área rural.",
         "Em Santo Domingo Este: <strong>148</strong> hexágonos, <strong>~100 mil</strong> habitantes e <strong>23.944</strong> construções passam a contar como urbanos.",
         "No país, a população urbana considerada ficou <strong>860 mil</strong> acima do censo."
       ],
-      "legOficial": "Urbana oficial",
-      "legReclass": "Reclassificada",
-      "legRural": "Rural"
+      "hint": "Clique em um hexágono para ver construções, ruas e população."
     },
-    "indic": {
-      "title": "Indicadores por distrito",
+    "sdeRuas": {
+      "title": "Da rua e das construções à extensão de rede por ligação",
       "items": [
-        "<strong>Metros de rua por construção:</strong> indicador indireto de metros de rede por ligação.",
-        "<strong>Famílias por construção:</strong> indicador de domicílios por ligação (verticalização).",
-        "Calculados só nas áreas urbanas consolidadas e filtrados para remover valores extremos.",
-        "Esses valores entram no SaniPLAN para cada distrito."
-      ],
-      "hint": "Clique em um distrito para ver os valores usados no modelo."
-    },
-    "cobertura": {
-      "title": "Cobertura atual",
-      "items": [
-        "A cobertura de esgoto existe apenas por província (ENHOGAR 2021 / Censo 2022).",
-        "Onde há cadastro de redes, a população atendida foi recalculada dentro da área da rede.",
-        "A cobertura dos demais distritos é ajustada para manter o total da província.",
-        "Tratamento: média nacional de ~50% do esgoto coletado."
+        "A <strong>extensão das ruas</strong> (OpenStreetMap) é um bom indicador indireto da extensão da rede coletora.",
+        "O <strong>número de construções</strong> (Overture Maps) é um bom indicador indireto do número de ligações.",
+        "Em cada hexágono urbano: metros de rua ÷ construções. Somando os hexágonos, cada distrito recebe o seu próprio valor. Santo Domingo Este: <strong>12,7 m por ligação</strong>.",
+        "Com isso, o custo de rede por ligação deixa de ser uma média única: distritos adensados e distritos de ocupação dispersa passam a ter custos diferentes."
       ]
     },
-    "hexsat": {
-      "title": "Os hexágonos sobre a imagem de 2022",
+    "media": {
+      "title": "A extensão de rede por ligação não é a mesma em todo lugar",
       "items": [
-        "Cada hexágono em âmbar está fora da área urbana oficial, mas tem mais de 100 construções e vizinhos construídos.",
-        "Sobre a imagem, a malha de ruas e quadras aparece onde o censo registra área rural.",
-        "A reclassificação segue o que se vê no terreno, não o limite administrativo."
+        "O mesmo cálculo, repetido nos <strong>18.352 hexágonos urbanos</strong> do país.",
+        "Em núcleos adensados, poucos metros de rede atendem uma ligação. Em áreas de ocupação dispersa, são necessários muitos mais.",
+        "Planos de investimento costumam adotar <strong>um valor médio</strong> para o país inteiro. Aqui, o valor varia de distrito para distrito, e o custo por ligação acompanha."
       ],
-      "hint": "Clique em um hexágono para ver construções, ruas e população."
+      "hint": "Cada ponto é um hexágono urbano de 10 ha. Aproxime para ver os hexágonos e clique para ver ruas e construções."
+    },
+    "indic": {
+      "title": "Os indicadores que alimentam o modelo",
+      "items": [
+        "A análise espacial termina com um conjunto de indicadores para cada um dos <strong>393 distritos</strong>.",
+        "Extensão de rede e domicílios por ligação vêm dos hexágonos urbanos. A cobertura de esgoto existe apenas por província e é ajustada por distrito; onde há cadastro de redes, a população atendida foi recalculada dentro da área da rede.",
+        "Tratamento: média nacional de ~50% do esgoto coletado.",
+        "Esses valores entram no SaniPLAN para cada distrito."
+      ],
+      "hint": "Escolha um indicador acima do mapa e clique em um distrito para ver os valores."
     }
   },
   "ato3": {
@@ -707,32 +685,65 @@
     "sources": "Fontes: ONE (censos 2002, 2010, 2022; ENHOGAR 2021), INAPA, GHSL/Copernicus, OpenStreetMap, Overture Maps, Landsat 7 (USGS), Sentinel-2 (ESA)."
   },
   "map": {
-    "pop": "População (censo 2022, distribuída)",
+    "pop": "População (censo 2022)",
     "popShort": "hab",
     "edif": "Construções",
     "ruas": "Ruas",
     "mEdif": "m de rua por construção",
     "habEdif": "hab por construção",
-    "ghs": "População GHSL (original)",
-    "ghsAdj": "População GHSL (corrigida)",
     "cls": "Classe",
     "clsOficial": "Urbana oficial",
     "clsReclass": "Reclassificada para urbana",
     "clsRural": "Rural",
-    "flagPop": "População sem construções",
-    "flagEdif": "Construções sem população",
     "dmPop": "População urbana ajustada",
     "dmPopOne": "População urbana (ONE)",
     "dmMconex": "Extensão de rede por ligação",
     "dmDomconex": "Domicílios por ligação",
     "dmCov": "Cobertura de esgoto atual",
     "dmPob40": "População urbana 2040",
-    "provCov": "Cobertura de esgoto (província)",
     "prov": "Província",
     "close": "Fechar",
     "clsRuralOficial": "Rural oficial (ONE)",
     "urbanLabel": "URBANA",
-    "ruralLabel": "RURAL"
+    "ruralLabel": "RURAL",
+    "hexDense": "Ocupação adensada",
+    "hexSparse": "Ocupação dispersa",
+    "ruasM": "m de ruas",
+    "edifN": "construções",
+    "porEdif": "por construção",
+    "mEdifLeg": "Metros de rua por construção",
+    "dense": "adensado",
+    "sparse": "disperso",
+    "habHogar": "Habitantes por domicílio",
+    "hexUrb": "Hexágono urbano",
+    "ind": {
+      "m_conex": "Rede por ligação",
+      "dom_conex": "Domicílios por ligação",
+      "hab_per_hogar": "Habitantes por domicílio",
+      "pop_urb_adj": "População urbana",
+      "cov_alc": "Cobertura de esgoto"
+    },
+    "indUnit": {
+      "m_conex": "m",
+      "dom_conex": "",
+      "hab_per_hogar": "hab",
+      "pop_urb_adj": "hab",
+      "cov_alc": ""
+    },
+    "origin": {
+      "hex": "Origem: hexágonos de 10 ha, somados por distrito",
+      "censo": "Origem: censo 2022, por distrito",
+      "prov": "Origem: dado por província, ajustado por distrito"
+    },
+    "lvlTitle": "Os níveis, na mesma escala",
+    "lvl": {
+      "pais": "País · 48 mil km²",
+      "prov": "Província (Santo Domingo) · 1.303 km²",
+      "dm": "Distrito (Santo Domingo Este) · 131 km²",
+      "hex": "Hexágono urbano · 0,1 km²"
+    },
+    "indGroup": "Indicador",
+    "viewGroup": "Visualização"
   },
   "ui": {
     "more": "Saiba mais",
