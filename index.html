@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Carlito:wght@400;700&display=swap">
-<link rel="stylesheet" href="css/maplibre-gl.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/saniplan.css">
+<link rel="stylesheet" href="css/maplibre-gl.css?v=20261110d">
+<link rel="stylesheet" href="css/style.css?v=20261110d">
+<link rel="stylesheet" href="css/saniplan.css?v=20261110d">
 </head>
 <body>
 
@@ -110,11 +110,11 @@
     <article class="sp-scene in-scene" id="in-faz">
       <p class="kicker" data-i18n="intro.faz.k"></p>
       <h3 data-i18n="intro.faz.title"></h3>
-      <p class="sp-io-label" data-i18n="intro.faz.outLabel"></p>
-      <ul class="sp-outs">
-        <li class="sp-out"><span class="sp-pic sp-pic--trend"></span><span class="sp-out-sym">%</span><h4 data-i18n="intro.faz.outs.cob.title"></h4><p data-i18n="intro.faz.outs.cob.text"></p></li>
-        <li class="sp-out"><span class="sp-pic sp-pic--people"></span><span class="sp-out-sym">hab</span><h4 data-i18n="intro.faz.outs.pop.title"></h4><p data-i18n="intro.faz.outs.pop.text"></p></li>
-        <li class="sp-out"><span class="sp-pic sp-pic--coins"></span><span class="sp-out-sym">$</span><h4 data-i18n="intro.faz.outs.capex.title"></h4><p data-i18n="intro.faz.outs.capex.text"></p></li>
+      <p class="in-outs-label" data-i18n="intro.faz.outLabel"></p>
+      <ul class="in-outs">
+        <li class="in-out"><div class="in-out-head"><span class="in-out-sym">%</span><span class="sp-pic sp-pic--trend"></span></div><h4 data-i18n="intro.faz.outs.cob.title"></h4><p data-i18n="intro.faz.outs.cob.text"></p></li>
+        <li class="in-out"><div class="in-out-head"><span class="in-out-sym">hab</span><span class="sp-pic sp-pic--people"></span></div><h4 data-i18n="intro.faz.outs.pop.title"></h4><p data-i18n="intro.faz.outs.pop.text"></p></li>
+        <li class="in-out"><div class="in-out-head"><span class="in-out-sym">$</span><span class="sp-pic sp-pic--coins"></span></div><h4 data-i18n="intro.faz.outs.capex.title"></h4><p data-i18n="intro.faz.outs.capex.text"></p></li>
       </ul>
     </article>
 
@@ -122,8 +122,8 @@
     <article class="sp-scene in-scene" id="in-tipo">
       <p class="kicker" data-i18n="intro.tipo.k"></p>
       <h3 data-i18n="intro.tipo.title"></h3>
-      <div class="in-or-grid">
-        <div class="in-card">
+      <div class="in-split">
+        <div class="in-half">
           <h4 data-i18n-html="intro.tipo.rede.t"></h4>
           <p class="in-comp" data-i18n="intro.tipo.comp"></p>
           <ul class="sp-list" data-i18n-list="intro.tipo.rede.items"></ul>
@@ -131,8 +131,8 @@
             <figure><img src="img/saniplan/obra_ac.jpg" alt="" loading="lazy"></figure>
           </div>
         </div>
-        <span class="in-or" data-i18n="intro.or"></span>
-        <div class="in-card">
+        <div class="in-or" aria-hidden="true"><span data-i18n="intro.or"></span></div>
+        <div class="in-half">
           <h4 data-i18n-html="intro.tipo.insitu.t"></h4>
           <p class="in-comp" data-i18n="intro.tipo.comp"></p>
           <ul class="sp-list" data-i18n-list="intro.tipo.insitu.items"></ul>
@@ -147,13 +147,12 @@
     <!-- 3 · o que define o investimento -->
     <article class="sp-scene in-scene" id="in-fatores">
       <p class="kicker" data-i18n="intro.fatores.k"></p>
-      <h3 data-i18n="intro.fatores.title"></h3>
+      <h3 data-i18n-html="intro.fatores.title"></h3>
       <ul class="in-factors">
-        <li class="in-card"><h4 data-i18n="intro.fatores.tec.t"></h4><p class="in-comp" data-i18n="intro.fatores.tec.redeT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.rede"></ul><p class="in-comp" data-i18n="intro.fatores.tec.insituT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.insitu"></ul></li>
-        <li class="in-card"><h4 data-i18n="intro.fatores.local.t"></h4><ul class="sp-list" data-i18n-list="intro.fatores.local.items"></ul></li>
-        <li class="in-card"><h4 data-i18n="intro.fatores.custo.t"></h4><ul class="sp-list in-costs" data-i18n-list="intro.fatores.custo.items"></ul></li>
+        <li class="in-card in-f1"><h4><mark class="fx fx1" data-i18n="intro.fatores.tec.t"></mark></h4><p class="in-comp" data-i18n="intro.fatores.tec.redeT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.rede"></ul><p class="in-comp" data-i18n="intro.fatores.tec.insituT"></p><ul class="sp-list" data-i18n-list="intro.fatores.tec.insitu"></ul></li>
+        <li class="in-card in-f2"><h4><mark class="fx fx2" data-i18n="intro.fatores.local.t"></mark></h4><ul class="sp-list" data-i18n-list="intro.fatores.local.items"></ul></li>
+        <li class="in-card in-f3"><h4><mark class="fx fx3" data-i18n="intro.fatores.custo.t"></mark></h4><ul class="sp-list in-costs" data-i18n-list="intro.fatores.custo.items"></ul><p class="in-costnote" data-i18n-html="intro.fatores.costNote"></p></li>
       </ul>
-      <p class="in-costnote" data-i18n-html="intro.fatores.costNote"></p>
     </article>
 
     <!-- 4 · República Dominicana: análise espacial -->
@@ -306,28 +305,6 @@
 
     <!-- cena 11 · fluxo do modelo ---------------------------------------- -->
     <article class="sp-scene" id="sp-fluxo">
-      <h3 data-i18n="ato3.fluxo.title"></h3>
-      <p class="sp-lead" data-i18n="ato3.fluxo.lead"></p>
-
-      <ol class="sp-flow">
-        <li class="sp-flow-col sp-flow-col--in">
-          <h4 data-i18n="ato3.fluxo.cols.in.title"></h4>
-          <ul data-i18n-list="ato3.fluxo.cols.in.items"></ul>
-        </li>
-        <li class="sp-flow-col sp-flow-col--sub">
-          <h4 data-i18n="ato3.fluxo.cols.sub.title"></h4>
-          <ul data-i18n-list="ato3.fluxo.cols.sub.items"></ul>
-        </li>
-        <li class="sp-flow-col sp-flow-col--calc">
-          <h4 data-i18n="ato3.fluxo.cols.calc.title"></h4>
-          <ul data-i18n-list="ato3.fluxo.cols.calc.items"></ul>
-        </li>
-        <li class="sp-flow-col sp-flow-col--out">
-          <h4 data-i18n="ato3.fluxo.cols.out.title"></h4>
-          <ul data-i18n-list="ato3.fluxo.cols.out.items"></ul>
-        </li>
-      </ol>
-
       <div class="sp-prints">
         <p class="sp-label"><span data-i18n="ato3.fluxo.prints"></span> <span class="sp-muted" data-i18n="ato3.fluxo.printsHint"></span></p>
         <div class="sp-thumbs">
@@ -409,7 +386,7 @@
 
       <!-- b · tratamento -->
       <div class="sp-block">
-        <div class="sp-grid-2 sp-grid-2--rev">
+        <div class="sp-grid-2">
           <div class="sp-text">
             <h4 data-i18n="ato3.custos.ete.title"></h4>
             <ul class="sp-list" data-i18n-list="ato3.custos.ete.items"></ul>
@@ -589,14 +566,14 @@
 </footer>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/icons.js"></script>
-<script src="js/capa.js"></script>
-<script src="js/diagram.js"></script>
-<script src="js/mapstory.js"></script>
-<script src="js/results.js"></script>
-<script src="js/sanisim.js"></script>
-<script src="js/saniplan.js"></script>
-<script src="js/app.js"></script>
+<script src="js/i18n.js?v=20261110d"></script>
+<script src="js/icons.js?v=20261110d"></script>
+<script src="js/capa.js?v=20261110d"></script>
+<script src="js/diagram.js?v=20261110d"></script>
+<script src="js/mapstory.js?v=20261110d"></script>
+<script src="js/results.js?v=20261110d"></script>
+<script src="js/sanisim.js?v=20261110d"></script>
+<script src="js/saniplan.js?v=20261110d"></script>
+<script src="js/app.js?v=20261110d"></script>
 </body>
 </html>

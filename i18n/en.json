@@ -74,7 +74,7 @@
     },
     "fatores": {
       "k": "What drives the investment",
-      "title": "The investment (CAPEX) is calculated from the adopted technology standard, local characteristics and reference unit costs.",
+      "title": "The investment (CAPEX) is calculated from the <mark class=\"fx fx1\">adopted technology standard</mark>, <mark class=\"fx fx2\">local characteristics</mark> and <mark class=\"fx fx3\">reference unit costs</mark>.",
       "tec": {
         "t": "Technology standard",
         "redeT": "Network",
@@ -130,7 +130,7 @@
     },
     "oque": {
       "k": "What it is",
-      "text": "<b class=\"hl-brand\">SaniPLAN</b> is an open source simulation model, <span class=\"hl-line\">adjustable to local conditions</span>, developed in Excel to support the preparation of national or regional <mark class=\"hl\">sanitation investment</mark> plans in Latin America and the Caribbean.",
+      "text": "<b class=\"hl-brand\">SaniPLAN</b> is an Open Source simulation model, <span class=\"hl-line\">adjustable to local conditions</span>, developed in Excel and sponsored by the IDB, to support the preparation of National or Regional <mark class=\"hl\">Sanitation Investment</mark> Plans.",
       "tags": [
         "Open source",
         "Excel",
@@ -277,7 +277,7 @@
       ]
     },
     "censo": {
-      "title": "An inconsistency in the census",
+      "title": "Improving the available data",
       "items": [
         "Between 2010 and 2022 the country's rural population grew by about <strong>550,000</strong>, against the urbanization trend.",
         "In Santo Domingo Este, the rural population went from <strong>40,099</strong> to <strong>116,935</strong> (+192%).",

@@ -151,13 +151,14 @@ function revealText() {
 function revealCards() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const groups = [
-    ['#in-faz', '.sp-outs > .sp-out'],
-    ['#in-tipo', '.in-or-grid > .in-card, .in-or-grid > .in-or'],
-    ['#in-fatores', '.in-factors > .in-card, .in-costnote'],
+    ['#in-faz', '.in-outs > .in-out'],
+    ['#in-tipo', '.in-split > .in-half, .in-split > .in-or'],
+    ['#in-fatores', '.in-factors > .in-card'],
     ['#in-rd', '.in-rd-stat']
   ].map(([sc, sel]) => {
     const scene = document.querySelector(sc);
     if (!scene) return null;
+    scene.classList.add('rv-ready');  // estado inicial das animações só existe com JS
     scene.querySelectorAll(sel).forEach((el, i) => { el.classList.add('rv'); el.style.setProperty('--i', i); });
     return scene;
   }).filter(Boolean);
@@ -197,33 +198,72 @@ async function rdViz() {
     return c;
   });
   let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const r = 4.6, w = Math.sqrt(3) * r, cells = [];
+  const r = 4.6, w = Math.sqrt(3) * r, cells = [], hexAt = [], dmAt = [];
   for (let j = 0; r + j * 1.5 * r < H; j++) for (let i = 0; i * w < 200; i++) {
     const cx = w / 2 + i * w + (j % 2 ? w / 2 : 0), cy = r + j * 1.5 * r;
     if (!inside(cx, cy)) continue;
     const pts = [...Array(6)].map((_, q) => { const a = Math.PI / 180 * (60 * q - 30); return `${(cx + (r - .6) * Math.cos(a)).toFixed(1)},${(cy + (r - .6) * Math.sin(a)).toFixed(1)}`; }).join(' ');
-    cells.push(`<polygon class="hx${rnd() < .27 ? ' hx--o' : ''}" style="--d:${(rnd() * 1.8).toFixed(2)}s" points="${pts}"/>`);
+    const hd = rnd() * 2; hexAt.push(.4 + hd + .2);   // mesmo início (.4 s) e mesma duração (2 s) do mapa de distritos
+    cells.push(`<polygon class="hx${rnd() < .27 ? ' hx--o' : ''}" style="--d:${hd.toFixed(2)}s" points="${pts}"/>`);
   }
   hex.setAttribute('viewBox', `0 0 200 ${H.toFixed(0)}`);
   hex.innerHTML = cells.join('');
 
   // contornos dos distritos municipais, desenhados de oeste para leste
-  const paths = dm.features.filter(f => f.geometry).map(f => {
+  const shapes = dm.features.filter(f => f.geometry).map(f => {
     const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
     let minx = 999;
     const d = polys.map(p => { const ring = p[0].filter((_, i, a) => i % 2 === 0 || i === a.length - 1); ring.forEach(c => { minx = Math.min(minx, c[0]); }); return 'M' + ring.map(P).join('L') + 'Z'; }).join('');
-    const t = (minx - bb[0]) / (bb[2] - bb[0]);
-    return `<path pathLength="1" style="--d:${(t * 2).toFixed(2)}s" d="${d}"/>`;
+    return { d, minx };
+  });
+  const x0 = Math.min(...shapes.map(o => o.minx)), x1 = Math.max(...shapes.map(o => o.minx));
+  const paths = shapes.map(({ d, minx }) => {
+    const dd = (minx - x0) / (x1 - x0) * 2;   // 0 s no extremo oeste, 2 s no extremo leste
+    dmAt.push(.4 + dd + .2);
+    return `<path pathLength="1" style="--d:${dd.toFixed(2)}s" d="${d}"/>`;
   }).join('');
   map.setAttribute('viewBox', `0 0 200 ${H.toFixed(0)}`);
-  map.innerHTML = `<g>${paths}</g>`;
+  // .dm: contornos que ficam; .burn: a ponta acesa que percorre cada contorno enquanto ele é desenhado
+  map.innerHTML = `<g class="dm">${paths}</g><g class="burn">${paths}</g>`;
+
+  // contadores sobem junto com os desenhos (só quando há animação: a cena tem .rv-ready)
+  const scene = document.getElementById('in-rd');
+  const dts = scene ? [...scene.querySelectorAll('.in-rd-stats dt[data-count]')] : [];
+  if (!scene || !scene.classList.contains('rv-ready') || dts.length < 2) return;
+  const fmt = v => Math.round(v).toLocaleString(statLocale());
+  const tot = dts.map(el => +el.dataset.count);
+  // trava a coluna dos números na largura final exata (com fração de pixel): os desenhos não se mexem durante a contagem
+  const dl = scene.querySelector('.in-rd-stats');
+  const lock = () => { dl.style.gridTemplateColumns = ''; const w = Math.max(...[...dl.children].map(c => c.firstElementChild.getBoundingClientRect().width)); dl.style.gridTemplateColumns = `${w}px minmax(0, 1fr)`; };
+  lock();
+  dts.forEach(el => { el.dataset.hold = '1'; el.textContent = '0'; });
+  function run() {
+    const t0 = performance.now();
+    let hexShown = 0, last = t0;
+    (function tick(now) {
+      const t = (now - t0) / 1000, dt = Math.max(0, (now - last) / 1000); last = now;
+      const nh = hexAt.filter(x => x <= t).length, nd = dmAt.filter(x => x <= t).length;
+      const done = nh === hexAt.length && nd === dmAt.length;
+      hexShown += (tot[0] * nh / hexAt.length - hexShown) * (1 - Math.exp(-dt * 9));   // suaviza os saltos entre hexágonos
+      dts[0].textContent = fmt(nh === hexAt.length && tot[0] - hexShown < 60 ? tot[0] : hexShown);
+      dts[1].textContent = fmt(tot[1] * nd / dmAt.length);
+      if (!done) return requestAnimationFrame(tick);
+      dts.forEach(el => { delete el.dataset.hold; });
+      formatStats();
+      dl.style.gridTemplateColumns = '';
+    })(t0);
+  }
+  if (scene.classList.contains('rv-in')) run();
+  else { const mo = new MutationObserver(() => { if (scene.classList.contains('rv-in')) { mo.disconnect(); run(); } }); mo.observe(scene, { attributes: true, attributeFilter: ['class'] }); }
 }
 
 /* números da capa no formato do idioma */
+const statLocale = () => ({ pt: 'pt-BR', es: 'es-DO', en: 'en-US' }[I18N.lang] || 'pt-BR');
 function formatStats() {
-  const loc = { pt: 'pt-BR', es: 'es-DO', en: 'en-US' }[I18N.lang] || 'pt-BR';
+  const loc = statLocale();
   const suf = { pt: 'mi', es: 'M', en: 'M' }[I18N.lang] || 'mi';
   document.querySelectorAll('.capa-stats [data-count], .in-rd-stats [data-count]').forEach(el => {
+    if (el.dataset.hold) return;  // contador em andamento
     const v = +el.dataset.count;
     el.textContent = el.dataset.format === 'mi'
       ? `${(v / 1e6).toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${suf}`

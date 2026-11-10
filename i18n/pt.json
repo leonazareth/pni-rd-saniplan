@@ -74,7 +74,7 @@
     },
     "fatores": {
       "k": "O que define o investimento",
-      "title": "O investimento (CAPEX) é calculado em função do padrão tecnológico admitido, das características locais e dos custos unitários de referência.",
+      "title": "O investimento (CAPEX) é calculado em função do <mark class=\"fx fx1\">padrão tecnológico admitido</mark>, das <mark class=\"fx fx2\">características locais</mark> e dos <mark class=\"fx fx3\">custos unitários de referência</mark>.",
       "tec": {
         "t": "Padrão tecnológico",
         "redeT": "Rede",
@@ -130,7 +130,7 @@
     },
     "oque": {
       "k": "O que é",
-      "text": "O <b class=\"hl-brand\">SaniPLAN</b> é um modelo de simulação open source, <span class=\"hl-line\">ajustável a características locais</span>, desenvolvido em Excel, com a finalidade de apoiar a preparação de planos nacionais ou regionais de <mark class=\"hl\">investimento em saneamento</mark> na América Latina e no Caribe.",
+      "text": "<b class=\"hl-brand\">SaniPLAN</b> é um modelo de simulação Open Source, <span class=\"hl-line\">ajustável a características locais</span>, desenvolvido em Excel, com patrocínio do BID, com finalidade de apoiar a preparação de Planos Nacionais ou Regionais de <mark class=\"hl\">Investimento em Saneamento</mark>.",
       "tags": [
         "Open source",
         "Excel",
@@ -277,7 +277,7 @@
       ]
     },
     "censo": {
-      "title": "Uma inconsistência no censo",
+      "title": "Aprimorando os dados disponíveis",
       "items": [
         "Entre 2010 e 2022 a população rural do país cresceu cerca de <strong>550 mil</strong>, contra a tendência de urbanização.",
         "Em Santo Domingo Este, a população rural passou de <strong>40.099</strong> para <strong>116.935</strong> (+192%).",
