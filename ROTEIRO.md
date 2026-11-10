@@ -41,6 +41,7 @@ Removido: correção da população modelada (GHSL), que confundia com o slide 5
 12. ✅ Projeção de população: 5 curvas, matriz de seleção, gráfico interativo por distrito (censos 2002/2010/2022 + projeção 2024–2040, curva atribuída).
 13. ✅ Custos unitários: rede AC × AE × dificuldade, curva de ETE interativa, emissário, in situ + ISM, tabela "o tamanho importa".
 14. ✅ Simulador com a cara da planilha (abas CALC e RESULTADOS; uma meta única para coleta e tratamento) (Calibri, faixas cinza, células amarelas de entrada): escolher distritos e alterar cobertura atual, meta e ano, m de rede/ligação, AC/AE, nível de tratamento. População e custos ficam fixos. Motor JS validado contra a planilha (erro < 1e-14 em todos os 393 distritos).
+14b. ✅ Resultados do modelo (fecho do SaniPLAN): repete os três outputs do slide "O que faz" (%, hab, $), agora com os números do país no cenário rede econômica / meta 90% (lidos de `data/resultados.json`, com contador). No slide de Resultados, os mesmos símbolos aparecem como selos em "Meta de cobertura", "Investimento total" e "População a atender".
 
 ## Ato 4: Resultados 🔧
 15. ✅ Cenários 2040: 90% / 100% × AC / AE (totais, USD/hab, rede × tratamento). Dados: `Resultados/Resultados.xlsx` → `data/resultados.json` (`tools/prepare_results.py`).

@@ -178,7 +178,8 @@ function revealCards() {
     ['#in-faz', '.in-outs > .in-out'],
     ['#in-tipo', '.in-split > .in-half, .in-split > .in-or'],
     ['#in-fatores', '.in-factors > .in-card'],
-    ['#in-rd', '.in-rd-stat']
+    ['#in-rd', '.in-rd-stat'],
+    ['#sp-res', '.in-outs > .in-out']
   ].map(([sc, sel]) => {
     const scene = document.querySelector(sc);
     if (!scene) return null;

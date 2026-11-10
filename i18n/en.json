@@ -620,13 +620,14 @@
       "note": "Target applied equally to collection and treatment. Time horizon = target year − 2024. Unit costs, population band and WWTP load are defined by the 2024 population, as in the spreadsheet. Values in 2024 USD."
     },
     "res": {
-      "kicker": "",
-      "title": "Model results",
-      "items": [
-        "Coverage, population served and <strong>total investment</strong> to reach the target.",
-        "Calculated <strong>by district</strong> and aggregable by province and region, the level with the best reliability.",
-        "Separated by component: network, treatment, minimum facilities. This is what Part 4 presents."
-      ],
+      "kicker": "Model results",
+      "title": "In the Dominican Republic, to serve 90% of the urban population by 2040 with simplified sewers, SaniPLAN estimated:",
+      "mi": "M",
+      "cobText": "Urban population with sewer collection and treatment in 2040. Today: {alc}% with collection and {tar}% with treatment.",
+      "popTitle": "Additional population to be served",
+      "popText": "Inhabitants to be served by 2040: today's gap plus urban population growth.",
+      "capexText": "Simplified sewer network: {alc}. Treatment: {tar}.",
+      "note": "Calculated <strong>by district</strong> and aggregable by province and region, the level with the best reliability. Separated by component: network, treatment and minimum facilities.",
       "next": "View the results"
     },
     "submod": {

@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Carlito:wght@400;700&display=swap">
-<link rel="stylesheet" href="css/maplibre-gl.css?v=20261110q">
-<link rel="stylesheet" href="css/style.css?v=20261110q">
-<link rel="stylesheet" href="css/saniplan.css?v=20261110q">
+<link rel="stylesheet" href="css/maplibre-gl.css?v=20261110s">
+<link rel="stylesheet" href="css/style.css?v=20261110s">
+<link rel="stylesheet" href="css/saniplan.css?v=20261110s">
 </head>
 <body>
 
@@ -495,8 +495,16 @@
 
     <!-- cena 15 · resultados do modelo (ponte para o ato 4) -------------- -->
     <article class="sp-scene sp-scene--close" id="sp-res">
+      <p class="kicker" data-i18n="ato3.res.kicker"></p>
       <h3 data-i18n="ato3.res.title"></h3>
-      <ul class="sp-list sp-list--lg" data-i18n-list="ato3.res.items"></ul>
+      <p class="in-outs-label" data-i18n="intro.faz.outLabel"></p>
+      <!-- os três outputs do slide "O que faz", agora com os números do país (preenchidos por js/results.js) -->
+      <ul class="in-outs res-outs">
+        <li class="in-out"><div class="in-out-head"><p class="res-val"><span class="res-num" data-res="cob"><i aria-hidden="true"></i><b></b></span><span class="res-sym">%</span></p><span class="sp-pic sp-pic--trend"></span></div><h4 data-i18n="intro.faz.outs.cob.title"></h4><p data-res-text="cob"></p></li>
+        <li class="in-out"><div class="in-out-head"><p class="res-val"><span class="res-num" data-res="pop"><i aria-hidden="true"></i><b></b></span><span class="res-unit" data-i18n="ato3.res.mi"></span><span class="res-sym">hab</span></p><span class="sp-pic sp-pic--people"></span></div><h4 data-i18n="ato3.res.popTitle"></h4><p data-res-text="pop"></p></li>
+        <li class="in-out"><div class="in-out-head"><p class="res-val"><span class="res-sym">$</span><span class="res-num" data-res="capex"><i aria-hidden="true"></i><b></b></span><span class="res-unit" data-i18n="ato4.u.mi"></span></p><span class="sp-pic sp-pic--coins"></span></div><h4 data-i18n="intro.faz.outs.capex.title"></h4><p data-res-text="capex"></p></li>
+      </ul>
+      <p class="res-note" data-i18n-html="ato3.res.note"></p>
       <a class="sp-next" href="#ato4" data-i18n="ato3.res.next"></a>
     </article>
   </div>
@@ -516,7 +524,7 @@
 
     <div class="rs-controls">
       <div class="seg" role="group" aria-labelledby="lbl-meta">
-        <span class="seg-lbl" id="lbl-meta" data-i18n="ato4.ctl.meta"></span>
+        <span class="seg-lbl" id="lbl-meta"><span class="out-chip" aria-hidden="true">%</span><span data-i18n="ato4.ctl.meta"></span></span>
         <button type="button" data-meta="90" aria-pressed="true">90%</button>
         <button type="button" data-meta="100" aria-pressed="false">100%</button>
       </div>
@@ -556,14 +564,14 @@
 </footer>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="js/i18n.js?v=20261110q"></script>
-<script src="js/icons.js?v=20261110q"></script>
-<script src="js/capa.js?v=20261110q"></script>
-<script src="js/diagram.js?v=20261110q"></script>
-<script src="js/mapstory.js?v=20261110q"></script>
-<script src="js/results.js?v=20261110q"></script>
-<script src="js/sanisim.js?v=20261110q"></script>
-<script src="js/saniplan.js?v=20261110q"></script>
-<script src="js/app.js?v=20261110q"></script>
+<script src="js/i18n.js?v=20261110s"></script>
+<script src="js/icons.js?v=20261110s"></script>
+<script src="js/capa.js?v=20261110s"></script>
+<script src="js/diagram.js?v=20261110s"></script>
+<script src="js/mapstory.js?v=20261110s"></script>
+<script src="js/results.js?v=20261110s"></script>
+<script src="js/sanisim.js?v=20261110s"></script>
+<script src="js/saniplan.js?v=20261110s"></script>
+<script src="js/app.js?v=20261110s"></script>
 </body>
 </html>

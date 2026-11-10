@@ -620,13 +620,14 @@
       "note": "Meta aplicada por igual a la recolección y al tratamiento. Plazo = año meta − 2024. Los costos unitarios, el rango de población y la carga de la PTAR se definen por la población de 2024, como en la planilla. Valores en USD de 2024."
     },
     "res": {
-      "kicker": "",
-      "title": "Resultados del modelo",
-      "items": [
-        "Cobertura, población atendida e <strong>inversión total</strong> para alcanzar la meta.",
-        "Calculados <strong>por distrito</strong> y agregables por provincia y región, el nivel con mejor confiabilidad.",
-        "Separados por componente: red, tratamiento, instalaciones mínimas. Es lo que presenta el Acto 4."
-      ],
+      "kicker": "Resultados del modelo",
+      "title": "En República Dominicana, para atender al 90% de la población urbana hasta 2040 con red económica, SaniPLAN estimó:",
+      "mi": "M",
+      "cobText": "Población urbana con recolección y tratamiento en 2040. Hoy: {alc}% con recolección y {tar}% con tratamiento.",
+      "popTitle": "Población adicional por atender",
+      "popText": "Habitantes por atender hasta 2040: el déficit actual más el crecimiento de la población urbana.",
+      "capexText": "Red colectora económica: {alc}. Tratamiento: {tar}.",
+      "note": "Calculados <strong>por distrito</strong> y agregables por provincia y región, el nivel con mejor confiabilidad. Separados por componente: red, tratamiento e instalaciones mínimas.",
       "next": "Ver los resultados"
     },
     "submod": {

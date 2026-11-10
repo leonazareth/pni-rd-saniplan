@@ -57,15 +57,16 @@
 
   function kpis() {
     const s = scen(), T = s.total;
+    // o quarto item é o selo do output ($, hab), o mesmo símbolo do slide "O que faz"
     const items = [
-      ['k.total', usdM(T.capex), true],
+      ['k.total', usdM(T.capex), true, '$'],
       ['k.hab', `${n(T.capex / T.inc_tar)} ${t('u.usdhab')}`],
       ['k.alc', usdM(T.capex_alc)],
       ['k.tar', usdM(T.capex_tar)],
-      ['k.pop', `${n(T.inc_tar / 1e6, 2)} ${t('u.mihab')}`]
+      ['k.pop', `${n(T.inc_tar / 1e6, 2)} ${t('u.mihab')}`, false, 'hab']
     ];
-    document.getElementById('rs-kpis').innerHTML = items.map(([k, v, big]) =>
-      `<div class="kpi${big ? ' kpi--main' : ''}"><span class="kpi-lbl">${t(k)}</span><span class="kpi-val num">${v}</span></div>`).join('') +
+    document.getElementById('rs-kpis').innerHTML = items.map(([k, v, big, chip]) =>
+      `<div class="kpi${big ? ' kpi--main' : ''}"><span class="kpi-lbl">${chip ? `<span class="out-chip" aria-hidden="true">${chip}</span>` : ''}${t(k)}</span><span class="kpi-val num">${v}</span></div>`).join('') +
       `<p class="kpi-note">${t('k.ism')} ${usdM(s.ism)}.</p>`;
   }
 
@@ -106,6 +107,52 @@
 
   function refresh() { paint(); kpis(); rank(); detail(); }
 
+  /* Slide "Resultados do modelo": os três outputs da abertura (%, hab, $) com os números do país.
+     Cenário fixo, o mesmo que abre o slide seguinte: rede econômica, meta de 90%. */
+  const RES = { tipo: 'AE', meta: '90', dec: { cob: 0, pop: 2, capex: 0 } };
+  let resP = 1;  // fração da contagem já exibida (0 a 1)
+  function resVals() {
+    const T = R.cenarios[`${RES.tipo}${RES.meta}`].total, I = Object.values(R.indicadores);
+    const P = I.reduce((a, i) => a + i.pob24, 0), avg = k => I.reduce((a, i) => a + i.pob24 * i[k], 0) / P;  // média ponderada pela população urbana
+    return {
+      cob: +RES.meta, pop: T.inc_tar / 1e6, capex: T.capex / 1e6, alc: T.capex_alc, tar: T.capex_tar,
+      covAlc: avg('cov_alc'), covTar: avg('cov_tar')
+    };
+  }
+  function resPaint(p = resP) {
+    resP = p;
+    const v = resVals(), tr = k => I18N.t(`ato3.res.${k}`);
+    document.querySelectorAll('#sp-res [data-res]').forEach(el => {
+      const k = el.dataset.res;
+      el.querySelector('i').textContent = n(v[k], RES.dec[k]);       // valor final, invisível: reserva a largura
+      el.querySelector('b').textContent = n(v[k] * p, RES.dec[k]);   // valor em contagem
+    });
+    const text = {
+      cob: tr('cobText').replace('{alc}', n(v.covAlc * 100)).replace('{tar}', n(v.covTar * 100)),
+      pop: tr('popText'),
+      capex: tr('capexText').replace('{alc}', usdM(v.alc)).replace('{tar}', usdM(v.tar))
+    };
+    document.querySelectorAll('#sp-res [data-res-text]').forEach(el => { el.textContent = text[el.dataset.resText]; });
+  }
+  function resOuts() {
+    const sc = document.getElementById('sp-res');
+    if (!sc) return;
+    if (!sc.classList.contains('rv-ready')) return resPaint(1);  // sem animações (movimento reduzido)
+    resPaint(0);
+    const run = () => {
+      const t0 = performance.now() + 500, dur = 1600;
+      const tick = now => {
+        const x = Math.min(1, Math.max(0, (now - t0) / dur));
+        resPaint(1 - Math.pow(1 - x, 3));
+        if (x < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if (sc.classList.contains('rv-in')) return run();
+    const mo = new MutationObserver(() => { if (sc.classList.contains('rv-in')) { mo.disconnect(); run(); } });
+    mo.observe(sc, { attributes: true, attributeFilter: ['class'] });
+  }
+
   function controls() {
     const sel = document.getElementById('rs-indic');
     const fill = () => {
@@ -126,7 +173,7 @@
       const b = e.target.closest('[data-prov]'); if (b && ready) map.setFilter('rs-hover', ['==', ['get', 'cod_geogra'], b.dataset.prov]);
     });
     document.getElementById('rs-rank').addEventListener('mouseleave', () => { if (ready) map.setFilter('rs-hover', ['==', ['get', 'cod_geogra'], '']); });
-    I18N.onChange(() => { fill(); refresh(); });
+    I18N.onChange(() => { fill(); refresh(); resPaint(); });
   }
 
   async function init() {
@@ -137,6 +184,7 @@
     });
     controls();
     refresh();
+    resOuts();
 
     map = new maplibregl.Map({
       container: 'rs-map',

@@ -620,13 +620,14 @@
       "note": "Meta aplicada igualmente à coleta e ao tratamento. Prazo = ano meta − 2024. Custos unitários, faixa de população e carga da ETE são definidos pela população de 2024, como na planilha. Valores em USD de 2024."
     },
     "res": {
-      "kicker": "",
-      "title": "Resultados do modelo",
-      "items": [
-        "Cobertura, população atendida e <strong>investimento total</strong> para atingir a meta.",
-        "Calculados <strong>por distrito</strong> e agregáveis por província e região, o nível com melhor confiabilidade.",
-        "Separados por componente: rede, tratamento, instalações mínimas. É o que o Ato 4 apresenta."
-      ],
+      "kicker": "Resultados do modelo",
+      "title": "Na República Dominicana, para atender 90% da população urbana até 2040 com rede econômica, o SaniPLAN estimou:",
+      "mi": "mi",
+      "cobText": "População urbana com coleta e tratamento em 2040. Hoje: {alc}% com coleta e {tar}% com tratamento.",
+      "popTitle": "População adicional a atender",
+      "popText": "Habitantes a atender até 2040: o déficit de hoje mais o crescimento da população urbana.",
+      "capexText": "Rede coletora econômica: {alc}. Tratamento: {tar}.",
+      "note": "Calculados <strong>por distrito</strong> e agregáveis por província e região, o nível com melhor confiabilidade. Separados por componente: rede, tratamento e instalações mínimas.",
       "next": "Ver os resultados"
     },
     "submod": {

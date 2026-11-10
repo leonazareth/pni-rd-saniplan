@@ -282,6 +282,18 @@
 
 /* fechamento ----------------------------------------------------------------- */
 .sp-scene--close { padding-bottom: 24px; }
+/* resultados do modelo: os três outputs do slide "O que faz", com o número do país no lugar do símbolo */
+#sp-res > h3 { font-size: clamp(26px, 2.9vw, 42px); line-height: 1.15; font-stretch: 90%; max-width: 62ch; margin: 0 0 40px; }  /* mesmo título do slide "O que faz" */
+.res-outs .in-out-head { gap: 12px; }
+.in-out .res-val { margin: 0; display: flex; align-items: baseline; gap: .14em; max-width: none; white-space: nowrap; font: 800 clamp(44px, 4.6vw, 70px)/.8 var(--f-display); font-stretch: 78%; letter-spacing: -.01em; color: #fff; }
+.res-num { display: inline-grid; font-variant-numeric: tabular-nums; }
+.res-num > * { grid-area: 1 / 1; font-style: normal; font-weight: inherit; }
+.res-num i { visibility: hidden; }
+.res-sym { color: var(--flow); }
+.res-val .res-sym:not(:first-child) { font-size: .62em; }
+.res-unit { font: 500 .3em/1 var(--f-body); font-stretch: 100%; letter-spacing: 0; color: var(--muted); }
+.res-outs .in-out-head .sp-pic { height: 44px; }
+.res-note { margin: 36px 0 0; max-width: 78ch; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .sp-next { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; font: 500 12px/1 var(--f-data); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--reclass); }
 .sp-next::after { content: "↓"; }
 
@@ -450,7 +462,7 @@
 /* slide "O que faz": a linha se desenha e os outputs aparecem conforme ela passa */
 .rv-ready .in-outs::before { transform: scaleX(0); }
 .rv-ready.rv-in .in-outs::before { transform: none; transition: transform 1s cubic-bezier(.3,.6,.3,1) .1s; }
-#in-faz .rv { transition-delay: calc(var(--i, 0) * .3s + .2s); }
+#in-faz .rv, #sp-res .rv { transition-delay: calc(var(--i, 0) * .3s + .2s); }
 @media (max-width: 900px) {
   .rv-ready .in-outs::before { transform: scaleY(0); transform-origin: 50% 0; }
 }
